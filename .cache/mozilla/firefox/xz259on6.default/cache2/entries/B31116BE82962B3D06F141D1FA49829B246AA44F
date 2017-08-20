@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HMS | Sana</title>
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="XeJuj8DXVXIhXcQjlYzeZ419lwfImPigV6AkV3+pW5HsdTpZoMs+P9UlmGsFxxGbc4Oiqm8GBbextXt4iYHV3w==" />
+
+    <link rel="stylesheet" media="all" href="/assets/custom.self-f2c089300be5ee8f7cdfe762a78d941a9de78d87b836cd694d8ec5306dda250a.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/doctors.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/labreports.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/patients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/treatments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/application.self-af04b226fd7202dfc532ce7aedb95a0128277937e90d3b3a3d35e1cce9e16886.css?body=1" data-turbolinks-track="reload" />
+    <script src="/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/turbolinks.self-1d1fddf91adc38ac2045c51f0a3e05ca97d07d24d15a4dcbf705009106489e69.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/action_cable.self-5454023407ffec0d29137c7110917e1e745525ae9afbc05f52104c4cd6597429.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/cable.self-6e0514260c1aa76eaf252412ce74e63f68819fd19bf740595f592c5ba4c36537.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/doctors.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/labreports.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/patients.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/treatments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/application.self-b89234cf2659d7fedea75bca0b8d231ad7dfc2f3f57fcbaf5f44ed9dc384137b.js?body=1" data-turbolinks-track="reload"></script>
+  </head>
+
+  <body>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+	<div class="container">
+		<h3 style = "color:white;">National Hospital Turbat</h3>
+		<nav>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/">Home</a></li>
+				<li><a href="/patients">Patients</a></li>
+				<li><a href="/doctors">Doctors</a></li>
+				<li><a href="/labreports">Lab Reports</a></li>
+				<li><a href="/treatments">Treatments</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+    <div class="center jumbotron">
+<h1>New Report</h1>
+
+<form action="/labreports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="1YbGpJr+aPh1bznb4WfZc3SvaLm4s8yd0TPsttqSfatIHxsT4YfS9aipR+IYNk0GYsiA3xcuVigzra8Nbs9IMQ==" />
+<p>
+<label for="labreport_Date">Date</label><br>
+<select id="labreport_date_3i" name="labreport[date(3i)]">
+<option value="">Day</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+<select id="labreport_date_2i" name="labreport[date(2i)]">
+<option value="">Month</option>
+<option value="1">January</option>
+<option value="2">February</option>
+<option value="3">March</option>
+<option value="4">April</option>
+<option value="5">May</option>
+<option value="6">June</option>
+<option value="7">July</option>
+<option value="8">August</option>
+<option value="9">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+<select id="labreport_date_1i" name="labreport[date(1i)]">
+<option value="">Year</option>
+<option value="2017">2017</option>
+<option value="2016">2016</option>
+<option value="2015">2015</option>
+<option value="2014">2014</option>
+<option value="2013">2013</option>
+<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2010">2010</option>
+</select>
+
+</p>
+<p>
+<label for="labreport_Reffered_By">Reffered by</label><br>
+<input type="text" name="labreport[lreffered]" id="labreport_lreffered" />
+</p>
+<p>
+<label for="labreport_Report_Date">Report date</label><br>
+<select id="labreport_lreportdate_3i" name="labreport[lreportdate(3i)]">
+<option value="">Day</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+<select id="labreport_lreportdate_2i" name="labreport[lreportdate(2i)]">
+<option value="">Month</option>
+<option value="1">January</option>
+<option value="2">February</option>
+<option value="3">March</option>
+<option value="4">April</option>
+<option value="5">May</option>
+<option value="6">June</option>
+<option value="7">July</option>
+<option value="8">August</option>
+<option value="9">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+<select id="labreport_lreportdate_1i" name="labreport[lreportdate(1i)]">
+<option value="">Year</option>
+<option value="2017">2017</option>
+<option value="2016">2016</option>
+<option value="2015">2015</option>
+<option value="2014">2014</option>
+<option value="2013">2013</option>
+<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2010">2010</option>
+</select>
+
+</p>
+<p>
+<label for="labreport_Issued_By">Issued by</label><br>
+<input type="text" name="labreport[lissuedby]" id="labreport_lissuedby" />
+</p>
+<p>
+<label for="labreport_Report_Details">Report details</label><br>
+<input type="text" name="labreport[lrmarks]" id="labreport_lrmarks" />
+</p>
+<p>
+<input type="submit" name="commit" value="Save Labreport" data-disable-with="Save Labreport" />
+</p>
+</form><br>
+<br>
+<a href="/labreports" class="buttonsmall buttonb">Back</a>
+<a href="/" class="buttonsmall buttonb">Home</a>
+
+</div>
+
+    <br>
+    <div class="container">
+    <footer class="footer">
+	
+		The <a href="/"> Hospital Management System</a>
+		by <a href="#">Sanaullah</a>
+	
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+				<li><a href="/patients">Patients</a></li>
+				<li><a href="/doctors">Doctors</a></li>
+				<li><a href="/labreports">Lab Reports</a></li>
+				<li><a href="/treatments">Treatments</a></li>
+		</ul>
+		<br>
+	</nav>	
+	</div>
+</footer>
+  </body>
+</html>
+˙ÿÍe2           YïŒ“>Å       %    :http://localhost:3000/labreports/new strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+ETag: W/"c8532f9897751dfb7d3b1444f12cd6c1"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: c58c5fd0-26dd-4cae-a85e-405a517a5cfe
+X-Runtime: 0.056856
+ original-response-headers X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+ETag: W/"c8532f9897751dfb7d3b1444f12cd6c1"
+Cache-Control: max-age=0, private, must-revalidate
+Set-Cookie: _sanaapp_session=TTV1cjBKY25iaEV4OEhjRmdaUUp4TkhQY2VjTVU0TXF5RjY2WFZCVkNJVGVtSGpHNmdWL3BaMVJkN2JkTUJMZ3hZSEhjelNmTDJoeFAzR1VmM0NJbXpHamNIT0dVMzh2R1Z0S0hPN1BCMWxUUVpoQkJMOS9kR1dkRUdZbmtzZzRQYUpSVlVvd04xeEpiQTROUlR0SElnPT0tLW5Dd3RHbGkzejRRLy96UW9RSjNwc2c9PQ%3D%3D--5ec78847fe130e82efb35097bf1f76790d02c2aa; path=/; HttpOnly
+X-Request-Id: c58c5fd0-26dd-4cae-a85e-405a517a5cfe
+X-Runtime: 0.056856
+Transfer-Encoding: chunked
+ uncompressed-len 0   #ê

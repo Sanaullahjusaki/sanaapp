@@ -1,0 +1,1487 @@
+<div id="cha-filling_in_the_layout" data-tralics-id="cid26" class="chapter" data-number="5" data-chapter="filling_in_the_layout"><h1><a href="filling_in_the_layout_fragment.html#cha-filling_in_the_layout" class="heading hyperref"><span class="number">Chapter 5 </span>Filling in the layout</a></h1>
+<p>In the process of taking a brief tour of Ruby in <a href="rails_flavored_ruby_fragment.html#cha-rails_flavored_ruby" class="hyperref">Chapter <span class="ref">4</span></a>, we learned about including the application stylesheet into the sample application (<a href="rails_flavored_ruby_fragment.html#sec-motivation" class="hyperref">Section <span class="ref">4.1</span></a>), but (as noted in <a href="rails_flavored_ruby_fragment.html#sec-css_revisited" class="hyperref">Section <span class="ref">4.3.4</span></a>) the stylesheet doesn’t yet contain any CSS.<span class="intersentencespace"></span> In this chapter, we’ll start filling in the custom stylesheet by incorporating a CSS framework into our application, and then we’ll add some custom styles of our own.<sup id="cha-5_footnote-ref-1" class="footnote"><a href="#cha-5_footnote-1">1</a></sup><span class="intersentencespace"></span> We’ll also start filling in the layout with links to the pages (such as Home and About) that we’ve created so far (<a href="filling_in_the_layout_fragment.html#sec-structure" class="hyperref">Section <span class="ref">5.1</span></a>).<span class="intersentencespace"></span> Along the way, we’ll learn about partials, Rails routes, and the asset pipeline, including an introduction to Sass (<a href="filling_in_the_layout_fragment.html#sec-sass_and_the_asset_pipeline" class="hyperref">Section <span class="ref">5.2</span></a>).<span class="intersentencespace"></span> We’ll end by taking a first important step toward letting users sign up to our site (<a href="filling_in_the_layout_fragment.html#sec-user_signup" class="hyperref">Section <span class="ref">5.4</span></a>).</p>
+<p>Most of the changes in this chapter involve adding and editing markup in the sample application’s site layout, which (based on the guidelines in <a href="static_pages_fragment.html#aside-when_to_test" class="hyperref">Box <span class="ref">3.3</span></a>) is exactly the kind of work that we wouldn’t ordinarily test-drive, or even test at all.<span class="intersentencespace"></span> As a result, we’ll spend most of our time in our text editor and browser, using TDD only to add a Contact page (<a href="filling_in_the_layout_fragment.html#sec-contact_page" class="hyperref">Section <span class="ref">5.3.1</span></a>).<span class="intersentencespace"></span> We will add an important new test, though, writing our first <em>integration test</em> to check that the links on the final layout are correct (<a href="filling_in_the_layout_fragment.html#sec-layout_link_tests" class="hyperref">Section <span class="ref">5.3.4</span></a>).</p>
+</div><div id="sec-structure" data-tralics-id="cid27" class="section" data-number="5.1"><h2><a href="filling_in_the_layout_fragment.html#sec-structure" class="heading hyperref"><span class="number">5.1 </span>Adding some structure</a></h2>
+<p>The <em>Ruby on Rails Tutorial</em> is a book on web development, not web design, but it would be depressing to work on an application that looks like <em>complete</em> crap, so in this section we’ll add some structure to the layout and give it some minimal styling with CSS.<span class="intersentencespace"></span> In addition to using some custom CSS rules, we’ll make use of <a href="http://getbootstrap.com/" target="_blank" rel="noopener"><em>Bootstrap</em></a>, an open-source web design framework from Twitter.<span class="intersentencespace"></span> We’ll also give our <em>code</em> some styling, so to speak, using <em>partials</em> to tidy up the layout once it gets a little cluttered.</p>
+<p>When building web applications, it is often useful to get a high-level overview of the user interface as early as possible.<span class="intersentencespace"></span> Throughout the rest of this book, I will thus often include <em>mockups</em> (in a web context often called <em>wireframes</em>), which are rough sketches of what the eventual application will look like.<sup id="cha-5_footnote-ref-2" class="footnote"><a href="#cha-5_footnote-2">2</a></sup><span class="intersentencespace"></span> In this chapter, we will principally be developing the static pages introduced in <a href="static_pages_fragment.html#sec-static_pages" class="hyperref">Section <span class="ref">3.2</span></a>, including a site logo, a navigation header, and a site footer.<span class="intersentencespace"></span> A mockup for the most important of these pages, the Home page, appears in <a href="filling_in_the_layout_fragment.html#fig-home_page_mockup" class="hyperref">Figure <span class="ref">5.1</span></a>.<span class="intersentencespace"></span> You can see the final result in <a href="filling_in_the_layout_fragment.html#fig-site_with_footer" class="hyperref">Figure <span class="ref">5.9</span></a>.<span class="intersentencespace"></span> You’ll note that it differs in some details—for example, we’ll end up adding a Rails logo on the page—but that’s fine, since a mockup need not be exact.</p>
+<div class="center figure" id="fig-home_page_mockup" data-tralics-id="uid529" data-number="5.1">
+<div class="graphics image box"><img src="images/figures/home_page_mockup_3rd_edition.png" alt="images/figures/home_page_mockup_3rd_edition"></div><div class="caption"><span class="header">Figure 5.1: </span><span class="description">A mockup of the sample application’s Home page.
+</span></div></div>
+<p>As usual, if you’re using Git for version control, now would be a good time to make a new branch:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> git checkout -b filling-in-layout
+</pre></div></div>
+<div id="sec-adding_to_the_layout" data-tralics-id="uid530" class="subsection" data-number="5.1.1"><h3><a href="filling_in_the_layout_fragment.html#sec-adding_to_the_layout" class="heading hyperref"><span class="number">5.1.1 </span>Site navigation</a></h3>
+<p>As a first step toward adding links and styles to the sample application, we’ll update the site layout file <code>application.html.erb</code> (last seen in <a href="rails_flavored_ruby_fragment.html#code-application_layout_full_title" class="hyperref">Listing <span class="ref">4.3</span></a>) with additional HTML structure.<span class="intersentencespace"></span> This includes some additional divisions, some CSS classes, and the start of our site navigation.<span class="intersentencespace"></span> The full file is in <a href="filling_in_the_layout_fragment.html#code-layout_new_structure" class="hyperref">Listing <span class="ref">5.1</span></a>; explanations for the various pieces follow immediately thereafter.<span class="intersentencespace"></span> If you’d rather not delay gratification, you can see the results in <a href="filling_in_the_layout_fragment.html#fig-layout_no_logo_or_custom_css" class="hyperref">Figure <span class="ref">5.2</span></a>.<span class="intersentencespace"></span> (<em>Note</em>: it’s not (yet) very gratifying.)</p>
+<div class="codelisting" id="code-layout_new_structure" data-tralics-id="uid531" data-number="5.1"><div class="heading"><span class="number">Listing 5.1:</span> 
+
+<span class="description">The site layout with added structure.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/application.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span><span class="cp">&lt;%=</span> <span class="n">full_title</span><span class="p">(</span><span class="k">yield</span><span class="p">(</span><span class="ss">:title</span><span class="p">))</span> <span class="cp">%&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span>
+                                              <span class="s1">'data-turbolinks-track'</span><span class="p">:</span> <span class="s1">'reload'</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span><span class="p">:</span> <span class="s1">'reload'</span> <span class="cp">%&gt;</span>
+    <span class="c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="c">      &lt;script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"&gt;</span>
+<span class="c">      &lt;/script&gt;</span>
+<span class="c">    &lt;![endif]--&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-inverse"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span>
+        <span class="nt">&lt;nav&gt;</span>
+          <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/nav&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div></div></div><p>Let’s look at the new elements in <a href="filling_in_the_layout_fragment.html#code-layout_new_structure" class="hyperref">Listing <span class="ref">5.1</span></a> from top to bottom.<span class="intersentencespace"></span> As alluded to briefly in <a href="static_pages_fragment.html#sec-testing_titles" class="hyperref">Section <span class="ref">3.4.1</span></a>, Rails uses HTML5 by default (as indicated by the doctype <code>&lt;!DOCTYPE html&gt;</code>); since the HTML5 standard is relatively new, some browsers (especially older versions of Internet Explorer) don’t fully support it, so we include some JavaScript code (known as an “<a href="https://github.com/aFarkas/html5shiv" target="_blank" rel="noopener">HTML5 shim (or shiv)</a>”)<sup id="cha-5_footnote-ref-3" class="footnote"><a href="#cha-5_footnote-3">3</a></sup> to work around the issue:</p>
+<div class="code"><div class="highlight"><pre><span class="c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="c">  &lt;script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"&gt;</span>
+<span class="c">  &lt;/script&gt;</span>
+<span class="c">&lt;![endif]--&gt;</span>
+</pre></div></div>
+<p>The somewhat odd syntax</p>
+<div class="code"><div class="highlight"><pre><span class="c">&lt;!--[if lt IE 9]&gt;</span>
+</pre></div></div>
+<p>includes the enclosed line only if the version of Microsoft Internet Explorer (IE) is less than 9 (<code>if lt IE 9</code>).<span class="intersentencespace"></span> The weird <code>[if lt IE 9]</code> syntax is <em>not</em> part of Rails; it’s actually a <a href="http://en.wikipedia.org/wiki/Conditional_comment" target="_blank" rel="noopener">conditional comment</a> supported by Internet Explorer browsers for just this sort of situation.<span class="intersentencespace"></span> It’s a good thing, too, because it means we can include the HTML5 shim <em>only</em> for IE browsers less than version 9, leaving other browsers such as Firefox, Chrome, and Safari unaffected.</p>
+<p>The next section includes a <code>header</code> for the site’s (plain-text) logo, a couple of divisions (using the <code>div</code> tag), and a list of elements with navigation links:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-inverse"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;nav&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/nav&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/header&gt;</span>
+</pre></div></div>
+<p>Here the <code>header</code> tag indicates elements that should go at the top of the page.<span class="intersentencespace"></span> We’ve given the <code>header</code> tag three <em>CSS classes</em>,<sup id="cha-5_footnote-ref-4" class="footnote"><a href="#cha-5_footnote-4">4</a></sup> called <code>navbar</code>, <code>navbar-fixed-top</code>, and <code>navbar-inverse</code>, separated by spaces:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-inverse"</span><span class="nt">&gt;</span>
+</pre></div></div>
+<p>All HTML elements can be assigned both classes and <em>ids</em>; these are merely labels, and are useful for styling with CSS (<a href="filling_in_the_layout_fragment.html#sec-custom_css" class="hyperref">Section <span class="ref">5.1.2</span></a>).<span class="intersentencespace"></span> The main difference between classes and ids is that classes can be used multiple times on a page, but ids can be used only once.<span class="intersentencespace"></span> In the present case, all the navbar classes have special meaning to the Bootstrap framework, which we’ll install and use in <a href="filling_in_the_layout_fragment.html#sec-custom_css" class="hyperref">Section <span class="ref">5.1.2</span></a>.</p>
+<p>Inside the <code>header</code> tag, we see a <code>div</code> tag:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+</pre></div></div>
+<p>The <code>div</code> tag is a generic division; it doesn’t do anything apart from divide the document into distinct parts.<span class="intersentencespace"></span> In older-style HTML, <code>div</code> tags are used for nearly all site divisions, but HTML5 adds the <code>header</code>, <code>nav</code>, and <code>section</code> elements for divisions common to many applications.<span class="intersentencespace"></span> In this case, the <code>div</code> has a CSS class as well (<code>container</code>).<span class="intersentencespace"></span> As with the <code>header</code> tag’s classes, this class has special meaning to Bootstrap.</p>
+<p>After the div, we encounter some embedded Ruby:</p>
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;nav&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</pre></div></div>
+<p>This uses the Rails helper <code>link_to</code> to create links (which we created directly with the anchor tag <code>a</code> in <a href="static_pages_fragment.html#sec-custom_static_pages" class="hyperref">Section <span class="ref">3.2.2</span></a>); the first argument to <code>link_to</code> is the link text, while the second is the URL.<span class="intersentencespace"></span> We’ll fill in the URLs with <em>named routes</em> in <a href="filling_in_the_layout_fragment.html#sec-named_routes" class="hyperref">Section <span class="ref">5.3.3</span></a>, but for now we use the stub URL <code>’#’</code> commonly used in web design (i.e., <code>’#’</code> is just a “stub”, or placeholder, for the real URL).<span class="intersentencespace"></span> The third argument is an options hash, in this case adding the CSS id <code>logo</code> to the sample app link.<span class="intersentencespace"></span> (The other three links have no options hash, which is fine since it’s optional.)<span class="intersentencespace"></span> Rails helpers often take options hashes in this way, giving us the flexibility to add arbitrary HTML options without ever leaving Rails.</p>
+<p>The second element inside the divs is a list of navigation links, made using the <em>unordered list</em> tag <code>ul</code>, together with the <em>list item</em> tag <code>li</code>:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;nav&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</pre></div></div>
+<p>The <code>&lt;nav&gt;</code> tag, though formally unnecessary here, is used to more clearly communicate the purpose of the navigation links.<span class="intersentencespace"></span> Meanwhile, the <code>nav</code>, <code>navbar-nav</code>, and <code>navbar-right</code> classes on the <code>ul</code> tag have special meaning to Bootstrap and will be styled automatically when we include the Bootstrap CSS in <a href="filling_in_the_layout_fragment.html#sec-custom_css" class="hyperref">Section <span class="ref">5.1.2</span></a>.<span class="intersentencespace"></span> As you can verify by inspecting the navigation in your browser, once Rails has processed the layout and evaluated the embedded Ruby the list looks like this:<sup id="cha-5_footnote-ref-5" class="footnote"><a href="#cha-5_footnote-5">5</a></sup></p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;nav&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Help<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Log in<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</pre></div></div>
+<p>This is the text that will be returned to the browser.</p>
+<p>The final part of the layout is a <code>div</code> for the main content:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div></div>
+<p>As before, the <code>container</code> class has special meaning to Bootstrap.<span class="intersentencespace"></span> As we learned in <a href="static_pages_fragment.html#sec-layouts_and_embedded_ruby" class="hyperref">Section <span class="ref">3.4.3</span></a>, the <code>yield</code> method inserts the contents of each page into the site layout.</p>
+<p>Apart from the site footer, which we’ll add in <a href="filling_in_the_layout_fragment.html#sec-partials" class="hyperref">Section <span class="ref">5.1.3</span></a>, our layout is now complete, and we can look at the results by visiting the Home page.<span class="intersentencespace"></span> To take advantage of the upcoming style elements, we’ll add some extra elements to the <code>home.html.erb</code> view (<a href="filling_in_the_layout_fragment.html#code-signup_button" class="hyperref">Listing <span class="ref">5.2</span></a>).</p>
+<div class="codelisting" id="code-signup_button" data-tralics-id="uid535" data-number="5.2"><div class="heading"><span class="number">Listing 5.2:</span> 
+
+<span class="description">The Home page with a link to the signup page.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/static_pages/home.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"center jumbotron"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Welcome to the Sample App<span class="nt">&lt;/h1&gt;</span>
+
+  <span class="nt">&lt;h2&gt;</span>
+    This is the home page for the
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.railstutorial.org/"</span><span class="nt">&gt;</span>Ruby on Rails Tutorial<span class="nt">&lt;/a&gt;</span>
+    sample application.
+  <span class="nt">&lt;/h2&gt;</span>
+
+  <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Sign up now!"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-lg btn-primary"</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">image_tag</span><span class="p">(</span><span class="s2">"rails.png"</span><span class="p">,</span> <span class="ss">alt</span><span class="p">:</span> <span class="s2">"Rails logo"</span><span class="p">),</span>
+            <span class="s1">'http://rubyonrails.org/'</span> <span class="cp">%&gt;</span>
+</pre></div></div></div><p>In preparation for adding users to our site in <a href="sign_up_fragment.html#cha-sign_up" class="hyperref">Chapter <span class="ref">7</span></a>, the first <code>link_to</code> creates a stub link of the form</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"btn btn-lg btn-primary"</span><span class="nt">&gt;</span>Sign up now!<span class="nt">&lt;/a&gt;</span>
+</pre></div></div>
+<p>In the <code>div</code> tag, the <code>jumbotron</code> CSS class has a special meaning to Bootstrap, as do the <code>btn</code>, <code>btn-lg</code>, and <code>btn-primary</code> classes in the signup button.</p>
+<p>The second <code>link_to</code> shows off the <code>image_tag</code> helper, which takes as arguments the path to an image and an optional options hash, in this case setting the <code>alt</code> attribute of the image tag using symbols.<span class="intersentencespace"></span> For this to work, there needs to be an image called <code>rails.png</code>, which you should download from the Rails Tutorial website at <a href="http://railstutorial.org/rails.png" target="_blank" rel="noopener">http://railstutorial.org/rails.png</a> and place in the <code>app/assets/images/</code> directory.<sup id="cha-5_footnote-ref-6" class="footnote"><a href="#cha-5_footnote-6">6</a></sup><span class="intersentencespace"></span> If you’re using the cloud IDE or another Unix-like system, you can accomplish this with the <code>curl</code> utility, as shown in <a href="filling_in_the_layout_fragment.html#code-curl_rails_png" class="hyperref">Listing <span class="ref">5.3</span></a>.<span class="intersentencespace"></span> (See <a href="http://learnenough.com/command-line-tutorial" target="_blank" rel="noopener"><em>Learn Enough Command Line to Be Dangerous</em></a> for <a href="https://www.learnenough.com/command-line-tutorial#sec-downloading_a_file" target="_blank" rel="noopener">more information</a> about <code>curl</code>.)</p>
+<div class="codelisting" id="code-curl_rails_png" data-tralics-id="uid537" data-number="5.3"><div class="heading"><span class="number">Listing 5.3:</span> 
+
+<span class="description">Downloading an image.</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> curl -o app/assets/images/rails.png -OL railstutorial.org/rails.png
+</pre></div></div></div><p>Because we used the <code>image_tag</code> helper in <a href="filling_in_the_layout_fragment.html#code-signup_button" class="hyperref">Listing <span class="ref">5.2</span></a>, Rails will automatically find any images in the <code>app/assets/images/</code> directory using the asset pipeline (<a href="filling_in_the_layout_fragment.html#sec-sass_and_the_asset_pipeline" class="hyperref">Section <span class="ref">5.2</span></a>).</p>
+<p>Now we’re finally ready to see the fruits of our labors.<span class="intersentencespace"></span> You may have to restart the Rails server to see the changes (<a href="beginning_fragment.html#aside-technical_sophistication" class="hyperref">Box <span class="ref">1.1</span></a>), and the results should appear as shown in <a href="filling_in_the_layout_fragment.html#fig-layout_no_logo_or_custom_css" class="hyperref">Figure <span class="ref">5.2</span></a>.</p>
+<div class="center figure" id="fig-layout_no_logo_or_custom_css" data-tralics-id="uid538" data-number="5.2">
+<div class="graphics image"><img src="images/figures/layout_no_logo_or_custom_css_bootstrap_3rd_edition.png" alt="images/figures/layout_no_logo_or_custom_css_bootstrap_3rd_edition"></div><div class="caption"><span class="header">Figure 5.2: </span><span class="description">The Home page with no custom CSS.
+</span></div></div>
+<p>To make the effects of <code>image_tag</code> clearer, let’s look at the HTML it produces by inspecting the image in our browser:<sup id="cha-5_footnote-ref-7" class="footnote"><a href="#cha-5_footnote-7">7</a></sup></p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;img</span> <span class="na">alt=</span><span class="s">"Rails logo"</span> <span class="na">src=</span><span class="s">"/assets/rails-9308b8f92fea4c19a3a0d8385b494526.png"</span> <span class="nt">/&gt;</span>
+</pre></div></div>
+<p>Here the string <code>9308b8f92fea4c19a3a0d8385b494526</code> (which will differ on your system) is added by Rails to ensure that the filename is unique, which causes browsers to load images properly when they have been updated (instead of retrieving them from the browser cache).<span class="intersentencespace"></span> Note that the <code>src</code> attribute <em>doesn’t</em> include <code>images</code>, instead using an <code>assets</code> directory common to all assets (images, JavaScript, CSS, etc.).<span class="intersentencespace"></span> On the server, Rails associates images in the <code>assets</code> directory with the proper <code>app/assets/images</code> directory, but as far as the browser is concerned all the assets look like they are in the same directory, which allows them to be served faster.<span class="intersentencespace"></span> Meanwhile, the <code>alt</code> attribute is what will be displayed if the page is accessed by a program that can’t display images (such as screen readers for the visually impaired).</p>
+<p>As for the result shown in <a href="filling_in_the_layout_fragment.html#fig-layout_no_logo_or_custom_css" class="hyperref">Figure <span class="ref">5.2</span></a>, it might look a little underwhelming.<span class="intersentencespace"></span> Happily, though, we’ve done a good job of giving our HTML elements sensible classes, which puts us in a great position to add style to the site with CSS.</p>
+<div id="sec-exercises_adding_to_the_layout" data-tralics-id="uid540" class="subsubsection" data-number="5.1.1.1"><h4><a href="#sec-exercises_adding_to_the_layout" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>It’s well-known that no web page is complete without a cat image.<span class="intersentencespace"></span> Using the command in <a href="filling_in_the_layout_fragment.html#code-downloading_a_cat_pic" class="hyperref">Listing <span class="ref">5.4</span></a>, arrange to download the kitten pic shown in <a href="filling_in_the_layout_fragment.html#fig-kitten" class="hyperref">Figure <span class="ref">5.3</span></a>.<sup id="cha-5_footnote-ref-8" class="footnote intersentence"><a href="#cha-5_footnote-8">8</a></sup><span class="intersentencespace"></span> <span class="exercise" id="ex-7a67af"></span>
+</li>
+<li>Using the <code>mv</code> command, move <code>kitten.jpg</code> to the correct asset directory for images (<a href="filling_in_the_layout_fragment.html#sec-the_asset_pipeline" class="hyperref">Section <span class="ref">5.2.1</span></a>). <span class="exercise" id="ex-66f85b"></span>
+</li>
+<li>Using <code>image_tag</code>, add <code>kitten.jpg</code> to the Home page, as shown in <a href="filling_in_the_layout_fragment.html#fig-kitten_on_home" class="hyperref">Figure <span class="ref">5.4</span></a>. <span class="exercise" id="ex-591749"></span>
+</li></ol>
+<div class="center figure" id="fig-kitten" data-tralics-id="uid545" data-number="5.3">
+<div class="graphics image"><img src="images/figures/kitten.jpg" alt="images/figures/kitten"></div><div class="caption"><span class="header">Figure 5.3: </span><span class="description">An obligatory kitten pic.
+</span></div></div>
+<div class="codelisting" id="code-downloading_a_cat_pic" data-tralics-id="uid546" data-number="5.4"><div class="heading"><span class="number">Listing 5.4:</span> 
+
+<span class="description">Downloading a cat picture from the Internet.</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> curl -OL cdn.learnenough.com/kitten.jpg
+</pre></div></div></div><div class="center figure" id="fig-kitten_on_home" data-tralics-id="uid547" data-number="5.4">
+<div class="graphics image"><img src="images/figures/kitten_on_home.png" alt="images/figures/kitten_on_home"></div><div class="caption"><span class="header">Figure 5.4: </span><span class="description">The result of adding a kitten image to the Home page.
+</span></div></div>
+</div></div>
+<div id="sec-custom_css" data-tralics-id="uid548" class="subsection" data-number="5.1.2"><h3><a href="filling_in_the_layout_fragment.html#sec-custom_css" class="heading hyperref"><span class="number">5.1.2 </span>Bootstrap and custom CSS</a></h3>
+<p>In <a href="filling_in_the_layout_fragment.html#sec-adding_to_the_layout" class="hyperref">Section <span class="ref">5.1.1</span></a>, we associated many of the HTML elements with CSS classes, which gives us considerable flexibility in constructing a layout based on CSS.<span class="intersentencespace"></span> As noted in <a href="filling_in_the_layout_fragment.html#sec-adding_to_the_layout" class="hyperref">Section <span class="ref">5.1.1</span></a>, many of these classes are specific to <a href="http://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap</a>, a framework from Twitter that makes it easy to add nice web design and user interface elements to an HTML5 application.<span class="intersentencespace"></span> In this section, we’ll combine Bootstrap with some custom CSS rules to start adding some style to the sample application.<span class="intersentencespace"></span> It’s worth noting that using Bootstrap automatically makes our application’s design <a href="http://en.wikipedia.org/wiki/Responsive_web_design" target="_blank" rel="noopener"><em>responsive</em></a>, ensuring that it looks sensible across a wide range of devices.</p>
+<p>Our first step is to add Bootstrap, which in Rails applications can be accomplished with the <code class="tt">bootstrap-sass</code> gem, as shown in <a href="filling_in_the_layout_fragment.html#code-bootstrap_sass" class="hyperref">Listing <span class="ref">5.5</span></a>.<sup id="cha-5_footnote-ref-9" class="footnote intersentence"><a href="#cha-5_footnote-9">9</a></sup><span class="intersentencespace"></span> The Bootstrap framework natively uses the <a href="http://lesscss.org/" target="_blank" rel="noopener">Less CSS</a> language for making dynamic stylesheets, but the Rails asset pipeline supports the (very similar) Sass language by default (<a href="filling_in_the_layout_fragment.html#sec-sass_and_the_asset_pipeline" class="hyperref">Section <span class="ref">5.2</span></a>), so <code class="tt">bootstrap-sass</code> converts Less to Sass and makes all the necessary Bootstrap files available to the current application.<sup id="cha-5_footnote-ref-10" class="footnote"><a href="#cha-5_footnote-10">10</a></sup></p>
+<div class="codelisting" id="code-bootstrap_sass" data-tralics-id="uid551" data-number="5.5"><div class="heading"><span class="number">Listing 5.5:</span> 
+
+<span class="description">Adding the <code class="tt">bootstrap-sass</code> gem to the <code>Gemfile</code>.</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
+
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>          <span class="s1">'5.1.2'</span>
+<span class="n">gem</span> <span class="s1">'bootstrap-sass'</span><span class="p">,</span> <span class="s1">'3.3.7'</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+</pre></div></div></div><p>To install Bootstrap, we run <code>bundle install</code> as usual:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> bundle install
+</pre></div></div>
+<p>Although <code>rails generate</code> automatically creates a separate CSS file for each controller, it’s surprisingly hard to include them all properly and in the right order, so for simplicity we’ll put all of the CSS needed for this tutorial in a single file.<span class="intersentencespace"></span> The first step toward getting custom CSS to work is to create such a custom CSS file:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> touch app/assets/stylesheets/custom.scss
+</pre></div></div>
+<p>(This uses the <code>touch</code> trick from <a href="static_pages_fragment.html#sec-green" class="hyperref">Section <span class="ref">3.3.3</span></a> en route, but you can create the file however you like.)<span class="intersentencespace"></span> Here both the directory name and filename extension are important.<span class="intersentencespace"></span> The directory</p>
+<div class="code"><div class="highlight"><pre><span class="go">app/assets/stylesheets/</span>
+</pre></div></div>
+<p>is part of the asset pipeline (<a href="filling_in_the_layout_fragment.html#sec-sass_and_the_asset_pipeline" class="hyperref">Section <span class="ref">5.2</span></a>), and any stylesheets in this directory will automatically be included as part of the <code>application.css</code> file included in the site layout.<span class="intersentencespace"></span> Furthermore, the filename <code>custom.scss</code> includes the <code>.scss</code> extension, which indicates a “Sassy CSS” file and arranges for the asset pipeline to process the file using Sass.<span class="intersentencespace"></span> (We won’t be using Sass until <a href="filling_in_the_layout_fragment.html#sec-sass" class="hyperref">Section <span class="ref">5.2.2</span></a>, but it’s needed now for the <code class="tt">bootstrap-sass</code> gem to work its magic.)</p>
+<p>Inside the file for the custom CSS, we can use the <code>@import</code> function to include Bootstrap (together with the associated Sprockets utility), as shown in <a href="filling_in_the_layout_fragment.html#code-bootstrap_css" class="hyperref">Listing <span class="ref">5.6</span></a>.<sup id="cha-5_footnote-ref-11" class="footnote"><a href="#cha-5_footnote-11">11</a></sup></p>
+<div class="codelisting" id="code-bootstrap_css" data-tralics-id="uid553" data-number="5.6"><div class="heading"><span class="number">Listing 5.6:</span> 
+
+<span class="description">Adding Bootstrap CSS. <span class="break"></span> <code class="filepath">app/assets/stylesheets/custom.scss</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">"bootstrap-sprockets"</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">"bootstrap"</span><span class="p">;</span>
+</pre></div></div></div><p>The two lines in <a href="filling_in_the_layout_fragment.html#code-bootstrap_css" class="hyperref">Listing <span class="ref">5.6</span></a> include the entire Bootstrap CSS framework.<span class="intersentencespace"></span> After restarting the webserver to incorporate the changes into the development application (by pressing Ctrl-C and then running <code>rails server</code> as in <a href="beginning_fragment.html#sec-rails_server" class="hyperref">Section <span class="ref">1.3.2</span></a>), the results appear as in <a href="filling_in_the_layout_fragment.html#fig-sample_app_only_bootstrap" class="hyperref">Figure <span class="ref">5.5</span></a>.<span class="intersentencespace"></span> The placement of the text isn’t good and the logo doesn’t have any style, but the colors and signup button look promising.</p>
+<div class="center figure" id="fig-sample_app_only_bootstrap" data-tralics-id="uid554" data-number="5.5">
+<div class="graphics image"><img src="images/figures/sample_app_only_bootstrap_3rd_edition.png" alt="images/figures/sample_app_only_bootstrap_3rd_edition"></div><div class="caption"><span class="header">Figure 5.5: </span><span class="description">The sample application with Bootstrap CSS.
+</span></div></div>
+<p>Next we’ll add some CSS that will be used site-wide for styling the layout and each individual page, as shown in <a href="filling_in_the_layout_fragment.html#code-universal_css" class="hyperref">Listing <span class="ref">5.7</span></a>.<span class="intersentencespace"></span> The result is shown in <a href="filling_in_the_layout_fragment.html#fig-sample_app_universal" class="hyperref">Figure <span class="ref">5.6</span></a>.<span class="intersentencespace"></span> (There are quite a few rules in <a href="filling_in_the_layout_fragment.html#code-universal_css" class="hyperref">Listing <span class="ref">5.7</span></a>; to get a sense of what a CSS rule does, it’s often helpful to comment it out using CSS comments, i.e., by putting it inside <code>/* … */</code>, and seeing what changes.)</p>
+<div class="codelisting" id="code-universal_css" data-tralics-id="uid555" data-number="5.7"><div class="heading"><span class="number">Listing 5.7:</span> 
+
+<span class="description">Adding CSS for some universal styling applying to all pages.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/assets/stylesheets/custom.scss</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">"bootstrap-sprockets"</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">"bootstrap"</span><span class="p">;</span>
+
+<span class="cm">/* universal */</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">section</span> <span class="p">{</span>
+  <span class="na">overflow</span><span class="o">:</span> <span class="no">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">textarea</span> <span class="p">{</span>
+  <span class="na">resize</span><span class="o">:</span> <span class="n">vertical</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.center</span> <span class="p">{</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.center</span> <span class="nt">h1</span> <span class="p">{</span>
+  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div></div><div class="center figure" id="fig-sample_app_universal" data-tralics-id="uid556" data-number="5.6">
+<div class="graphics image"><img src="images/figures/sample_app_universal_3rd_edition.png" alt="images/figures/sample_app_universal_3rd_edition"></div><div class="caption"><span class="header">Figure 5.6: </span><span class="description">Adding some spacing and other universal styling.
+</span></div></div>
+<p>Note that the CSS in <a href="filling_in_the_layout_fragment.html#code-universal_css" class="hyperref">Listing <span class="ref">5.7</span></a> has a consistent form.<span class="intersentencespace"></span> In general, CSS rules refer either to a class, an id, an HTML tag, or some combination thereof, followed by a list of styling commands.<span class="intersentencespace"></span> For example,</p>
+<div class="code"><div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>puts 60 pixels of padding at the top of the page.<span class="intersentencespace"></span> Because of the <code>navbar-fixed-top</code> class in the <code>header</code> tag, Bootstrap fixes the navigation bar to the top of the page, so the padding serves to separate the main text from the navigation.<span class="intersentencespace"></span> (Because the default navbar color changed after Bootstrap 2.0, we need the <code>navbar-inverse</code> class to make it dark instead of light.)<span class="intersentencespace"></span> Meanwhile, the CSS in the rule</p>
+<div class="code"><div class="highlight"><pre><span class="nc">.center</span> <span class="p">{</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>associates the <code>center</code> class with the <code>text-align: center</code> property.<span class="intersentencespace"></span> In other words, the dot <code>.</code> in <code>.center</code> indicates that the rule styles a class.<span class="intersentencespace"></span> (As we’ll see in <a href="filling_in_the_layout_fragment.html#code-logo_css" class="hyperref">Listing <span class="ref">5.9</span></a>, the pound sign <code>#</code> identifies a rule to style a CSS <em>id</em>.)<span class="intersentencespace"></span> This means that elements inside any tag (such as a <code>div</code>) with class <code>center</code> will be centered on the page.<span class="intersentencespace"></span> (We saw an example of this class in <a href="filling_in_the_layout_fragment.html#code-signup_button" class="hyperref">Listing <span class="ref">5.2</span></a>.)</p>
+<p>Although Bootstrap comes with CSS rules for nice typography, we’ll also add some custom rules for the appearance of the text on our site, as shown in <a href="filling_in_the_layout_fragment.html#code-typography_css" class="hyperref">Listing <span class="ref">5.8</span></a>.<span class="intersentencespace"></span> (Not all of these rules apply to the Home page, but each rule here will be used at some point in the sample application.)<span class="intersentencespace"></span> The result of <a href="filling_in_the_layout_fragment.html#code-typography_css" class="hyperref">Listing <span class="ref">5.8</span></a> is shown in <a href="filling_in_the_layout_fragment.html#fig-sample_app_typography" class="hyperref">Figure <span class="ref">5.7</span></a>.</p>
+<div class="codelisting" id="code-typography_css" data-tralics-id="uid557" data-number="5.8"><div class="heading"><span class="number">Listing 5.8:</span> 
+
+<span class="description">Adding CSS for nice typography.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/assets/stylesheets/custom.scss</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">"bootstrap-sprockets"</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">"bootstrap"</span><span class="p">;</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="o">/*</span> <span class="nt">typography</span> <span class="o">*/</span>
+
+<span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
+  <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h1</span> <span class="p">{</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-2</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h2</span> <span class="p">{</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.2</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+  <span class="na">font-weight</span><span class="o">:</span> <span class="no">normal</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">p</span> <span class="p">{</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.1</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.7</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div></div><div class="center figure" id="fig-sample_app_typography" data-tralics-id="uid558" data-number="5.7">
+<div class="graphics image"><img src="images/figures/sample_app_typography_3rd_edition.png" alt="images/figures/sample_app_typography_3rd_edition"></div><div class="caption"><span class="header">Figure 5.7: </span><span class="description">Adding some typographic styling.
+</span></div></div>
+<p>Finally, we’ll add some rules to style the site’s logo, which simply consists of the text “sample app”.<span class="intersentencespace"></span> The CSS in <a href="filling_in_the_layout_fragment.html#code-logo_css" class="hyperref">Listing <span class="ref">5.9</span></a> converts the text to uppercase and modifies its size, color, and placement.<span class="intersentencespace"></span> (We’ve used a CSS id because we expect the site logo to appear on the page only once, but you could use a class instead.)</p>
+<div class="codelisting" id="code-logo_css" data-tralics-id="uid559" data-number="5.9"><div class="heading"><span class="number">Listing 5.9:</span> 
+
+<span class="description">Adding CSS for the site logo.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/assets/stylesheets/custom.scss</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">"bootstrap-sprockets"</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">"bootstrap"</span><span class="p">;</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="o">/*</span> <span class="nt">header</span> <span class="o">*/</span>
+
+<span class="nn">#logo</span> <span class="p">{</span>
+  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="na">margin-right</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.7</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#fff</span><span class="p">;</span>
+  <span class="na">text-transform</span><span class="o">:</span> <span class="no">uppercase</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">9</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-weight</span><span class="o">:</span> <span class="no">bold</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nn">#logo</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#fff</span><span class="p">;</span>
+  <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div></div><p>Here <code>color: #fff</code> changes the color of the logo to white.<span class="intersentencespace"></span> HTML colors can be coded with three pairs of base-16 (hexadecimal) numbers, one each for the primary colors red, green, and blue (in that order).<span class="intersentencespace"></span> The code <code>#ffffff</code> maxes out all three colors, yielding pure white, and <code>#fff</code> is a shorthand for the full <code>#ffffff</code>.<span class="intersentencespace"></span> The CSS standard also defines a large number of synonyms for common <a href="https://www.w3schools.com/colors/colors_names.asp" target="_blank" rel="noopener">HTML colors</a>, including <code>white</code> for <code>#fff</code>.<span class="intersentencespace"></span> The result of the CSS in <a href="filling_in_the_layout_fragment.html#code-logo_css" class="hyperref">Listing <span class="ref">5.9</span></a> is shown in <a href="filling_in_the_layout_fragment.html#fig-sample_app_logo" class="hyperref">Figure <span class="ref">5.8</span></a>.</p>
+<div class="center figure" id="fig-sample_app_logo" data-tralics-id="uid560" data-number="5.8">
+<div class="graphics image"><img src="images/figures/sample_app_logo_3rd_edition.png" alt="images/figures/sample_app_logo_3rd_edition"></div><div class="caption"><span class="header">Figure 5.8: </span><span class="description">The sample app with nicely styled logo.
+</span></div></div>
+<div id="sec-exercises_custom_css" data-tralics-id="uid561" class="subsubsection" data-number="5.1.2.1"><h4><a href="#sec-exercises_custom_css" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>Using code like that shown in <a href="filling_in_the_layout_fragment.html#code-comment_out_image" class="hyperref">Listing <span class="ref">5.10</span></a>, comment out the cat image from <a href="filling_in_the_layout_fragment.html#sec-exercises_adding_to_the_layout" class="hyperref">Section <span class="ref">5.1.1.1</span></a>.<span class="intersentencespace"></span> Verify using a web inspector that the HTML for the image no longer appears in the page source. <span class="exercise" id="ex-d7f8e1"></span>
+</li>
+<li>By adding the CSS in <a href="filling_in_the_layout_fragment.html#code-css_hide_image" class="hyperref">Listing <span class="ref">5.11</span></a> to <code>custom.scss</code>, hide all images in the application—currently just the Rails logo on the Home page).<span class="intersentencespace"></span> Verify with a web inspector that, although the image doesn’t appear, the HTML source is still present. <span class="exercise" id="ex-b39c95"></span>
+</li></ol>
+<div class="codelisting" id="code-comment_out_image" data-tralics-id="uid564" data-number="5.10"><div class="heading"><span class="number">Listing 5.10:</span> 
+
+<span class="description">Code to comment out embedded Ruby.</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="o">&lt;%</span><span class="c1">#= image_tag("kitten.jpg", alt: "Kitten") %&gt;</span>
+</pre></div></div></div><div class="codelisting" id="code-css_hide_image" data-tralics-id="uid565" data-number="5.11"><div class="heading"><span class="number">Listing 5.11:</span> 
+
+<span class="description">CSS to hide all images.</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">img</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div></div></div></div>
+<div id="sec-partials" data-tralics-id="uid566" class="subsection" data-number="5.1.3"><h3><a href="filling_in_the_layout_fragment.html#sec-partials" class="heading hyperref"><span class="number">5.1.3 </span>Partials</a></h3>
+<p>Although the layout in <a href="filling_in_the_layout_fragment.html#code-layout_new_structure" class="hyperref">Listing <span class="ref">5.1</span></a> serves its purpose, it’s getting a little cluttered.<span class="intersentencespace"></span> The HTML shim takes up three lines and uses weird IE-specific syntax, so it would be nice to tuck it away somewhere on its own.<span class="intersentencespace"></span> In addition, the header HTML forms a logical unit, so it should all be packaged up in one place.<span class="intersentencespace"></span> The way to achieve this in Rails is to use a facility called <em>partials</em>.<span class="intersentencespace"></span> Let’s first take a look at what the layout looks like after the partials are defined (<a href="filling_in_the_layout_fragment.html#code-layout_with_partials" class="hyperref">Listing <span class="ref">5.12</span></a>).</p>
+<div class="codelisting" id="code-layout_with_partials" data-tralics-id="uid567" data-number="5.12"><div class="heading"><span class="number">Listing 5.12:</span> 
+
+<span class="description">The site layout with partials for the stylesheets and header.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/application.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span><span class="cp">&lt;%=</span> <span class="n">full_title</span><span class="p">(</span><span class="k">yield</span><span class="p">(</span><span class="ss">:title</span><span class="p">))</span> <span class="cp">%&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span>
+                                              <span class="s1">'data-turbolinks-track'</span><span class="p">:</span> <span class="s1">'reload'</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span><span class="p">:</span> <span class="s1">'reload'</span> <span class="cp">%&gt;</span>
+<span class="hll">    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/shim'</span> <span class="cp">%&gt;</span>
+</span>  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+<span class="hll">    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/header'</span> <span class="cp">%&gt;</span>
+</span>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div></div></div><p>In <a href="filling_in_the_layout_fragment.html#code-layout_with_partials" class="hyperref">Listing <span class="ref">5.12</span></a>, we’ve replaced the HTML shim stylesheet lines with a single call to a Rails helper called <code>render</code>:</p>
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/shim'</span> <span class="cp">%&gt;</span>
+</pre></div></div>
+<p>The effect of this line is to look for a file called <code>app/views/layouts/_shim.html.erb</code>, evaluate its contents, and insert the results into the view.<sup id="cha-5_footnote-ref-12" class="footnote"><a href="#cha-5_footnote-12">12</a></sup><span class="intersentencespace"></span> (Recall that <code class="inline_verbatim">&lt;%= ... %&gt;</code> is the embedded Ruby syntax needed to evaluate a Ruby expression and then insert the results into the template.)<span class="intersentencespace"></span> Note the leading underscore on the filename <code>_shim.html.erb</code>; this underscore is the universal convention for naming partials, and among other things makes it possible to identify all the partials in a directory at a glance.</p>
+<p>Of course, to get the partial to work, we have to create the corresponding file and fill it with some content.<span class="intersentencespace"></span> In the case of the shim partial, this is just the three lines of shim code from <a href="filling_in_the_layout_fragment.html#code-layout_new_structure" class="hyperref">Listing <span class="ref">5.1</span></a>.<span class="intersentencespace"></span> The result appears in <a href="filling_in_the_layout_fragment.html#code-stylesheets_partial" class="hyperref">Listing <span class="ref">5.13</span></a>.</p>
+<div class="codelisting" id="code-stylesheets_partial" data-tralics-id="uid569" data-number="5.13"><div class="heading"><span class="number">Listing 5.13:</span> 
+
+<span class="description">A partial for the HTML shim.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/_shim.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="c">  &lt;script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"&gt;</span>
+<span class="c">  &lt;/script&gt;</span>
+<span class="c">&lt;![endif]--&gt;</span>
+</pre></div></div></div><p>Similarly, we can move the header material into the partial shown in <a href="filling_in_the_layout_fragment.html#code-header_partial" class="hyperref">Listing <span class="ref">5.14</span></a> and insert it into the layout with another call to <code>render</code>.<span class="intersentencespace"></span> (As usual with partials, you will have to create the file by hand using your text editor.)</p>
+<div class="codelisting" id="code-header_partial" data-tralics-id="uid570" data-number="5.14"><div class="heading"><span class="number">Listing 5.14:</span> 
+
+<span class="description">A partial for the site header.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/_header.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-inverse"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;nav&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/nav&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/header&gt;</span>
+</pre></div></div></div><p>Now that we know how to make partials, let’s add a site footer to go along with the header.<span class="intersentencespace"></span> By now you can probably guess that we’ll call it <code>_footer.html.erb</code> and put it in the layouts directory (<a href="filling_in_the_layout_fragment.html#code-footer_partial" class="hyperref">Listing <span class="ref">5.15</span></a>).<sup id="cha-5_footnote-ref-13" class="footnote"><a href="#cha-5_footnote-13">13</a></sup></p>
+<div class="codelisting" id="code-footer_partial" data-tralics-id="uid572" data-number="5.15"><div class="heading"><span class="number">Listing 5.15:</span> 
+
+<span class="description">A partial for the site footer.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/_footer.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;footer</span> <span class="na">class=</span><span class="s">"footer"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;small&gt;</span>
+    The <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.railstutorial.org/"</span><span class="nt">&gt;</span>Ruby on Rails Tutorial<span class="nt">&lt;/a&gt;</span>
+    by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.michaelhartl.com/"</span><span class="nt">&gt;</span>Michael Hartl<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"About"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Contact"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"http://news.railstutorial.org/"</span><span class="nt">&gt;</span>News<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/nav&gt;</span>
+<span class="nt">&lt;/footer&gt;</span>
+</pre></div></div></div><p>As with the header, in the footer we’ve used <code>link_to</code> for the internal links to the About and Contact pages and stubbed out the URLs with <code>’#’</code> for now.<span class="intersentencespace"></span> (As with <code>header</code>, the <code>footer</code> tag is new in HTML5.)</p>
+<p>We can render the footer partial in the layout by following the same pattern as the stylesheets and header partials (<a href="filling_in_the_layout_fragment.html#code-layout_with_footer" class="hyperref">Listing <span class="ref">5.16</span></a>).</p>
+<div class="codelisting" id="code-layout_with_footer" data-tralics-id="uid573" data-number="5.16"><div class="heading"><span class="number">Listing 5.16:</span> 
+
+<span class="description">The site layout with a footer partial.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/application.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span><span class="cp">&lt;%=</span> <span class="n">full_title</span><span class="p">(</span><span class="k">yield</span><span class="p">(</span><span class="ss">:title</span><span class="p">))</span> <span class="cp">%&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span>
+                                              <span class="s1">'data-turbolinks-track'</span><span class="p">:</span> <span class="s1">'reload'</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span><span class="p">:</span> <span class="s1">'reload'</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/shim'</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/header'</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+<span class="hll">      <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/footer'</span> <span class="cp">%&gt;</span>
+</span>    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div></div></div><p>Of course, the footer will be ugly without some styling (<a href="filling_in_the_layout_fragment.html#code-footer_css" class="hyperref">Listing <span class="ref">5.17</span></a>).<span class="intersentencespace"></span> The results appear in <a href="filling_in_the_layout_fragment.html#fig-site_with_footer" class="hyperref">Figure <span class="ref">5.9</span></a>.</p>
+<div class="codelisting" id="code-footer_css" data-tralics-id="uid574" data-number="5.17"><div class="heading"><span class="number">Listing 5.17:</span> 
+
+<span class="description">Adding the CSS for the site footer.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/assets/stylesheets/custom.scss</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="o">/*</span> <span class="nt">footer</span> <span class="o">*/</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="na">margin-top</span><span class="o">:</span> <span class="mi">45</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">border-top</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="mh">#eaeaea</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#555</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#222</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="nt">small</span> <span class="p">{</span>
+  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="nt">ul</span> <span class="p">{</span>
+  <span class="na">float</span><span class="o">:</span> <span class="no">right</span><span class="p">;</span>
+  <span class="na">list-style</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="na">margin-left</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div></div><div class="center figure" id="fig-site_with_footer" data-tralics-id="uid575" data-number="5.9">
+<div class="graphics image"><img src="images/figures/site_with_footer_bootstrap_3rd_edition.png" alt="images/figures/site_with_footer_bootstrap_3rd_edition"></div><div class="caption"><span class="header">Figure 5.9: </span><span class="description">The Home page with an added footer.
+</span></div></div>
+<div id="sec-exercises_partials" data-tralics-id="uid576" class="subsubsection" data-number="5.1.3.1"><h4><a href="#sec-exercises_partials" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>Replace the default Rails head with the call to <code>render</code> shown in <a href="filling_in_the_layout_fragment.html#code-rails_default_head" class="hyperref">Listing <span class="ref">5.18</span></a>.<span class="intersentencespace"></span> <em>Hint</em>: For convenience, cut the default header rather than just deleting it. <span class="exercise" id="ex-eecfad"></span>
+</li>
+<li>Because we haven’t yet created the partial needed by <a href="filling_in_the_layout_fragment.html#code-rails_default_head" class="hyperref">Listing <span class="ref">5.18</span></a>, the tests should be <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>.<span class="intersentencespace"></span> Confirm that this is the case. <span class="exercise" id="ex-d6d37e"></span>
+</li>
+<li>Create the necessary partial in the <code>layouts</code> directory, paste in the contents, and verify that the tests are now <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span> again. <span class="exercise" id="ex-e89622"></span>
+</li></ol>
+<div class="codelisting" id="code-rails_default_head" data-tralics-id="uid580" data-number="5.18"><div class="heading"><span class="number">Listing 5.18:</span> 
+
+<span class="description">Replacing the default Rails head with a call to <code>render</code>.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/application.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span><span class="cp">&lt;%=</span> <span class="n">full_title</span><span class="p">(</span><span class="k">yield</span><span class="p">(</span><span class="ss">:title</span><span class="p">))</span> <span class="cp">%&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/rails_default'</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/shim'</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/header'</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'layouts/footer'</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div></div></div></div></div></div><div id="sec-sass_and_the_asset_pipeline" data-tralics-id="cid28" class="section" data-number="5.2"><h2><a href="filling_in_the_layout_fragment.html#sec-sass_and_the_asset_pipeline" class="heading hyperref"><span class="number">5.2 </span>Sass and the asset pipeline</a></h2>
+<p>One of the most useful features of Rails is the <em>asset pipeline</em>, which significantly simplifies the production and management of static assets such as CSS, JavaScript, and images.<span class="intersentencespace"></span> This section first gives a high-level overview of the asset pipeline, and then shows how to use <em>Sass</em>, a powerful tool for writing CSS.</p>
+<div id="sec-the_asset_pipeline" data-tralics-id="uid581" class="subsection" data-number="5.2.1"><h3><a href="filling_in_the_layout_fragment.html#sec-the_asset_pipeline" class="heading hyperref"><span class="number">5.2.1 </span>The asset pipeline</a></h3>
+<p>From the perspective of a typical Rails developer, there are three main features to understand about the asset pipeline: asset directories, manifest files, and preprocessor engines.<sup id="cha-5_footnote-ref-14" class="footnote"><a href="#cha-5_footnote-14">14</a></sup><span class="intersentencespace"></span> Let’s consider each in turn.</p>
+<div id="uid583" data-tralics-id="uid583" class="subsubsection" data-number="5.2.1.1"><h4><a href="#uid583" class="heading">Asset directories</a></h4>
+<p>The Rails asset pipeline uses three standard directories for static assets, each with its own purpose:</p>
+<ul>
+<li><code>app/assets</code>: assets specific to the present application
+</li>
+<li><code>lib/assets</code>: assets for libraries written by your dev team
+</li>
+<li><code>vendor/assets</code>: assets from third-party vendors
+</li></ul>
+<p>Each of these directories has a subdirectory for each asset class: images, JavaScript, and Cascading Style Sheets:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> ls app/assets/
+<span class="go">images/  javascripts/  stylesheets/</span>
+</pre></div></div>
+<p>At this point, we’re in a position to understand the motivation behind the location of the custom CSS file in <a href="filling_in_the_layout_fragment.html#sec-custom_css" class="hyperref">Section <span class="ref">5.1.2</span></a>: <code>custom.scss</code> is specific to the sample application, so it goes in <code>app/assets/stylesheets</code>.</p>
+</div>
+<div id="uid587" data-tralics-id="uid587" class="subsubsection" data-number="5.2.1.2"><h4><a href="#uid587" class="heading">Manifest files</a></h4>
+<p>Once you’ve placed your assets in their logical locations, you can use <em>manifest files</em> to tell Rails (via the <a href="https://github.com/rails/sprockets" target="_blank" rel="noopener">Sprockets</a> gem) how to combine them to form single files.<span class="intersentencespace"></span> (This applies to CSS and JavaScript but not to images.)<span class="intersentencespace"></span> As an example, let’s take a look at the default manifest file for app stylesheets (<a href="filling_in_the_layout_fragment.html#code-app_css_manifest" class="hyperref">Listing <span class="ref">5.19</span></a>).</p>
+<div class="codelisting" id="code-app_css_manifest" data-tralics-id="uid588" data-number="5.19"><div class="heading"><span class="number">Listing 5.19:</span> 
+
+<span class="description">The manifest file for app-specific CSS. <span class="break"></span> <code class="filepath">app/assets/stylesheets/application.css</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> * This is a manifest file that'll be compiled into application.css, which</span>
+<span class="cm"> * will include all the files listed below.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Any CSS and SCSS file within this directory, lib/assets/stylesheets,</span>
+<span class="cm"> * vendor/assets/stylesheets, or vendor/assets/stylesheets of plugins, if any,</span>
+<span class="cm"> * can be referenced here using a relative path.</span>
+<span class="cm"> *</span>
+<span class="cm"> * You're free to add application-wide styles to this file and they'll appear</span>
+<span class="cm"> * at the bottom of the compiled file so the styles you add here take</span>
+<span class="cm"> * precedence over styles defined in any styles defined in the other CSS/SCSS</span>
+<span class="cm"> * files in this directory. It is generally better to create a new file per</span>
+<span class="cm"> * style scope.</span>
+<span class="cm"> *</span>
+<span class="hll"><span class="cm"> *= require_tree .</span>
+</span><span class="hll"><span class="cm"> *= require_self</span>
+</span><span class="cm"> */</span>
+</pre></div></div></div><p>The key lines here are actually CSS comments, but they are used by Sprockets to include the proper files:</p>
+<div class="code"><div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm"> .</span>
+<span class="cm"> .</span>
+<span class="cm"> .</span>
+<span class="cm"> *= require_tree .</span>
+<span class="cm"> *= require_self</span>
+<span class="cm">*/</span>
+</pre></div></div>
+<p>Here</p>
+<div class="code"><div class="highlight"><pre><span class="go">*= require_tree .</span>
+</pre></div></div>
+<p>ensures that all CSS files in the <code>app/assets/stylesheets</code> directory (including the tree subdirectories) are included into the application CSS.<span class="intersentencespace"></span> The line</p>
+<div class="code"><div class="highlight"><pre><span class="go">*= require_self</span>
+</pre></div></div>
+<p>specifies where in the loading sequence the CSS in <code>application.css</code> itself gets included.</p>
+<p>Rails comes with sensible default manifest files, and in the <em>Rails Tutorial</em> we won’t need to make any changes, but the <a href="http://guides.rubyonrails.org/asset_pipeline.html" target="_blank" rel="noopener">Rails Guides entry on the asset pipeline</a> has more detail if you need it.</p>
+</div>
+<div id="uid589" data-tralics-id="uid589" class="subsubsection" data-number="5.2.1.3"><h4><a href="#uid589" class="heading">Preprocessor engines</a></h4>
+<p>After you’ve assembled your assets, Rails prepares them for the site template by running them through several preprocessing engines and using the manifest files to combine them for delivery to the browser.<span class="intersentencespace"></span> We tell Rails which processor to use using filename extensions; the three most common cases are <code>.scss</code> for Sass, <code>.coffee</code> for CoffeeScript, and <code>.erb</code> for embedded Ruby (ERb).<span class="intersentencespace"></span> We first covered ERb in <a href="static_pages_fragment.html#sec-layouts_and_embedded_ruby" class="hyperref">Section <span class="ref">3.4.3</span></a>, and cover Sass in <a href="filling_in_the_layout_fragment.html#sec-sass" class="hyperref">Section <span class="ref">5.2.2</span></a>.<span class="intersentencespace"></span> We won’t be needing CoffeeScript in this tutorial, but it’s an elegant language that gets converted to JavaScript for execution in the browser.</p>
+<p>The preprocessor engines can be chained, so that</p>
+<p><code>foobar.js.coffee</code></p>
+<p>gets run through the CoffeeScript processor, and</p>
+<p><code>foobar.js.erb.coffee</code></p>
+<p>gets run through both CoffeeScript and ERb (with the code running from right to left, i.e., CoffeeScript first).</p>
+</div>
+<div id="uid590" data-tralics-id="uid590" class="subsubsection" data-number="5.2.1.4"><h4><a href="#uid590" class="heading">Efficiency in production</a></h4>
+<p>One of the best things about the asset pipeline is that it automatically results in assets that are optimized to be efficient in a production application.<span class="intersentencespace"></span> Traditional methods for organizing CSS and JavaScript involve splitting functionality into separate files and using nice formatting (with lots of indentation).<span class="intersentencespace"></span> While convenient for the programmer, this is inefficient in production.<span class="intersentencespace"></span> In particular, including multiple full-sized files can significantly slow page-load times, which is one of the most important factors affecting the quality of the user experience.<span class="intersentencespace"></span> With the asset pipeline, we don’t have to choose between speed and convenience: we can work with multiple nicely formatted files in development, and then use the asset pipeline to make efficient files in production.<span class="intersentencespace"></span> In particular, the asset pipeline combines all the application stylesheets into one CSS file (<code>application.css</code>), combines all the application JavaScript into one JavaScript file (<code>application.js</code>), and then <em>minifies</em> them to remove the unnecessary spacing and indentation that bloats file size.<span class="intersentencespace"></span> The result is the best of both worlds: convenience in development and efficiency in production.</p>
+</div></div>
+<div id="sec-sass" data-tralics-id="uid591" class="subsection" data-number="5.2.2"><h3><a href="filling_in_the_layout_fragment.html#sec-sass" class="heading hyperref"><span class="number">5.2.2 </span>Syntactically awesome stylesheets</a></h3>
+<p><em>Sass</em> is a language for writing stylesheets that improves on CSS in many ways.<span class="intersentencespace"></span> In this section, we cover two of the most important improvements, <em>nesting</em> and <em>variables</em>.<span class="intersentencespace"></span> (A third technique, <em>mixins</em>, is introduced in <a href="sign_up_fragment.html#sec-rails_environments" class="hyperref">Section <span class="ref">7.1.1</span></a>.)</p>
+<p>As noted briefly in <a href="filling_in_the_layout_fragment.html#sec-custom_css" class="hyperref">Section <span class="ref">5.1.2</span></a>, Sass supports a format called SCSS (indicated with a <code>.scss</code> filename extension), which is a strict superset of CSS itself; that is, SCSS only <em>adds</em> features to CSS, rather than defining an entirely new syntax.<sup id="cha-5_footnote-ref-15" class="footnote intersentence"><a href="#cha-5_footnote-15">15</a></sup><span class="intersentencespace"></span> This means that every valid CSS file is also a valid SCSS file, which is convenient for projects with existing style rules.<span class="intersentencespace"></span> In our case, we used SCSS from the start in order to take advantage of Bootstrap.<span class="intersentencespace"></span> Since the Rails asset pipeline automatically uses Sass to process files with the <code>.scss</code> extension, the <code>custom.scss</code> file will be run through the Sass preprocessor before being packaged up for delivery to the browser.</p>
+<div id="uid593" data-tralics-id="uid593" class="subsubsection" data-number="5.2.2.1"><h4><a href="#uid593" class="heading">Nesting</a></h4>
+<p>A common pattern in stylesheets is having rules that apply to nested elements.<span class="intersentencespace"></span> For example, in <a href="filling_in_the_layout_fragment.html#code-universal_css" class="hyperref">Listing <span class="ref">5.7</span></a> we have rules both for <code>.center</code> and for <code>.center h1</code>:</p>
+<div class="code"><div class="highlight"><pre><span class="hll"><span class="nc">.center</span> <span class="p">{</span>
+</span>  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nc">.center</span> <span class="nt">h1</span> <span class="p">{</span>
+</span>  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>We can replace this in Sass with</p>
+<div class="code"><div class="highlight"><pre><span class="hll"><span class="nc">.center</span> <span class="p">{</span>
+</span>  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+<span class="hll">  <span class="nt">h1</span> <span class="p">{</span>
+</span>    <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>Here the nested <code>h1</code> rule automatically inherits the <code>.center</code> context.</p>
+<p>There’s a second candidate for nesting that requires a slightly different syntax.<span class="intersentencespace"></span> In <a href="filling_in_the_layout_fragment.html#code-logo_css" class="hyperref">Listing <span class="ref">5.9</span></a>, we have the code</p>
+<div class="code"><div class="highlight"><pre><span class="hll"><span class="nn">#logo</span> <span class="p">{</span>
+</span>  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="na">margin-right</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.7</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#fff</span><span class="p">;</span>
+  <span class="na">text-transform</span><span class="o">:</span> <span class="no">uppercase</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">9</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-weight</span><span class="o">:</span> <span class="no">bold</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nn">#logo</span><span class="nd">:hover</span> <span class="p">{</span>
+</span>  <span class="na">color</span><span class="o">:</span> <span class="mh">#fff</span><span class="p">;</span>
+  <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>Here the logo id <code>#logo</code> appears twice, once by itself and once with the <code>hover</code> attribute (which controls its appearance when the mouse pointer hovers over the element in question).<span class="intersentencespace"></span> In order to nest the second rule, we need to reference the parent element <code>#logo</code>; in SCSS, this is accomplished with the ampersand character <code>&amp;</code> as follows:</p>
+<div class="code"><div class="highlight"><pre><span class="hll"><span class="nn">#logo</span> <span class="p">{</span>
+</span>  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="na">margin-right</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.7</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#fff</span><span class="p">;</span>
+  <span class="na">text-transform</span><span class="o">:</span> <span class="no">uppercase</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">9</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-weight</span><span class="o">:</span> <span class="no">bold</span><span class="p">;</span>
+<span class="hll">  <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span>    <span class="na">color</span><span class="o">:</span> <span class="mh">#fff</span><span class="p">;</span>
+    <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>Sass changes <code>&amp;:hover</code> into <code>#logo:hover</code> as part of converting from SCSS to CSS.</p>
+<p>Both of these nesting techniques apply to the footer CSS in <a href="filling_in_the_layout_fragment.html#code-footer_css" class="hyperref">Listing <span class="ref">5.17</span></a>, which can be transformed into the following:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">footer</span> <span class="p">{</span>
+  <span class="na">margin-top</span><span class="o">:</span> <span class="mi">45</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">border-top</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="mh">#eaeaea</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+  <span class="nt">a</span> <span class="p">{</span>
+    <span class="na">color</span><span class="o">:</span> <span class="mh">#555</span><span class="p">;</span>
+    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+      <span class="na">color</span><span class="o">:</span> <span class="mh">#222</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nt">small</span> <span class="p">{</span>
+    <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nt">ul</span> <span class="p">{</span>
+    <span class="na">float</span><span class="o">:</span> <span class="no">right</span><span class="p">;</span>
+    <span class="na">list-style</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+    <span class="nt">li</span> <span class="p">{</span>
+      <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+      <span class="na">margin-left</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>Converting <a href="filling_in_the_layout_fragment.html#code-footer_css" class="hyperref">Listing <span class="ref">5.17</span></a> by hand is a good exercise (<a href="filling_in_the_layout_fragment.html#sec-exercises_sass" class="hyperref">Section <span class="ref">5.2.2.3</span></a>), and you should verify that the CSS still works properly after the conversion.</p>
+</div>
+<div id="uid594" data-tralics-id="uid594" class="subsubsection" data-number="5.2.2.2"><h4><a href="#uid594" class="heading">Variables</a></h4>
+<p>Sass allows us to define <em>variables</em> to eliminate duplication and write more expressive code.<span class="intersentencespace"></span> For example, looking at <a href="filling_in_the_layout_fragment.html#code-typography_css" class="hyperref">Listing <span class="ref">5.8</span></a> and <a href="filling_in_the_layout_fragment.html#code-footer_css" class="hyperref">Listing <span class="ref">5.17</span></a>, we see that there are repeated references to the same color:</p>
+<div class="code"><div class="highlight"><pre><span class="nt">h2</span> <span class="p">{</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+<span class="hll">  <span class="na">color</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+</span><span class="p">}</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+<span class="hll">  <span class="na">color</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+</span><span class="p">}</span>
+</pre></div></div>
+<p>In this case, <code>#777</code> is a light gray, and we can give it a name by defining a variable as follows:</p>
+<div class="code"><div class="highlight"><pre><span class="nv">$light-gray</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+</pre></div></div>
+<p>This allows us to rewrite our SCSS like this:</p>
+<div class="code"><div class="highlight"><pre><span class="nv">$light-gray</span><span class="o">:</span> <span class="mh">#777</span><span class="p">;</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nt">h2</span> <span class="p">{</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nv">$light-gray</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nv">$light-gray</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>Because variable names such as <code>$light-gray</code> are more descriptive than <code>#777</code>, it’s often useful to define variables even for values that aren’t repeated.<span class="intersentencespace"></span> Indeed, the Bootstrap framework defines a large number of variables for colors, available online on the <a href="http://getbootstrap.com/customize/#less-variables" target="_blank" rel="noopener">Bootstrap page of Less variables</a>.<span class="intersentencespace"></span> That page defines variables using Less, not Sass, but the <code class="tt">bootstrap-sass</code> gem provides the Sass equivalents.<span class="intersentencespace"></span> It is not difficult to guess the correspondence; where Less uses an “at” sign <code>@</code>, Sass uses a dollar sign <code>$</code>.<span class="intersentencespace"></span> Looking at the Bootstrap variable page, we see that there is a variable for light gray:</p>
+<div class="code"><div class="highlight"><pre> <span class="k">@gray-light</span><span class="nd">:</span> <span class="nn">#777</span><span class="o">;</span>
+</pre></div></div>
+<p>This means that, via the <code class="tt">bootstrap-sass</code> gem, there should be a corresponding SCSS variable <code>$gray-light</code>.<span class="intersentencespace"></span> We can use this to replace our custom variable, <code>$light-gray</code>, which gives</p>
+<div class="code"><div class="highlight"><pre><span class="nt">h2</span> <span class="p">{</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nv">$gray-light</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nc">.</span>
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">.</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nv">$gray-light</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+<p>Applying the Sass nesting and variable definition features to the full SCSS file gives the file in <a href="filling_in_the_layout_fragment.html#code-refactored_scss" class="hyperref">Listing <span class="ref">5.20</span></a>.<span class="intersentencespace"></span> This uses both Sass variables (as inferred from the Bootstrap Less variable page) and built-in named colors (i.e., <code>white</code> for <code>#fff</code>).<span class="intersentencespace"></span> Note in particular the dramatic improvement in the rules for the <code>footer</code> tag.</p>
+<div class="codelisting" id="code-refactored_scss" data-tralics-id="uid595" data-number="5.20"><div class="heading"><span class="number">Listing 5.20:</span> 
+
+<span class="description">The initial SCSS file converted to use nesting and variables.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/assets/stylesheets/custom.scss</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">@import</span> <span class="s2">"bootstrap-sprockets"</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s2">"bootstrap"</span><span class="p">;</span>
+
+<span class="cm">/* mixins, variables, etc. */</span>
+
+<span class="nv">$gray-medium-light</span><span class="o">:</span> <span class="mh">#eaeaea</span><span class="p">;</span>
+
+<span class="cm">/* universal */</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">section</span> <span class="p">{</span>
+  <span class="na">overflow</span><span class="o">:</span> <span class="no">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">textarea</span> <span class="p">{</span>
+  <span class="na">resize</span><span class="o">:</span> <span class="n">vertical</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.center</span> <span class="p">{</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+  <span class="nt">h1</span> <span class="p">{</span>
+    <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* typography */</span>
+
+<span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
+  <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h1</span> <span class="p">{</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-2</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h2</span> <span class="p">{</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.2</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+  <span class="na">font-weight</span><span class="o">:</span> <span class="no">normal</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nv">$gray-light</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">p</span> <span class="p">{</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.1</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">line-height</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.7</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/* header */</span>
+
+<span class="nn">#logo</span> <span class="p">{</span>
+  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="na">margin-right</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.7</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="na">text-transform</span><span class="o">:</span> <span class="no">uppercase</span><span class="p">;</span>
+  <span class="na">letter-spacing</span><span class="o">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">9</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-weight</span><span class="o">:</span> <span class="no">bold</span><span class="p">;</span>
+  <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="na">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+    <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* footer */</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="na">margin-top</span><span class="o">:</span> <span class="mi">45</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">padding-top</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">border-top</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="nv">$gray-medium-light</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="nv">$gray-light</span><span class="p">;</span>
+  <span class="nt">a</span> <span class="p">{</span>
+    <span class="na">color</span><span class="o">:</span> <span class="nv">$gray</span><span class="p">;</span>
+    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+      <span class="na">color</span><span class="o">:</span> <span class="nv">$gray-darker</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nt">small</span> <span class="p">{</span>
+    <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nt">ul</span> <span class="p">{</span>
+    <span class="na">float</span><span class="o">:</span> <span class="no">right</span><span class="p">;</span>
+    <span class="na">list-style</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+    <span class="nt">li</span> <span class="p">{</span>
+      <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+      <span class="na">margin-left</span><span class="o">:</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div></div><p>Sass gives us even more ways to simplify our stylesheets, but the code in <a href="filling_in_the_layout_fragment.html#code-refactored_scss" class="hyperref">Listing <span class="ref">5.20</span></a> uses the most important features and gives us a great start.<span class="intersentencespace"></span> See the <a href="http://sass-lang.com/" target="_blank" rel="noopener">Sass website</a> for more details.</p>
+</div>
+<div id="sec-exercises_sass" data-tralics-id="uid596" class="subsubsection" data-number="5.2.2.3"><h4><a href="#sec-exercises_sass" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>As suggested in <a href="filling_in_the_layout_fragment.html#sec-sass" class="hyperref">Section <span class="ref">5.2.2</span></a>, go through the steps to convert the footer CSS from <a href="filling_in_the_layout_fragment.html#code-footer_css" class="hyperref">Listing <span class="ref">5.17</span></a> to <a href="filling_in_the_layout_fragment.html#code-refactored_scss" class="hyperref">Listing <span class="ref">5.20</span></a> to SCSS by hand. <span class="exercise" id="ex-4f280d"></span>
+</li></ol>
+</div></div></div><div id="sec-layout_links" data-tralics-id="cid29" class="section" data-number="5.3"><h2><a href="filling_in_the_layout_fragment.html#sec-layout_links" class="heading hyperref"><span class="number">5.3 </span>Layout links</a></h2>
+<p>Now that we’ve finished a site layout with decent styling, it’s time to start filling in the links we’ve stubbed out with <code>’#’</code>.<span class="intersentencespace"></span> Of course, we could hard-code links like</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/static_pages/about"</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;</span>
+</pre></div></div>
+<p>but that isn’t the Rails Way™.<span class="intersentencespace"></span> For one, it would be nice if the URL for the about page were /about rather than /static_pages/about.<span class="intersentencespace"></span> Moreover, Rails conventionally uses <em>named routes</em>, which involves code like</p>
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"About"</span><span class="p">,</span> <span class="n">about_path</span> <span class="cp">%&gt;</span>
+</pre></div></div>
+<p>This way the code has a more transparent meaning, and it’s also more flexible since we can change the definition of <code>about_path</code> and have the URL change everywhere <code>about_path</code> is used.</p>
+<p>The full list of our planned links appears in <a href="filling_in_the_layout_fragment.html#table-url_mapping" class="hyperref">Table <span class="ref">5.1</span></a>, along with their mapping to URLs and routes.<span class="intersentencespace"></span> We took care of the first route in <a href="static_pages_fragment.html#sec-setting_the_root_route" class="hyperref">Section <span class="ref">3.4.4</span></a>, and we’ll have implemented all but the last one by the end of this chapter.<span class="intersentencespace"></span> (We’ll make the last one in <a href="basic_login_fragment.html#cha-basic_login" class="hyperref">Chapter <span class="ref">8</span></a>.)</p>
+<div class="table" id="table-url_mapping" data-tralics-id="uid598" data-number="5.1"><table class="tabular">
+<tbody><tr class="bottom_border"><td class="align_left"><strong>Page</strong></td>
+<td class="align_left"><strong>URL</strong></td>
+<td class="align_right"><strong>Named route</strong></td>
+</tr><tr><td class="align_left">Home</td>
+<td class="align_left">/</td>
+<td class="align_right"><code>root_path</code></td>
+</tr><tr><td class="align_left">About</td>
+<td class="align_left">/about</td>
+<td class="align_right"><code>about_path</code></td>
+</tr><tr><td class="align_left">Help</td>
+<td class="align_left">/help</td>
+<td class="align_right"><code>help_path</code></td>
+</tr><tr><td class="align_left">Contact</td>
+<td class="align_left">/contact</td>
+<td class="align_right"><code>contact_path</code></td>
+</tr><tr><td class="align_left">Sign up</td>
+<td class="align_left">/signup</td>
+<td class="align_right"><code>signup_path</code></td>
+</tr><tr><td class="align_left">Log in</td>
+<td class="align_left">/login</td>
+<td class="align_right"><code>login_path</code></td>
+</tr></tbody></table><div class="caption"><span class="header">Table 5.1: </span><span class="description">Route and URL mapping for site links.
+</span></div></div>
+<div id="sec-contact_page" data-tralics-id="uid599" class="subsection" data-number="5.3.1"><h3><a href="filling_in_the_layout_fragment.html#sec-contact_page" class="heading hyperref"><span class="number">5.3.1 </span>Contact page</a></h3>
+<p>For completeness, we’ll add the Contact page, which was left as an exercise in <a href="static_pages_fragment.html#cha-static_pages" class="hyperref">Chapter <span class="ref">3</span></a>.<span class="intersentencespace"></span> The test appears as in <a href="filling_in_the_layout_fragment.html#code-contact_page_test" class="hyperref">Listing <span class="ref">5.21</span></a>, which simply follows the model last seen in <a href="static_pages_fragment.html#code-title_tests" class="hyperref">Listing <span class="ref">3.24</span></a>.</p>
+<div class="codelisting" id="code-contact_page_test" data-tralics-id="uid600" data-number="5.21"><div class="heading"><span class="number">Listing 5.21:</span> 
+
+<span class="description">A test for the Contact page.<span class="intersentencespace"></span> <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">test/controllers/static_pages_controller_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">StaticPagesControllerTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
+  <span class="nb">test</span> <span class="s2">"should get home"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">static_pages_home_url</span>
+    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+
+  <span class="nb">test</span> <span class="s2">"should get help"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">static_pages_help_url</span>
+    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"Help | Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+
+  <span class="nb">test</span> <span class="s2">"should get about"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">static_pages_about_url</span>
+    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"About | Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="nb">test</span> <span class="s2">"should get contact"</span> <span class="k">do</span>
+</span><span class="hll">    <span class="n">get</span> <span class="n">static_pages_contact_url</span>
+</span><span class="hll">    <span class="n">assert_response</span> <span class="ss">:success</span>
+</span><span class="hll">    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"Contact | Ruby on Rails Tutorial Sample App"</span>
+</span><span class="hll">  <span class="k">end</span>
+</span><span class="k">end</span>
+</pre></div></div></div><p>At this point, the tests in <a href="filling_in_the_layout_fragment.html#code-contact_page_test" class="hyperref">Listing <span class="ref">5.21</span></a> should be <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>:</p>
+<div class="codelisting" id="uid601" data-tralics-id="uid601" data-number="5.22"><div class="heading"><span class="number">Listing 5.22:</span> <span class="description"><span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span></span>
+</div>
+
+<div class="code"><div class="highlight"><pre>$ rails test
+</pre></div></div></div><p>The application code parallels the addition of the About page in <a href="static_pages_fragment.html#sec-getting_started_with_testing" class="hyperref">Section <span class="ref">3.3</span></a>: first we update the routes (<a href="filling_in_the_layout_fragment.html#code-contact_route" class="hyperref">Listing <span class="ref">5.23</span></a>), then we add a <code>contact</code> action to the Static Pages controller (<a href="filling_in_the_layout_fragment.html#code-contact_action" class="hyperref">Listing <span class="ref">5.24</span></a>), and finally we create a Contact view (<a href="filling_in_the_layout_fragment.html#code-contact_view" class="hyperref">Listing <span class="ref">5.25</span></a>).</p>
+<div class="codelisting" id="code-contact_route" data-tralics-id="uid602" data-number="5.23"><div class="heading"><span class="number">Listing 5.23:</span> 
+
+<span class="description">Adding a route for the Contact page.<span class="intersentencespace"></span> <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">config/routes.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">root</span> <span class="s1">'static_pages#home'</span>
+  <span class="n">get</span>  <span class="s1">'static_pages/home'</span>
+  <span class="n">get</span>  <span class="s1">'static_pages/help'</span>
+  <span class="n">get</span>  <span class="s1">'static_pages/about'</span>
+<span class="hll">  <span class="n">get</span>  <span class="s1">'static_pages/contact'</span>
+</span><span class="k">end</span>
+</pre></div></div></div><div class="codelisting" id="code-contact_action" data-tralics-id="uid603" data-number="5.24"><div class="heading"><span class="number">Listing 5.24:</span> 
+
+<span class="description">Adding an action for the Contact page.<span class="intersentencespace"></span> <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">app/controllers/static_pages_controller.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">StaticPagesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="o">.</span>
+  <span class="o">.</span>
+  <span class="o">.</span>
+  <span class="k">def</span> <span class="nf">contact</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="codelisting" id="code-contact_view" data-tralics-id="uid604" data-number="5.25"><div class="heading"><span class="number">Listing 5.25:</span> 
+
+<span class="description">The view for the Contact page.<span class="intersentencespace"></span> <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">app/views/static_pages/contact.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%</span> <span class="n">provide</span><span class="p">(</span><span class="ss">:title</span><span class="p">,</span> <span class="s1">'Contact'</span><span class="p">)</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Contact<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>
+  Contact the Ruby on Rails Tutorial about the sample app at the
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.railstutorial.org/contact"</span><span class="nt">&gt;</span>contact page<span class="nt">&lt;/a&gt;</span>.
+<span class="nt">&lt;/p&gt;</span>
+</pre></div></div></div><p>Now make sure that the tests are <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span>:</p>
+<div class="codelisting" id="uid605" data-tralics-id="uid605" data-number="5.26"><div class="heading"><span class="number">Listing 5.26:</span> <span class="description"><span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span></span>
+</div>
+
+<div class="code"><div class="highlight"><pre>$ rails test
+</pre></div></div></div></div>
+<div id="sec-rails_routes" data-tralics-id="uid606" class="subsection" data-number="5.3.2"><h3><a href="filling_in_the_layout_fragment.html#sec-rails_routes" class="heading hyperref"><span class="number">5.3.2 </span>Rails routes</a></h3>
+<p>To add the named routes for the sample app’s static pages, we’ll edit the routes file, <code>config/routes.rb</code>, that Rails uses to define URL mappings.<span class="intersentencespace"></span> We’ll begin by reviewing the route for the Home page (defined in <a href="static_pages_fragment.html#sec-setting_the_root_route" class="hyperref">Section <span class="ref">3.4.4</span></a>), which is a special case, and then define a set of routes for the remaining static pages.</p>
+<p>So far, we’ve seen three examples of how to define a root route, starting with the code</p>
+<div class="code"><div class="highlight"><pre><span class="n">root</span> <span class="s1">'application#hello'</span>
+</pre></div></div>
+<p>in the hello app (<a href="beginning_fragment.html#code-hello_root_route" class="hyperref">Listing <span class="ref">1.10</span></a>), the code</p>
+<div class="code"><div class="highlight"><pre><span class="n">root</span> <span class="s1">'users#index'</span>
+</pre></div></div>
+<p>in the toy app (<a href="toy_app_fragment.html#code-rails_routes_root_route" class="hyperref">Listing <span class="ref">2.6</span></a>), and the code</p>
+<div class="code"><div class="highlight"><pre><span class="n">root</span> <span class="s1">'static_pages#home'</span>
+</pre></div></div>
+<p>in the sample app (<a href="static_pages_fragment.html#code-home_root_route" class="hyperref">Listing <span class="ref">3.41</span></a>).<span class="intersentencespace"></span> In each case, the <code>root</code> method arranges for the root path / to be routed to a controller and action of our choice.<span class="intersentencespace"></span> Defining the root route in this way has a second important effect, which is to create named routes that allow us to refer to routes by a name rather than by the raw URL.<span class="intersentencespace"></span> In this case, these routes are <code>root_path</code> and <code>root_url</code>, with the only difference being that the latter includes the full URL:</p>
+<div class="code"><div class="highlight"><pre><span class="n">root_path</span> <span class="o">-&gt;</span> <span class="s1">'/'</span>
+<span class="n">root_url</span>  <span class="o">-&gt;</span> <span class="s1">'http://www.example.com/'</span>
+</pre></div></div>
+<p>In the <em>Rails Tutorial</em>, we’ll follow the common convention of using the <code>_path</code> form except when doing redirects, where we’ll use the <code>_url</code> form.<span class="intersentencespace"></span> (This is because the HTTP standard technically requires a full URL after redirects, though in most browsers it will work either way.)</p>
+<p>Because the default routes used in, e.g., <a href="filling_in_the_layout_fragment.html#code-contact_page_test" class="hyperref">Listing <span class="ref">5.21</span></a> are rather verbose, we’ll also take this opportunity to define shorter named routes for the Help, About, and Contact pages.<span class="intersentencespace"></span> To do this, we need to make changes to the <code>get</code> rules from <a href="filling_in_the_layout_fragment.html#code-contact_route" class="hyperref">Listing <span class="ref">5.23</span></a>, transforming lines like</p>
+<div class="code"><div class="highlight"><pre><span class="n">get</span> <span class="s1">'static_pages/help'</span>
+</pre></div></div>
+<p>to</p>
+<div class="code"><div class="highlight"><pre><span class="n">get</span>  <span class="s1">'/help'</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#help'</span>
+</pre></div></div>
+<p>This new pattern routes a <code class="tt">GET</code> request for the URL /help to the <code>help</code> action in the Static Pages controller.<span class="intersentencespace"></span> As with the rule for the root route, this creates two named routes, <code>help_path</code> and <code>help_url</code>:</p>
+<div class="code"><div class="highlight"><pre><span class="n">help_path</span> <span class="o">-&gt;</span> <span class="s1">'/help'</span>
+<span class="n">help_url</span>  <span class="o">-&gt;</span> <span class="s1">'http://www.example.com/help'</span>
+</pre></div></div>
+<p>Applying this rule change to the remaining static page routes from <a href="filling_in_the_layout_fragment.html#code-contact_route" class="hyperref">Listing <span class="ref">5.23</span></a> gives <a href="filling_in_the_layout_fragment.html#code-static_page_routes" class="hyperref">Listing <span class="ref">5.27</span></a>.</p>
+<div class="codelisting" id="code-static_page_routes" data-tralics-id="uid607" data-number="5.27"><div class="heading"><span class="number">Listing 5.27:</span> 
+
+<span class="description">Routes for static pages.<span class="intersentencespace"></span> <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">config/routes.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">root</span> <span class="s1">'static_pages#home'</span>
+  <span class="n">get</span>  <span class="s1">'/help'</span><span class="p">,</span>    <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#help'</span>
+  <span class="n">get</span>  <span class="s1">'/about'</span><span class="p">,</span>   <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#about'</span>
+  <span class="n">get</span>  <span class="s1">'/contact'</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#contact'</span>
+<span class="k">end</span>
+</pre></div></div></div><p>Note that <a href="filling_in_the_layout_fragment.html#code-static_page_routes" class="hyperref">Listing <span class="ref">5.27</span></a> also removes the route for <code>’static_pages/home’</code>, as we’ll always use <code>root_path</code> or <code>root_url</code> instead.</p>
+<p>Because the tests in <a href="filling_in_the_layout_fragment.html#code-contact_page_test" class="hyperref">Listing <span class="ref">5.21</span></a> used the old routes, they are now <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>.<span class="intersentencespace"></span> To get them <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span> again, we need to update the routes as shown in <a href="filling_in_the_layout_fragment.html#code-static_page_routes_test" class="hyperref">Listing <span class="ref">5.28</span></a>.<span class="intersentencespace"></span> Note that we’ve taken this opportunity to update to the (optional) convention of using the <code>*_path</code> form of each named route.</p>
+<div class="codelisting" id="code-static_page_routes_test" data-tralics-id="uid608" data-number="5.28"><div class="heading"><span class="number">Listing 5.28:</span> 
+
+<span class="description">The static pages tests with the new named routes.<span class="intersentencespace"></span> <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">test/controllers/static_pages_controller_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">StaticPagesControllerTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
+  <span class="nb">test</span> <span class="s2">"should get home"</span> <span class="k">do</span>
+<span class="hll">    <span class="n">get</span> <span class="n">root_path</span>
+</span>    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+
+  <span class="nb">test</span> <span class="s2">"should get help"</span> <span class="k">do</span>
+<span class="hll">    <span class="n">get</span> <span class="n">help_path</span>
+</span>    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"Help | Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+
+  <span class="nb">test</span> <span class="s2">"should get about"</span> <span class="k">do</span>
+<span class="hll">    <span class="n">get</span> <span class="n">about_path</span>
+</span>    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"About | Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+
+  <span class="nb">test</span> <span class="s2">"should get contact"</span> <span class="k">do</span>
+<span class="hll">    <span class="n">get</span> <span class="n">contact_path</span>
+</span>    <span class="n">assert_response</span> <span class="ss">:success</span>
+    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"Contact | Ruby on Rails Tutorial Sample App"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div>
+<div id="sec-exercises_rails_routes" data-tralics-id="uid609" class="subsubsection" data-number="5.3.2.1"><h4><a href="#sec-exercises_rails_routes" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>It’s possible to use a named route other than the default using the <code>as:</code> option.<span class="intersentencespace"></span> Drawing inspiration from <a href="https://www.google.com/search?q=far+side+helf" target="_blank" rel="noopener">this famous <em>Far Side</em> comic strip</a>, change the route for the Help page to use <code>helf</code> (<a href="filling_in_the_layout_fragment.html#code-helf" class="hyperref">Listing <span class="ref">5.29</span></a>). <span class="exercise" id="ex-f886e4"></span>
+</li>
+<li>Confirm that the tests are now <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>.<span class="intersentencespace"></span> Get them to <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span> by updating the route in <a href="filling_in_the_layout_fragment.html#code-static_page_routes_test" class="hyperref">Listing <span class="ref">5.28</span></a>. <span class="exercise" id="ex-b73fff"></span>
+</li>
+<li>Revert the changes from these exercises using Undo. <span class="exercise" id="ex-57ab71"></span>
+</li></ol>
+<div class="codelisting" id="code-helf" data-tralics-id="uid613" data-number="5.29"><div class="heading"><span class="number">Listing 5.29:</span> 
+
+<span class="description">Changing ‘help’ to ‘helf’.</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">root</span> <span class="s1">'static_pages#home'</span>
+<span class="hll">  <span class="n">get</span>  <span class="s1">'/help'</span><span class="p">,</span>    <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#help'</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="s1">'helf'</span>
+</span>  <span class="n">get</span>  <span class="s1">'/about'</span><span class="p">,</span>   <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#about'</span>
+  <span class="n">get</span>  <span class="s1">'/contact'</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#contact'</span>
+<span class="k">end</span>
+</pre></div></div></div></div></div>
+<div id="sec-named_routes" data-tralics-id="uid614" class="subsection" data-number="5.3.3"><h3><a href="filling_in_the_layout_fragment.html#sec-named_routes" class="heading hyperref"><span class="number">5.3.3 </span>Using named routes</a></h3>
+<p>With the routes defined in <a href="filling_in_the_layout_fragment.html#code-static_page_routes" class="hyperref">Listing <span class="ref">5.27</span></a>, we’re now in a position to use the resulting named routes in the site layout.<span class="intersentencespace"></span> This simply involves filling in the second arguments of the <code>link_to</code> functions with the proper named routes.<span class="intersentencespace"></span> For example, we’ll convert</p>
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"About"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span>
+</pre></div></div>
+<p>to</p>
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"About"</span><span class="p">,</span> <span class="n">about_path</span> <span class="cp">%&gt;</span>
+</pre></div></div>
+<p>and so on.</p>
+<p>We’ll start in the header partial, <code>_header.html.erb</code> (<a href="filling_in_the_layout_fragment.html#code-header_partial_links" class="hyperref">Listing <span class="ref">5.30</span></a>), which has links to the Home and Help pages.<span class="intersentencespace"></span> While we’re at it, we’ll follow a common web convention and link the logo to the Home page as well.</p>
+<div class="codelisting" id="code-header_partial_links" data-tralics-id="uid615" data-number="5.30"><div class="heading"><span class="number">Listing 5.30:</span> 
+
+<span class="description">Header partial with links.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/_header.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-inverse"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+<span class="hll">    <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="n">root_path</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span>
+</span>    <span class="nt">&lt;nav&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+<span class="hll">        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>    <span class="n">root_path</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>    <span class="n">help_path</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+</span>        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/nav&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/header&gt;</span>
+</pre></div></div></div><p>We won’t have a named route for the “Log in” link until <a href="basic_login_fragment.html#cha-basic_login" class="hyperref">Chapter <span class="ref">8</span></a>, so we’ve left it as <code>’#’</code> for now.</p>
+<p>The other place with links is the footer partial, <code>_footer.html.erb</code>, which has links for the About and Contact pages (<a href="filling_in_the_layout_fragment.html#code-footer_partial_links" class="hyperref">Listing <span class="ref">5.31</span></a>).</p>
+<div class="codelisting" id="code-footer_partial_links" data-tralics-id="uid616" data-number="5.31"><div class="heading"><span class="number">Listing 5.31:</span> 
+
+<span class="description">Footer partial with links.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/layouts/_footer.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;footer</span> <span class="na">class=</span><span class="s">"footer"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;small&gt;</span>
+    The <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.railstutorial.org/"</span><span class="nt">&gt;</span>Ruby on Rails Tutorial<span class="nt">&lt;/a&gt;</span>
+    by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.michaelhartl.com/"</span><span class="nt">&gt;</span>Michael Hartl<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/small&gt;</span>
+  <span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+<span class="hll">      <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"About"</span><span class="p">,</span>   <span class="n">about_path</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Contact"</span><span class="p">,</span> <span class="n">contact_path</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+</span>      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"http://news.railstutorial.org/"</span><span class="nt">&gt;</span>News<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/nav&gt;</span>
+<span class="nt">&lt;/footer&gt;</span>
+</pre></div></div></div><p>With that, our layout has links to all the static pages created in <a href="static_pages_fragment.html#cha-static_pages" class="hyperref">Chapter <span class="ref">3</span></a>, so that, for example, /about goes to the About page (<a href="filling_in_the_layout_fragment.html#fig-about_page" class="hyperref">Figure <span class="ref">5.10</span></a>).</p>
+<div class="center figure" id="fig-about_page" data-tralics-id="uid617" data-number="5.10">
+<div class="graphics image"><img src="images/figures/about_page_styled_3rd_edition.png" alt="images/figures/about_page_styled_3rd_edition"></div><div class="caption"><span class="header">Figure 5.10: </span><span class="description">The About page at /about.
+</span></div></div>
+<div id="sec-exercises_named_routes" data-tralics-id="uid618" class="subsubsection" data-number="5.3.3.1"><h4><a href="#sec-exercises_named_routes" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>Update the layout links to use the <code>helf</code> route from <a href="filling_in_the_layout_fragment.html#code-helf" class="hyperref">Listing <span class="ref">5.29</span></a>. <span class="exercise" id="ex-86ac09"></span>
+</li>
+<li>Revert the changes using Undo. <span class="exercise" id="ex-98fcd3"></span>
+</li></ol>
+</div></div>
+<div id="sec-layout_link_tests" data-tralics-id="uid621" class="subsection" data-number="5.3.4"><h3><a href="filling_in_the_layout_fragment.html#sec-layout_link_tests" class="heading hyperref"><span class="number">5.3.4 </span>Layout link tests</a></h3>
+<p>Now that we’ve filled in several of the layout links, it’s a good idea to test them to make sure they’re working correctly.<span class="intersentencespace"></span> We could do this by hand with a browser, first visiting the root path and then checking the links by hand, but this quickly becomes cumbersome.<span class="intersentencespace"></span> Instead, we’ll simulate the same series of steps using an <em>integration test</em>, which allows us to write an end-to-end test of our application’s behavior.<span class="intersentencespace"></span> We can get started by generating a template test, which we’ll call <code>site_layout</code>:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> rails generate integration_test site_layout
+<span class="go">      invoke  test_unit</span>
+<span class="go">      create    test/integration/site_layout_test.rb</span>
+</pre></div></div>
+<p>Note that the Rails generator automatically appends <code>_test</code> to the name of the test file.</p>
+<p>Our plan for testing the layout links involves checking the HTML structure of our site:</p>
+<ol>
+<li>Get the root path (Home page).<span class="intersentencespace"></span>
+</li>
+<li>Verify that the right page template is rendered.<span class="intersentencespace"></span>
+</li>
+<li>Check for the correct links to the Home, Help, About, and Contact pages.<span class="intersentencespace"></span>
+</li></ol>
+<p><a href="filling_in_the_layout_fragment.html#code-layout_links_test" class="hyperref">Listing <span class="ref">5.32</span></a> shows how we can use Rails integration tests to translate these steps into code, beginning with the <code>assert_template</code> method to verify that the Home page is rendered using the correct view.<sup id="cha-5_footnote-ref-16" class="footnote"><a href="#cha-5_footnote-16">16</a></sup></p>
+<div class="codelisting" id="code-layout_links_test" data-tralics-id="uid626" data-number="5.32"><div class="heading"><span class="number">Listing 5.32:</span> 
+
+<span class="description">A test for the links on the layout.<span class="intersentencespace"></span> <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">test/integration/site_layout_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">SiteLayoutTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
+  <span class="nb">test</span> <span class="s2">"layout links"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">root_path</span>
+    <span class="n">assert_template</span> <span class="s1">'static_pages/home'</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">root_path</span><span class="p">,</span> <span class="ss">count</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">help_path</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">about_path</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">contact_path</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><p><a href="filling_in_the_layout_fragment.html#code-layout_links_test" class="hyperref">Listing <span class="ref">5.32</span></a> uses some of the more advanced options of the <code>assert_select</code> method, seen before in <a href="static_pages_fragment.html#code-title_tests" class="hyperref">Listing <span class="ref">3.24</span></a> and <a href="filling_in_the_layout_fragment.html#code-contact_page_test" class="hyperref">Listing <span class="ref">5.21</span></a>.<span class="intersentencespace"></span> In this case, we use a syntax that allows us to test for the presence of a particular link–URL combination by specifying the tag name <code>a</code> and attribute <code>href</code>, as in</p>
+<div class="code"><div class="highlight"><pre><span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">about_path</span>
+</pre></div></div>
+<p>Here Rails automatically inserts the value of <code>about_path</code> in place of the question mark (escaping any special characters if necessary), thereby checking for an HTML tag of the form</p>
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/about"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/a&gt;</span>
+</pre></div></div>
+<p>Note that the assertion for the root path verifies that there are <em>two</em> such links (one each for the logo and navigation menu element):</p>
+<div class="code"><div class="highlight"><pre><span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">root_path</span><span class="p">,</span> <span class="ss">count</span><span class="p">:</span> <span class="mi">2</span>
+</pre></div></div>
+<p>This ensures that both links to the Home page defined in <a href="filling_in_the_layout_fragment.html#code-header_partial_links" class="hyperref">Listing <span class="ref">5.30</span></a> are present.</p>
+<p>Some more uses of <code>assert_select</code> appear in <a href="filling_in_the_layout_fragment.html#table-assert_select" class="hyperref">Table <span class="ref">5.2</span></a>.<span class="intersentencespace"></span> While <code>assert_select</code> is flexible and powerful (having many more options than the ones shown here), experience shows that it’s wise to take a lightweight approach by testing only HTML elements (such as site layout links) that are unlikely to change much over time.</p>
+<div class="table" id="table-assert_select" data-tralics-id="uid627" data-number="5.2"><table class="tabular">
+<tbody><tr class="bottom_border"><td class="align_left"><strong>Code</strong></td>
+<td class="align_left"><strong>Matching HTML</strong></td>
+</tr><tr><td class="align_left"><code>assert_select "div"</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;div&gt;foobar&lt;/div&gt;</code></td>
+</tr><tr><td class="align_left"><code>assert_select "div", "foobar"</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;div&gt;foobar&lt;/div&gt;</code></td>
+</tr><tr><td class="align_left"><code>assert_select "div.nav"</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;div class="nav"&gt;foobar&lt;/div&gt;</code></td>
+</tr><tr><td class="align_left"><code>assert_select "div#profile"</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;div id="profile"&gt;foobar&lt;/div&gt;</code></td>
+</tr><tr><td class="align_left"><code>assert_select "div[name=yo]"</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;div name="yo"&gt;hey&lt;/div&gt;</code></td>
+</tr><tr><td class="align_left"><code>assert_select "a[href=?]", ’/’, count: 1</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;a href="/"&gt;foo&lt;/a&gt;</code></td>
+</tr><tr><td class="align_left"><code>assert_select "a[href=?]", ’/’, text: "foo"</code></td>
+<td class="align_left"><code class="inline_verbatim">&lt;a href="/"&gt;foo&lt;/a&gt;</code></td>
+</tr></tbody></table><div class="caption"><span class="header">Table 5.2: </span><span class="description">Some uses of <code>assert_select</code>.
+</span></div></div>
+<p>To check that the new test in <a href="filling_in_the_layout_fragment.html#code-layout_links_test" class="hyperref">Listing <span class="ref">5.32</span></a> passes, we can run just the integration tests using the following Rake task:</p>
+<div class="codelisting" id="uid628" data-tralics-id="uid628" data-number="5.33"><div class="heading"><span class="number">Listing 5.33:</span> <span class="description"><span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span></span>
+</div>
+
+<div class="code"><div class="highlight"><pre>$ rails test:integration
+</pre></div></div></div><p>If all went well, you should run the full test suite to verify that all the tests are <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span>:</p>
+<div class="codelisting" id="uid629" data-tralics-id="uid629" data-number="5.34"><div class="heading"><span class="number">Listing 5.34:</span> <span class="description"><span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span></span>
+</div>
+
+<div class="code"><div class="highlight"><pre>$ rails test
+</pre></div></div></div><p>With the added integration test for layout links, we are now in a good position to catch regressions quickly using our test suite.</p>
+<div id="sec-exercises_layout_link_tests" data-tralics-id="uid630" class="subsubsection" data-number="5.3.4.1"><h4><a href="#sec-exercises_layout_link_tests" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>In the footer partial, change <code>about_path</code> to <code>contact_path</code> and verify that the tests catch the error. <span class="exercise" id="ex-454224"></span>
+</li>
+<li>It’s convenient to use the <code>full_title</code> helper in the tests by including the Application helper into the test helper, as shown in <a href="filling_in_the_layout_fragment.html#code-test_helper_application_helper" class="hyperref">Listing <span class="ref">5.35</span></a>.<span class="intersentencespace"></span> We can then test for the right title using code like <a href="filling_in_the_layout_fragment.html#code-layout_links_test_signup_full_title_helper" class="hyperref">Listing <span class="ref">5.36</span></a>.<span class="intersentencespace"></span> This is brittle, though, because now any typo in the base title (such as “Ruby on Rails Tutoial”) won’t be caught by the test suite.<span class="intersentencespace"></span> Fix this problem by writing a direct test of the <code>full_title</code> helper, which involves creating a file to test the application helper and then filling in the code indicated with <code>FILL_IN</code> in <a href="filling_in_the_layout_fragment.html#code-full_title_helper_tests" class="hyperref">Listing <span class="ref">5.37</span></a>.<span class="intersentencespace"></span> (<a href="filling_in_the_layout_fragment.html#code-full_title_helper_tests" class="hyperref">Listing <span class="ref">5.37</span></a> uses <code>assert_equal &lt;expected&gt;, &lt;actual&gt;</code>, which verifies that the expected result matches the actual value when compared with the <code>==</code> operator.) <span class="exercise" id="ex-cfa831"></span>
+</li></ol>
+<div class="codelisting" id="code-test_helper_application_helper" data-tralics-id="uid633" data-number="5.35"><div class="heading"><span class="number">Listing 5.35:</span> 
+
+<span class="description">Including the Application helper in tests.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">test/test_helper.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="no">ENV</span><span class="o">[</span><span class="s1">'RAILS_ENV'</span><span class="o">]</span> <span class="o">||=</span> <span class="s1">'test'</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="k">class</span> <span class="nc">ActiveSupport</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="n">fixtures</span> <span class="ss">:all</span>
+<span class="hll">  <span class="kp">include</span> <span class="no">ApplicationHelper</span>
+</span>  <span class="o">.</span>
+  <span class="o">.</span>
+  <span class="o">.</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="codelisting" id="code-layout_links_test_signup_full_title_helper" data-tralics-id="uid634" data-number="5.36"><div class="heading"><span class="number">Listing 5.36:</span> 
+
+<span class="description">Using the <code>full_title</code> helper in a test.<span class="intersentencespace"></span> <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">test/integration/site_layout_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">SiteLayoutTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
+  <span class="nb">test</span> <span class="s2">"layout links"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">root_path</span>
+    <span class="n">assert_template</span> <span class="s1">'static_pages/home'</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">root_path</span><span class="p">,</span> <span class="ss">count</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">help_path</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">about_path</span>
+    <span class="n">assert_select</span> <span class="s2">"a[href=?]"</span><span class="p">,</span> <span class="n">contact_path</span>
+<span class="hll">    <span class="n">get</span> <span class="n">contact_path</span>
+</span><span class="hll">    <span class="n">assert_select</span> <span class="s2">"title"</span><span class="p">,</span> <span class="n">full_title</span><span class="p">(</span><span class="s2">"Contact"</span><span class="p">)</span>
+</span>  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="codelisting" id="code-full_title_helper_tests" data-tralics-id="uid635" data-number="5.37"><div class="heading"><span class="number">Listing 5.37:</span> 
+
+<span class="description">A direct test of the <code>full_title</code> helper.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">test/helpers/application_helper_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">ApplicationHelperTest</span> <span class="o">&lt;</span> <span class="no">ActionView</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="nb">test</span> <span class="s2">"full title helper"</span> <span class="k">do</span>
+    <span class="n">assert_equal</span> <span class="n">full_title</span><span class="p">,</span>         <span class="no">FILL_IN</span>
+    <span class="n">assert_equal</span> <span class="n">full_title</span><span class="p">(</span><span class="s2">"Help"</span><span class="p">),</span> <span class="no">FILL_IN</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div></div></div></div><div id="sec-user_signup" data-tralics-id="cid30" class="section" data-number="5.4"><h2><a href="filling_in_the_layout_fragment.html#sec-user_signup" class="heading hyperref"><span class="number">5.4 </span>User signup: A first step</a></h2>
+<p>As a capstone to our work on the layout and routing, in this section we’ll make a route for the signup page, which will mean creating a second controller along the way.<span class="intersentencespace"></span> This is a first important step toward allowing users to register for our site; we’ll take the next step, modeling users, in <a href="modeling_users_fragment.html#cha-modeling_users" class="hyperref">Chapter <span class="ref">6</span></a>, and we’ll finish the job in <a href="sign_up_fragment.html#cha-sign_up" class="hyperref">Chapter <span class="ref">7</span></a>.</p>
+<div id="sec-users_controller" data-tralics-id="uid636" class="subsection" data-number="5.4.1"><h3><a href="filling_in_the_layout_fragment.html#sec-users_controller" class="heading hyperref"><span class="number">5.4.1 </span>Users controller</a></h3>
+<p>We created our first controller, the Static Pages controller, in <a href="static_pages_fragment.html#sec-static_pages" class="hyperref">Section <span class="ref">3.2</span></a>.<span class="intersentencespace"></span> It’s time to create a second one, the Users controller.<span class="intersentencespace"></span> As before, we’ll use <code>generate</code> to make the simplest controller that meets our present needs, namely, one with a stub signup page for new users.<span class="intersentencespace"></span> Following the conventional <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer" target="_blank" rel="noopener">REST architecture</a> favored by Rails, we’ll call the action for new users <code>new</code>, which we can arrange to create automatically by passing <code>new</code> as an argument to <code>generate</code>.<span class="intersentencespace"></span> The result is shown in <a href="filling_in_the_layout_fragment.html#code-generate_users_controller" class="hyperref">Listing <span class="ref">5.38</span></a>.</p>
+<div class="codelisting" id="code-generate_users_controller" data-tralics-id="uid637" data-number="5.38"><div class="heading"><span class="number">Listing 5.38:</span> 
+
+<span class="description">Generating a Users controller (with a <code>new</code> action).</span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="hll"><span class="gp">$</span> rails generate controller Users new
+</span><span class="go">      create  app/controllers/users_controller.rb</span>
+<span class="go">       route  get 'users/new'</span>
+<span class="go">      invoke  erb</span>
+<span class="go">      create    app/views/users</span>
+<span class="go">      create    app/views/users/new.html.erb</span>
+<span class="go">      invoke  test_unit</span>
+<span class="go">      create    test/controllers/users_controller_test.rb</span>
+<span class="go">      invoke  helper</span>
+<span class="go">      create    app/helpers/users_helper.rb</span>
+<span class="go">      invoke    test_unit</span>
+<span class="go">      invoke  assets</span>
+<span class="go">      invoke    coffee</span>
+<span class="go">      create      app/assets/javascripts/users.coffee</span>
+<span class="go">      invoke    scss</span>
+<span class="go">      create      app/assets/stylesheets/users.scss</span>
+</pre></div></div></div><p>As required, <a href="filling_in_the_layout_fragment.html#code-generate_users_controller" class="hyperref">Listing <span class="ref">5.38</span></a> creates a Users controller with a <code>new</code> action (<a href="filling_in_the_layout_fragment.html#code-initial_users_controller" class="hyperref">Listing <span class="ref">5.39</span></a>) and a stub user view (<a href="filling_in_the_layout_fragment.html#code-initial_new_action" class="hyperref">Listing <span class="ref">5.40</span></a>).<span class="intersentencespace"></span> It also creates a minimal test for the new user page (<a href="filling_in_the_layout_fragment.html#code-user_new_test" class="hyperref">Listing <span class="ref">5.41</span></a>).</p>
+<div class="codelisting" id="code-initial_users_controller" data-tralics-id="uid638" data-number="5.39"><div class="heading"><span class="number">Listing 5.39:</span> 
+
+<span class="description">The initial Users controller, with a <code>new</code> action.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/controllers/users_controller.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+  <span class="k">def</span> <span class="nf">new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="codelisting" id="code-initial_new_action" data-tralics-id="uid639" data-number="5.40"><div class="heading"><span class="number">Listing 5.40:</span> 
+
+<span class="description">The initial <code>new</code> view for Users.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/users/new.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;h1&gt;</span>Users#new<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>Find me in app/views/users/new.html.erb<span class="nt">&lt;/p&gt;</span>
+</pre></div></div></div><div class="codelisting" id="code-user_new_test" data-tralics-id="uid640" data-number="5.41"><div class="heading"><span class="number">Listing 5.41:</span> 
+
+<span class="description">The generated test for the new user page.<span class="intersentencespace"></span> <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">test/controllers/users_controller_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">UsersControllerTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
+  <span class="nb">test</span> <span class="s2">"should get new"</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">users_new_url</span>
+    <span class="n">assert_response</span> <span class="ss">:success</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><p>At this point, the tests should be <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span>:</p>
+<div class="codelisting" id="uid641" data-tralics-id="uid641" data-number="5.42"><div class="heading"><span class="number">Listing 5.42:</span> <span class="description"><span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span></span>
+</div>
+
+<div class="code"><div class="highlight"><pre>$ rails test
+</pre></div></div></div>
+<div id="sec-exercises_users_controller" data-tralics-id="uid642" class="subsubsection" data-number="5.4.1.1"><h4><a href="#sec-exercises_users_controller" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>Per <a href="filling_in_the_layout_fragment.html#table-url_mapping" class="hyperref">Table <span class="ref">5.1</span></a>, change the route in <a href="filling_in_the_layout_fragment.html#code-user_new_test" class="hyperref">Listing <span class="ref">5.41</span></a> to use <code>signup_path</code> instead of <code>users_new_url</code>. <span class="exercise" id="ex-e30705"></span>
+</li>
+<li>The route in the previous exercise doesn’t yet exist, so confirm that the tests are now <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>.<span class="intersentencespace"></span> (This is intended to help us get comfortable with the <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>/<span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span> flow of Test Driven Development (TDD, <a href="static_pages_fragment.html#aside-when_to_test" class="hyperref">Box <span class="ref">3.3</span></a>); we’ll get the tests back to <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span> in <a href="filling_in_the_layout_fragment.html#sec-signup_url" class="hyperref">Section <span class="ref">5.4.2</span></a>.) <span class="exercise" id="ex-b87c82"></span>
+</li></ol>
+</div></div>
+<div id="sec-signup_url" data-tralics-id="uid645" class="subsection" data-number="5.4.2"><h3><a href="filling_in_the_layout_fragment.html#sec-signup_url" class="heading hyperref"><span class="number">5.4.2 </span>Signup URL</a></h3>
+<p>With the code from <a href="filling_in_the_layout_fragment.html#sec-users_controller" class="hyperref">Section <span class="ref">5.4.1</span></a>, we already have a working page for new users at /users/new, but recall from <a href="filling_in_the_layout_fragment.html#table-url_mapping" class="hyperref">Table <span class="ref">5.1</span></a> that we want the URL to be /signup instead.<span class="intersentencespace"></span> We’ll follow the examples from <a href="filling_in_the_layout_fragment.html#code-static_page_routes" class="hyperref">Listing <span class="ref">5.27</span></a> and add a <code>get ’/signup’</code> rule for the signup URL, as shown in <a href="filling_in_the_layout_fragment.html#code-signup_route" class="hyperref">Listing <span class="ref">5.43</span></a>.</p>
+<div class="codelisting" id="code-signup_route" data-tralics-id="uid646" data-number="5.43"><div class="heading"><span class="number">Listing 5.43:</span> 
+
+<span class="description">A route for the signup page.<span class="intersentencespace"></span> <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">config/routes.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">root</span> <span class="s1">'static_pages#home'</span>
+  <span class="n">get</span>  <span class="s1">'/help'</span><span class="p">,</span>    <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#help'</span>
+  <span class="n">get</span>  <span class="s1">'/about'</span><span class="p">,</span>   <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#about'</span>
+  <span class="n">get</span>  <span class="s1">'/contact'</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="s1">'static_pages#contact'</span>
+<span class="hll">  <span class="n">get</span>  <span class="s1">'/signup'</span><span class="p">,</span>  <span class="ss">to</span><span class="p">:</span> <span class="s1">'users#new'</span>
+</span><span class="k">end</span>
+</pre></div></div></div><p>With the routes in <a href="filling_in_the_layout_fragment.html#code-signup_route" class="hyperref">Listing <span class="ref">5.43</span></a>, we also need to update the test generated in <a href="filling_in_the_layout_fragment.html#code-generate_users_controller" class="hyperref">Listing <span class="ref">5.38</span></a> with the new signup route, as shown in <a href="filling_in_the_layout_fragment.html#code-users_controller_test_signup_route" class="hyperref">Listing <span class="ref">5.44</span></a>.</p>
+<div class="codelisting" id="code-users_controller_test_signup_route" data-tralics-id="uid647" data-number="5.44"><div class="heading"><span class="number">Listing 5.44:</span> 
+
+<span class="description">Updating the Users controller test to use the signup route.<span class="intersentencespace"></span> <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span><span class="break"></span> <code class="filepath">test/controllers/users_controller_test.rb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
+
+<span class="k">class</span> <span class="nc">UsersControllerTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
+  <span class="nb">test</span> <span class="s2">"should get new"</span> <span class="k">do</span>
+<span class="hll">    <span class="n">get</span> <span class="n">signup_path</span>
+</span>    <span class="n">assert_response</span> <span class="ss">:success</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><p>Next, we’ll use the newly defined named route to add the proper link to the button on the Home page.<span class="intersentencespace"></span> As with the other routes, <code>get ’signup’</code> automatically gives us the named route <code>signup_path</code>, which we put to use in <a href="filling_in_the_layout_fragment.html#code-home_page_signup_link" class="hyperref">Listing <span class="ref">5.45</span></a>.<span class="intersentencespace"></span> Adding a test for the signup page is left as an exercise (<a href="filling_in_the_layout_fragment.html#sec-exercises_rails_routes" class="hyperref">Section <span class="ref">5.3.2.1</span></a>.)</p>
+<div class="codelisting" id="code-home_page_signup_link" data-tralics-id="uid648" data-number="5.45"><div class="heading"><span class="number">Listing 5.45:</span> 
+
+<span class="description">Linking the button to the signup page.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/static_pages/home.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"center jumbotron"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Welcome to the Sample App<span class="nt">&lt;/h1&gt;</span>
+
+  <span class="nt">&lt;h2&gt;</span>
+    This is the home page for the
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.railstutorial.org/"</span><span class="nt">&gt;</span>Ruby on Rails Tutorial<span class="nt">&lt;/a&gt;</span>
+    sample application.
+  <span class="nt">&lt;/h2&gt;</span>
+
+<span class="hll">  <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Sign up now!"</span><span class="p">,</span> <span class="n">signup_path</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-lg btn-primary"</span> <span class="cp">%&gt;</span>
+</span><span class="nt">&lt;/div&gt;</span>
+
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">image_tag</span><span class="p">(</span><span class="s2">"rails.png"</span><span class="p">,</span> <span class="ss">alt</span><span class="p">:</span> <span class="s2">"Rails logo"</span><span class="p">),</span>
+            <span class="s1">'http://rubyonrails.org/'</span> <span class="cp">%&gt;</span>
+</pre></div></div></div><p>Finally, we’ll add a custom stub view for the signup page (<a href="filling_in_the_layout_fragment.html#code-initial_signup_page" class="hyperref">Listing <span class="ref">5.46</span></a>).</p>
+<div class="codelisting" id="code-initial_signup_page" data-tralics-id="uid649" data-number="5.46"><div class="heading"><span class="number">Listing 5.46:</span> 
+
+<span class="description">The initial (stub) signup page.<span class="intersentencespace"></span> <span class="break"></span> <code class="filepath">app/views/users/new.html.erb</code></span>
+</div>
+
+<div class="code"><div class="highlight"><pre><span class="cp">&lt;%</span> <span class="n">provide</span><span class="p">(</span><span class="ss">:title</span><span class="p">,</span> <span class="s1">'Sign up'</span><span class="p">)</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Sign up<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>This will be a signup page for new users.<span class="nt">&lt;/p&gt;</span>
+</pre></div></div></div><p>With that, we’re done with the links and named routes, at least until we add a route for logging in (<a href="basic_login_fragment.html#cha-basic_login" class="hyperref">Chapter <span class="ref">8</span></a>).<span class="intersentencespace"></span> The resulting new user page (at the URL /signup) appears in <a href="filling_in_the_layout_fragment.html#fig-new_signup_page" class="hyperref">Figure <span class="ref">5.11</span></a>.</p>
+<div class="center figure" id="fig-new_signup_page" data-tralics-id="uid650" data-number="5.11">
+<div class="graphics image"><img src="images/figures/new_signup_page_4th_edition.png" alt="images/figures/new_signup_page_4th_edition"></div><div class="caption"><span class="header">Figure 5.11: </span><span class="description">The new signup page at /signup.
+</span></div></div>
+<div id="sec-exercises_signup_url" data-tralics-id="uid651" class="subsubsection" data-number="5.4.2.1"><h4><a href="#sec-exercises_signup_url" class="heading">Exercises</a></h4>
+<p> </p><div class="society-note">
+<p>Solutions to exercises are available for free at <a href="http://railstutorial.org/solutions" target="_blank" rel="noopener">railstutorial.org/solutions</a> with any Rails Tutorial purchase.<span class="intersentencespace"></span> To see other people’s answers and to record your own, join the <a href="http://learnenough.com/society" target="_blank" rel="noopener">Learn Enough Society</a> at <a href="http://learnenough.com/society" target="_blank" rel="noopener">learnenough.com/society</a>.<span class="intersentencespace"></span>  </p></div>
+<ol>
+<li>If you didn’t solve the exercise in <a href="filling_in_the_layout_fragment.html#sec-exercises_users_controller" class="hyperref">Section <span class="ref">5.4.1.1</span></a>, change the test in <a href="filling_in_the_layout_fragment.html#code-user_new_test" class="hyperref">Listing <span class="ref">5.41</span></a> to use the named route <code>signup_path</code>.<span class="intersentencespace"></span> Because of the route defined in <a href="filling_in_the_layout_fragment.html#code-signup_route" class="hyperref">Listing <span class="ref">5.43</span></a>, this test should initially be <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span>. <span class="exercise" id="ex-de47e5"></span>
+</li>
+<li>In order to verify the correctness of the test in the previous exercise, comment out the <code>signup</code> route to get to <span style="color: red"><span class="sc"></span><span class="sc"><strong>red</strong></span><span class="sc"></span></span>, then uncomment to get to <span style="color: ForestGreen"><span class="sc"></span><span class="sc"><strong>green</strong></span><span class="sc"></span></span>. <span class="exercise" id="ex-cba29a"></span>
+</li>
+<li>In the integration test from <a href="filling_in_the_layout_fragment.html#code-layout_links_test" class="hyperref">Listing <span class="ref">5.32</span></a>, add code to visit the signup page using the <code>get</code> method and verify that the resulting page title is correct.<span class="intersentencespace"></span> <em>Hint</em>: Use the <code>full_title</code> helper as in <a href="filling_in_the_layout_fragment.html#code-layout_links_test_signup_full_title_helper" class="hyperref">Listing <span class="ref">5.36</span></a>. <span class="exercise" id="ex-cb38fe"></span>
+</li></ol>
+</div></div></div><div id="sec-layout_conclusion" data-tralics-id="cid31" class="section" data-number="5.5"><h2><a href="filling_in_the_layout_fragment.html#sec-layout_conclusion" class="heading hyperref"><span class="number">5.5 </span>Conclusion</a></h2>
+<p>In this chapter, we’ve hammered our application layout into shape and polished up the routes.<span class="intersentencespace"></span> The rest of the book is dedicated to fleshing out the sample application: first, by adding users who can sign up, log in, and log out; next, by adding user microposts; and, finally, by adding the ability to follow other users.</p>
+<p>At this point, if you are using Git, you should merge your changes back into the master branch:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> git add -A
+<span class="gp">$</span> git commit -m <span class="s2">"Finish layout and routes"</span>
+<span class="gp">$</span> git checkout master
+<span class="gp">$</span> git merge filling-in-layout
+</pre></div></div>
+<p>Then push up to Bitbucket (running the test suite first for safety):</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> rails <span class="nb">test</span>
+<span class="gp">$</span><span class="nb"> </span>git push
+</pre></div></div>
+<p>Finally, deploy to Heroku:</p>
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> git push heroku
+</pre></div></div>
+<p>The result of the deployment should be a working sample application on the production server (<a href="filling_in_the_layout_fragment.html#fig-layout_production" class="hyperref">Figure <span class="ref">5.12</span></a>).</p>
+<div class="center figure" id="fig-layout_production" data-tralics-id="uid655" data-number="5.12">
+<div class="graphics image"><img src="images/figures/layout_production.png" alt="images/figures/layout_production"></div><div class="caption"><span class="header">Figure 5.12: </span><span class="description">The sample application in production.
+</span></div></div>
+<div id="sec-filling_in_the_layout_what_we_learned_in_this_chapter" data-tralics-id="uid656" class="subsection" data-number="5.5.1"><h3><a href="filling_in_the_layout_fragment.html#sec-filling_in_the_layout_what_we_learned_in_this_chapter" class="heading hyperref"><span class="number">5.5.1 </span>What we learned in this chapter</a></h3>
+<ul>
+<li>Using HTML5, we can define a site layout with logo, header, footer, and main body content.
+</li>
+<li>Rails partials are used to place markup in a separate file for convenience.
+</li>
+<li>CSS allows us to style the site layout based on CSS classes and ids.
+</li>
+<li>The Bootstrap framework makes it easy to make a nicely designed site quickly.
+</li>
+<li>Sass and the asset pipeline allow us to eliminate duplication in our CSS while packaging up the results efficiently for production.
+</li>
+<li>Rails allows us to define custom routing rules, thereby providing named routes.
+</li>
+<li>Integration tests effectively simulate a browser clicking from page to page.
+</li></ul>
+</div></div><div id="cha-5_footnotes">
+  <ol class="footnotes">
+    <li id="cha-5_footnote-1">Thanks to reader <a href="https://twitter.com/colmtuite" target="_blank" rel="noopener">Colm Tuite</a> for his excellent work in helping to convert the sample application over to the Bootstrap CSS framework. <a class="arrow" href="#cha-5_footnote-ref-1">↑</a></li>
+    <li id="cha-5_footnote-2">The mockups in the <em>Ruby on Rails Tutorial</em> are made with an excellent online mockup application called <a href="http://gomockingbird.com" target="_blank" rel="noopener">Mockingbird</a>. <a class="arrow" href="#cha-5_footnote-ref-2">↑</a></li>
+    <li id="cha-5_footnote-3">The words <em>shim</em> and <em>shiv</em> are used interchangably in this context; the former is the proper term, based on the English word whose meaning is “a washer or thin strip of material used to align parts, make them fit, or reduce wear”, while the latter (meaning “a knife or razor used as a weapon”) is apparently a play on the name of the shim’s original author, Sjoerd Visscher. <a class="arrow" href="#cha-5_footnote-ref-3">↑</a></li>
+    <li id="cha-5_footnote-4">These are completely unrelated to Ruby classes. <a class="arrow" href="#cha-5_footnote-ref-4">↑</a></li>
+    <li id="cha-5_footnote-5">The spacing might look slightly different, which is fine because (as noted in <a href="static_pages_fragment.html#sec-testing_titles" class="hyperref">Section <span class="ref">3.4.1</span></a>) HTML is insensitive to whitespace. <a class="arrow" href="#cha-5_footnote-ref-5">↑</a></li>
+    <li id="cha-5_footnote-6">This image is actually the old Rails logo, but the new one is a scalable vector graphics (SVG) image and is less suitable for our present purposes. <a class="arrow" href="#cha-5_footnote-ref-6">↑</a></li>
+    <li id="cha-5_footnote-7">You might notice that the <code>img</code> tag, rather than looking like <code class="inline_verbatim">&lt;img&gt;...&lt;/img&gt;</code>, instead looks like <code class="inline_verbatim">&lt;img ... /&gt;</code>.<span class="intersentencespace"></span> Tags that follow this form are known as <em>self-closing</em> tags. <a class="arrow" href="#cha-5_footnote-ref-7">↑</a></li>
+    <li id="cha-5_footnote-8">Image retrieved from https://www.flickr.com/photos/deborah_s_perspective/14144861329 on 2016-01-09.<span class="intersentencespace"></span> Copyright © 2009 by <a href="https://www.flickr.com/photos/deborah_s_perspective/" target="_blank" rel="noopener">Deborah</a> and used unaltered under the terms of the <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">Creative Commons Attribution 2.0 Generic</a> license. <a class="arrow" href="#cha-5_footnote-ref-8">↑</a></li>
+    <li id="cha-5_footnote-9">As always, you should use the version numbers listed at <a href="http://gemfiles-4th-ed.railstutorial.org/" target="_blank" rel="noopener">gemfiles-4th-ed.railstutorial.org</a> instead of the ones listed here. <a class="arrow" href="#cha-5_footnote-ref-9">↑</a></li>
+    <li id="cha-5_footnote-10">It is also possible to use Less with the asset pipeline; see the <a href="http://rubygems.org/gems/less-rails-bootstrap" target="_blank" rel="noopener"><code class="tt">less-rails-bootstrap</code> gem</a> for details. <a class="arrow" href="#cha-5_footnote-ref-10">↑</a></li>
+    <li id="cha-5_footnote-11">If these steps seem mysterious, take heart: I’m just following the instructions from the <a href="https://github.com/twbs/bootstrap-sass#bootstrap-for-sass---" target="_blank" rel="noopener">bootstrap-sass README file</a>. <a class="arrow" href="#cha-5_footnote-ref-11">↑</a></li>
+    <li id="cha-5_footnote-12">Many Rails developers use a <code>shared</code> directory for partials shared across different views.<span class="intersentencespace"></span> I prefer to use the <code>shared</code> folder for utility partials that are useful on multiple views, while putting partials that are literally on every page (as part of the site layout) in the <code>layouts</code> directory.<span class="intersentencespace"></span> (We’ll create the <code>shared</code> directory starting in <a href="sign_up_fragment.html#cha-sign_up" class="hyperref">Chapter <span class="ref">7</span></a>.)<span class="intersentencespace"></span> That seems to me a logical division, but putting them all in the <code>shared</code> folder certainly works fine, too. <a class="arrow" href="#cha-5_footnote-ref-12">↑</a></li>
+    <li id="cha-5_footnote-13">You may wonder why we use both the <code>footer</code> tag and <code>.footer</code> class.<span class="intersentencespace"></span> The answer is that the tag has a clear meaning to human readers, and the class is used by Bootstrap.<span class="intersentencespace"></span> Using a <code>div</code> tag in place of <code>footer</code> would work as well. <a class="arrow" href="#cha-5_footnote-ref-13">↑</a></li>
+    <li id="cha-5_footnote-14">The structure of this section is based on the excellent blog post “The Rails 3 Asset Pipeline in (about) 5 Minutes” by Michael Erasmus.<span class="intersentencespace"></span> For more details, see the <a href="http://guides.rubyonrails.org/asset_pipeline.html" target="_blank" rel="noopener">Rails Guide on the Asset Pipeline</a>. <a class="arrow" href="#cha-5_footnote-ref-14">↑</a></li>
+    <li id="cha-5_footnote-15">Sass also supports an alternate syntax that does define a new language, which is less verbose (and has fewer curly braces) but is less convenient for existing projects and is harder to learn for those already familiar with CSS. <a class="arrow" href="#cha-5_footnote-ref-15">↑</a></li>
+    <li id="cha-5_footnote-16">Some developers insist that a single test shouldn’t contain multiple assertions.<span class="intersentencespace"></span> I find this practice to be unnecessarily complicated, while also incurring an extra overhead if there are common setup tasks needed before each test.<span class="intersentencespace"></span> In addition, a well-written test tells a coherent story, and breaking it up into individual pieces disrupts the narrative.<span class="intersentencespace"></span> I thus have a strong preference for including multiple assertions in a test, relying on Ruby (via minitest) to tell me the exact lines of any failed assertions. <a class="arrow" href="#cha-5_footnote-ref-16">↑</a></li>
+  </ol>
+</div>o��C��      Yx��Yx��>n3Yz"�  �    a,:https://softcover.s3-us-west-2.amazonaws.com/636/ruby_on_rails_tutorial_4th_edition/html/filling_in_the_layout_fragment.html?X-Amz-Expires=604800&X-Amz-Date=20170726T180052Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJMNNDDBSYVXVHGAA/20170726/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=7facde964fe6410b2a06d251941cef9b37428759d8ae9e9666f9a4191dfb14dc necko:classified 1 strongly-framed 1 security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8FvcOXmlQiTNWFiWlrbpbqgwAAAAAAAAYbMIIGFzCCBP+gAwIBAgIQDZGC1mcUJmdk1QxKRyD/nDANBgkqhkiG9w0BAQsFADBkMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMSMwIQYDVQQDExpEaWdpQ2VydCBCYWx0aW1vcmUgQ0EtMiBHMjAeFw0xNzA0MjQwMDAwMDBaFw0xNzEwMjYxMjAwMDBaMHUxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdTZWF0dGxlMRgwFgYDVQQKEw9BbWF6b24uY29tIEluYy4xJTAjBgNVBAMMHCouczMtdXMtd2VzdC0yLmFtYXpvbmF3cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCwtmIjR6oNpqAXwTmoYvJLpUeoRtjeWsjPSIgqi+uUcLqJhLGq5G9wzDhKwuZ42MlWUJQzmdXgzxHgZgOi29o38bTM2phMysULRZhTjr6kV/FR0TTGaEblTcM9l+3hP9xG3NqnGXwlZHcBpWaylTqtYv+7ykOfpqemx/hkTpko+BXMsef40yp2xfndU+PX4A/QYnKT6UGUFzBLDRwzmqeD/vTkXVBX30TTJLfrSfJhMktitr4XMyzllo5SiHKyyipLH+5LJMpl/9lwxdGMpJ7YClW/ZbfN30leJuMdgu2qDeYAFqJhPnXQDI1U/zBfzlDEoC5E+MttjVbtS+NwjyT/AgMBAAGjggKyMIICrjAfBgNVHSMEGDAWgBTAErIodGhGZ+lwJXQaAEVbBn1cRDAdBgNVHQ4EFgQUTKbpPmZZpTXbpwI4JRVElkndHyAwgeEGA1UdEQSB2TCB1oIaczMtdXMtd2VzdC0yLmFtYXpvbmF3cy5jb22CHCouczMtdXMtd2VzdC0yLmFtYXpvbmF3cy5jb22CGnMzLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tghwqLnMzLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tgiRzMy5kdWFsc3RhY2sudXMtd2VzdC0yLmFtYXpvbmF3cy5jb22CJiouczMuZHVhbHN0YWNrLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tghIqLnMzLmFtYXpvbmF3cy5jb20wDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjCBgQYDVR0fBHoweDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QmFsdGltb3JlQ0EtMkcyLmNybDA6oDigNoY0aHR0cDovL2NybDQuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QmFsdGltb3JlQ0EtMkcyLmNybDBMBgNVHSAERTBDMDcGCWCGSAGG/WwBATAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAgGBmeBDAECAjB5BggrBgEFBQcBAQRtMGswJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBDBggrBgEFBQcwAoY3aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QmFsdGltb3JlQ0EtMkcyLmNydDAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4IBAQAbgCf3k3sXpQT241mNzFz4Xl/qyfpy8M5BAu7hwR8xjEcZeh+deXB+1FCZUbN1C+DJevPDIKahxl5MmYrzZlW6q4OQAjujLVyWCGisevL496/VO0jrjkloYPh/3scvd8lqNIX9stQXvMe8OrXGJosXTaOwMMJdkuGJM6uWRNOwjClTx2oqeU78s2cwwLbJMaSrNiTCOXzEhwlgXvisH1OO98clyYdRQbXE0MWafIz9Q52y1CCmE4P86GtqapfrgJn3OhGXyNWKAzqxeMlZIquDHYwPWofWTV6sDHyNNi2r8S7Z9oE/P1+Rw+22gWuoznyEW8ZnDEfdwRvIoy4Pi9ftwC8BAwAAAAABAQAAAAA= request-method GET request-Origin https://www.railstutorial.org response-head HTTP/1.1 200 OK
+x-amz-id-2: ILAlHdCdzKNI2iZT7Bm+ahm199wpXqWQ+ylHJBBDZdFRDcY3sbFfkx2fK54jM7ehnCnHxvRH6KA=
+x-amz-request-id: 86A29CA1ABA5C898
+Date: Wed, 26 Jul 2017 18:01:27 GMT
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET
+Access-Control-Max-Age: 3000
+Vary: Origin, Access-Control-Request-Headers, Access-Control-Request-Method
+Last-Modified: Sun, 16 Jul 2017 23:24:06 GMT
+Etag: "9555148814fdc7db3fdecbabb7a3ef3c"
+Accept-Ranges: bytes
+Content-Type: text/html
+Content-Length: 195127
+Server: AmazonS3
+ original-response-headers x-amz-id-2: ILAlHdCdzKNI2iZT7Bm+ahm199wpXqWQ+ylHJBBDZdFRDcY3sbFfkx2fK54jM7ehnCnHxvRH6KA=
+x-amz-request-id: 86A29CA1ABA5C898
+Date: Wed, 26 Jul 2017 18:01:27 GMT
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET
+Access-Control-Max-Age: 3000
+Vary: Origin, Access-Control-Request-Headers, Access-Control-Request-Method
+Last-Modified: Sun, 16 Jul 2017 23:24:06 GMT
+Etag: "9555148814fdc7db3fdecbabb7a3ef3c"
+Accept-Ranges: bytes
+Content-Type: text/html
+Content-Length: 195127
+Server: AmazonS3
+ uncompressed-len 0 net-response-time-onstart 2685 net-response-time-onstop 8050  �7

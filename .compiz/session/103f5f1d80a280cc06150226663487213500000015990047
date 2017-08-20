@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<compiz_session id="103f5f1d80a280cc06150226663487213500000015990047">
+  <window id="103f5f1d80a280cc06150226937984986500000015990051" title="Action Controller: Exception caught - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="391" y="24" width="975" height="502"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

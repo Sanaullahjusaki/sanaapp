@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HMS | Sana</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+	<div class="container">
+		<h3 style = "color:white;">National Hospital Turbat</h3>
+		<nav>
+			<ul class="nav navbar-nav navbar-right">
+				<li><%= link_to "Home", "/" %></li>
+				<li><%= link_to "Patients","/patients" %></li>
+				<li><%= link_to "Doctors","/doctors" %></li>
+				<li><%= link_to "Lab Reports","/labreports" %></li>
+				<li><%= link_to "Treatments","/treatments" %></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+    <%= yield %>
+    <br>
+    <div class="container">
+    <footer class="footer">
+	
+		The <a href="/"> Hospital Management System</a>
+		by <a href="#">Sanaullah</a>
+	
+	<nav>
+		<ul>
+			<li><%= link_to "Home", "/" %></li>
+				<li><%= link_to "Patients","/patients" %></li>
+				<li><%= link_to "Doctors","/doctors" %></li>
+				<li><%= link_to "Lab Reports","/labreports" %></li>
+				<li><%= link_to "Treatments","/treatments" %></li>
+		</ul>
+		<br>
+	</nav>	
+	</div>
+</footer>
+  </body>
+</html>

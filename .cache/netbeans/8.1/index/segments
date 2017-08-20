@@ -1,0 +1,22 @@
+#Fri Jul 28 22:49:12 PKT 2017
+s5=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar\!/
+s4=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/sunrsasign.jar\!/
+s3=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar\!/
+s2=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar\!/
+s19=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar\!/
+s1=file\:/home/sanaullah/NetBeansProjects/Animal/src/
+s18=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar\!/
+s17=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar\!/
+s16=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar\!/
+s15=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar\!/
+s14=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar\!/
+s13=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar\!/
+s12=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar\!/
+s11=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar\!/
+s10=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar\!/
+s21=file\:/home/sanaullah/NetBeansProjects/Abstrct/test/
+s20=file\:/home/sanaullah/NetBeansProjects/Abstrct/src/
+s9=file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/classes/
+s8=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jfr.jar\!/
+s7=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar\!/
+s6=jar\:file\:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar\!/

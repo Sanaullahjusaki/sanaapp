@@ -1,0 +1,34 @@
+<div class="center jumbotron">
+<h1>All Treatments</h1>
+<table border = '1'>
+	<tr>
+		<th>Medicines</th>
+		<th>To Take For</th>
+		<th>Date of Visit</th>
+		<th>Next Visit</th>
+		<th>Lab Report ID </th>
+		<th>Doctor ID </th>
+		<th>Patient ID </th>
+	</tr>
+	<% @treatment.each do |t| %>
+		<tr>
+			<td><%= t.medicines %></td>
+			<td><%= t.ttime %></td>
+			<td align = "center"><%= t.tdate %></td>
+			<td align = "center"><%= t.nextvisit %></td>
+			<td align = "center"><%= t.labreport_id %></td>
+			<td align = "center"><%= t.doctor_id %></td>
+			<td align = "center"><%= t.patient_id %></td>
+			
+			<td><%= link_to 'Show', treatment_path(t) %></td>
+			<td><%= link_to 'Edit', edit_treatment_path(t) %></td>
+			<td><%= link_to 'Delete', treatment_path(t),
+						method: :delete,
+						data: { confirm: 'Are you sure to delete?'} %></td>	
+		</tr>
+	<% end %>
+</table>
+<br>
+<br>
+<a href="/treatments/new" class="button buttonb">New Treatment</a>
+</div>

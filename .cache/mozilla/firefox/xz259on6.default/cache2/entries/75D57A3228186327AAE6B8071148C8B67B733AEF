@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	PM Youth Internship Program
+</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <style type="text/css">
+        @import '/css/stylesbc19.css?ver=4.2';
+         @import '/css/style.css?ver=4.2';
+       
+        @import '/css/jquery.toastmessage-min.css';
+        @import '/css/jquery.rating.css';
+    </style>
+    <script type="text/javascript" src='/js/jquery/jquery4a80.js?ver=1.11.2'></script>
+    <script type="text/javascript" src='/js/jquery/jquery-migrate.min1576.js?ver=1.2.1'></script>
+    <!--[if lt IE 9]>
+		<script src="js/selectivizr-and-extra-selectors.min.js"></script>
+	<![endif]-->
+    <script type='text/javascript' src='/js/owl.carousel9e1e.js?ver=1.3.2'></script>
+    <script type='text/javascript' src='/js/jquery.prettyPhoto5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/js/jquery.validate.min5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/js/jquery.flexnav.min5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/js/scripts5152.js?ver=1.0'></script>
+    <script type="text/javascript" src='/js/jquery-1.10.2.min.js'></script>
+    <script type="text/javascript" src='/js/jquery-ui-1.10.3.custom.min.js'></script>
+    <script type="text/javascript" src='/js/jquery.blockUI.js'></script>
+    <script type="text/javascript" src='/js/jquery.toastmessage-min.js'></script>
+    <script type="text/javascript">
+
+
+
+        function showwo(response) {
+            var data = response.d;
+
+            if (data == "exists") {
+                  $("#submit_survey").show();
+                  // alert("abc");
+            }
+
+
+        }
+    
+    
+        $(document).ready(function () {
+        var request = "";
+
+        $.ajax({
+            type: "POST",
+            url: "survey_batch_one.aspx/enable_survery_menu",
+            data: request,
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: showwo,
+            error: function(data, status, e) {
+                Show_Alert(e, "error");
+            }
+        });
+
+        });
+
+        
+
+        function Show_Alert(message, type) {
+            // $('[id$="Main_Outer_Wrapper_Div"]').block({ message: null });
+            var sticky_option = true;
+            sticky_option = ($.trim(type).toLowerCase() == "success") ? false : true;
+
+            // below line added for non sticky alerts
+            sticky_option = true;
+
+            $().toastmessage('showToast', {
+                text: message,
+                sticky: sticky_option,
+                type: type
+            });
+        }
+     
+    </script>
+    
+</head>
+
+<body class="page">
+    <form method="post" action="./Intern_Home.aspx" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1Mg9kFgJmD2QWAgIDD2QWEAIBD2QWAmYPDxYCHghJbWFnZVVybAUQL2ltYWdlcy9zdGFyLmdpZmRkAgMPFgIeB1Zpc2libGVoZAIFDxYCHwFoFgJmDw8WAh8ABRAvaW1hZ2VzL3N0YXIuZ2lmZGQCBw8WAh8BaGQCCQ8WAh8BaGQCCw8WAh8BaGQCDQ8WAh8BaGQCDw9kFhACAQ8PFgIfAAUdL2ltYWdlcy9wcm9maWxlX3BpY3MvdGhpcy5qcGdkZAIDDxYCHglpbm5lcmh0bWwFDFNhbGFtIFNoYXJpZmQCBw8WAh8CBQ01MjIwMzQ3NzgxODQxZAINDxYCHwIFCjMzNDI1MTA1NzNkAhEPZBYCAgEPFgIfAgUaVW5pdmVyc2l0eSBvZiBUdXJiYXQsIEtlY2hkAhcPFgIfAgU3SGFiaWItdXItUmVobWFuLCBBc3Npc3RhbnQgRGlyZWN0b3IgKE5JUCkgKDAzMzU1OTc1OTc2KWQCGQ8WAh8CZWQCHQ9kFgICAQ8WAh8CBQRLZWNoZGRZYByXSx2w9/ZRbZq51RilDrCA+uZiRmfU6PqVlahsNg==" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="0ADD0324" />
+</div>
+    <div class="headerbg">
+        <div class="headercenter">
+            <div class="headerbutton" id="horizontalmenu"> 
+               <ul id="menu_main_intern">
+        <li class="menu-item "><a href="Intern_Home.aspx">Home</a></li>
+         <li class="menu-item "><a href="Bank_Account_Form.aspx"> <img id="gif" src="/images/star.gif" style="width:13px;" />Bank Account Form</a></li> 
+          <li class="menu-item " id="submit_survey" style="display:none"><a href="survey_batch_one.aspx" > Submit Survey</a></li> 
+          <li class="menu-item "><a href="Employer_Feedback.aspx"> Submit Feedback</a></li>
+          <li class="menu-item "><a href="feedbackInternhistory.aspx">Assessment History</a></li>
+           <li class="menu-item "><a href="Complaint_Form.aspx">Support Center</a></li>
+             <li class="menu-item "><a href="#">Downloads</a>
+          <ul>
+           <li class="menu-item "><a id="plc" href="placement_letter.aspx"  >Placement Letter</a></li> 
+            <li class="menu-item "><a id="A1" href="ContractPMYTS_3.pdf"  >Contract Agreement</a></li>
+            <li class="menu-item "><a id="A4" href="instructions_relocation.aspx"  >Demand Form</a></li>
+             <li class="menu-item "><a href='faq.aspx'>FAQ</a></li>
+              
+            
+           </ul>
+          </li> 
+           
+          <li class="menu-item "><a href="ChangePassword.aspx">Change Password</a></li>
+          <li class="menu-item "><a href='/Logout.ashx'>Logout</a></li>
+        </ul>
+        
+        
+
+        
+
+          
+
+
+
+
+          
+
+
+
+           
+            </div>
+        </div>
+    </div>
+        
+        <div id="popup_boxx_sim" style="position:fixed;width:100%;height:100%;background-color:#000;opacity:0.6;z-index:1000;display:none;left:0;top:0">
+        
+      
+</div>
+
+  <div class="intern-detail popup_box_1" id="pb2" style="z-index:10000; display:none"   >
+<a id="popupBoxClose_sim"> <img src="../images/Close.png" style="height: 15px;"></img></a>
+ <div id="Div1"  >
+ <table style=" margin-top:5px;">
+ <tr>
+ <td>
+<div style="background: #2D8825;
+    text-align: center;
+    color: white;
+    padding-top: 11px;"><p>Dear Intern<br /><br /></p></div>
+&nbsp;<br>
+ Hope you are doing your best in your role as an intern. You have been offered a free of cost Ufone connection/SIM which will be used for the official correspondence by NIP (National Internship Program) for important communication, seeking feedback on matters regarding the program and for sharing your experience. This feedback correspondence between NIP and you, will be free of cost through this connection. Those interns who have not received their new Ufone connection/SIM by now, they will be contacted very soon by Ufone representative.
+
+ </td>
+   
+  </tr> 
+   
+  </table>
+   
+     </div>
+</div>
+    <div class="bodyarea">
+       <marquee style="background:#2A8622 none repeat scroll 0% 0%;
+padding: 5px;"><a href="" style="color:white">Prime Minister's Youth Training Scheme 2016 being an integral part of the Prime Minister's Youth Programme, is launched in support of the fresh graduates having the best 16 years of education. In a bid to combat soaring unemployment in the country, it aims at providing a golden opportunity of getting on-the-job training and internships in private as well as public sector offices to the young graduates to build up their future career. </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="" style="color:white">Prime Minister's Youth Training Scheme 2016 being an integral part of the Prime Minister's Youth Programme, is launched in support of the fresh graduates having the best 16 years of education. In a bid to combat soaring unemployment in the country, it aims at providing a golden opportunity of getting on-the-job training and internships in private as well as public sector offices to the young graduates to build up their future career.</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="" style="color:white">Prime Minister's Youth Training Scheme 2016 being an integral part of the Prime Minister's Youth Programme, is launched in support of the fresh graduates having the best 16 years of education. In a bid to combat soaring unemployment in the country, it aims at providing a golden opportunity of getting on-the-job training and internships in private as well as public sector offices to the young graduates to build up their future career. </a></marquee>
+        <div class="bodycenter">
+            <div id="sidebar" class="bodyleft">
+                <div class="leftsidepic">
+                <img id="dp" src="/images/profile_pics/this.jpg" style="width:125px;border:5px solid #d3d3d3" />
+                </div>
+               
+                <div class="leftsideheadings" align="center">
+                   <label id="name_master">Salam Sharif</label>
+                </div>
+               
+                <div class="leftside_divider">
+                </div>
+                
+                <div id="reg_label" class="leftsideheadings" align="center" style="padding-top: 6px">
+                    Registration No.
+                </div>
+                <div class="leftsidetext" align="center" style="padding-bottom: 6px">
+                  <label id="reg_no_master">5220347781841</label>
+                </div>
+                <div id="reg_num_line" class="leftside_divider">
+                </div>
+                <div id="contact_number" class="leftsideheadings" align="center" style="padding-top: 6px">
+                     Contact Number
+                </div>
+                <div class="leftsidetext" align="center" style="padding-bottom: 6px">
+                  <label id="contact_no_master">3342510573</label>
+                </div>
+                <div class="leftside_divider" >
+                </div>
+                <div id="org" class="leftsideheadings" align="center" style="padding-top: 6px">
+                    Organization   
+                </div>
+                <div id="org_label" class="leftsidetext" align="center" style="padding-bottom: 6px">
+                  <label id="org_master">University of Turbat, Kech</label>
+                </div>
+                <div id="org_line" class="leftside_divider">
+                </div>
+                 <div id="loc2" class="leftsideheadings" align="center" style="padding-top: 6px">
+                    Cluster Incharge  
+                </div>
+                <div id="ci" class="leftsidetext" align="center" style="padding-bottom: 6px">Habib-ur-Rehman, Assistant Director (NIP) (03355975976)</div>
+                <div class="leftsidetext" align="center" style="padding-bottom: 6px">
+                  <label id="location_master"></label>
+                </div>
+                <div class="leftside_divider">
+                </div>
+                <div id="supr" class="leftsideheadings" align="center" style="padding-top: 6px">
+                    Placement City
+                </div>
+                <div id="supr_lbl" class="leftsidetext" align="center" style="padding-bottom: 6px">
+                   <label id="supervisor_master">Kech</label>
+                </div>
+                
+                 <div class="leftside_divider">
+                </div>
+                
+                
+            </div>
+
+            
+ <script src="../js/jquery.rating.pack.js" type="text/javascript" language="javascript"></script>
+ <link href="../css/jquery.rating.css" type="text/css" rel="stylesheet"/>
+   <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
+ <link href="../css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<script src="../js/jquery.mousewheel.min.js"></script>
+<script src="../js/jquery.event.drag.min.js"></script>
+<script src="../js/jquery.newstape.js"></script>
+
+<link rel="stylesheet" href="../css/demo.css" />
+ <style type="text/css">
+        #popup_box_feedback { 
+       display: none;
+    padding-right: 25px;
+    position: fixed;
+    _position: absolute;
+    /* height: 84px; */
+    width: 250px;
+    /* background: #FFFFFF; */
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    margin-left: 150px;
+    /* border: 2px solid #FF7F00; */
+    /* padding: 15px; */
+    font-size: 15px;
+    -moz-box-shadow: 0 0 5px #ff0000;
+    /* -webkit-box-shadow: 0 0 5px #ff0000; */
+    /* box-shadow: 0 0 5px #ff0000;
+}
+  </style>
+ 
+     
+  <div id="popup_box_feedback" onclick="unloadPopupBoxFeedback()" style="cursor:pointer;">   
+   
+ <img src="../images/help.png">
+      
+</div> 
+
+<style>
+/* popup_box DIV-Styles*/
+ 
+ 
+.main-div {
+     width:100%;
+    height:100%;
+}
+
+a{  
+cursor: pointer;  
+text-decoration:none;  
+} 
+
+/* This is for the positioning of the Close Link */
+#popupBoxClose_sim {
+    font-size:20px;  
+    line-height:15px;  
+    right:5px;  
+    top:5px;  
+    position:absolute;  
+    color:#AA0000;  
+    font-weight:500;      
+}
+</style>
+ <style type="text/css">
+/* popup_box DIV-Styles*/
+.popup_box_1 { 
+  
+    position: fixed;
+    _position: absolute;
+    height: 200px;
+    width: 500px;
+    background: #FFFFFF;
+    left: 368px;
+    top: 250px;
+    overflow: hidden;
+    border-radius:15px;
+    z-index: 100;
+    margin-left: 15px;
+    border: 2px solid #F48020;
+    padding: 15px;
+    font-size: 12px;
+    -moz-box-shadow: 0 0 5px #ff0000;
+    -webkit-box-shadow: 0 0 5px #ff0000;
+    box-shadow: 0 0 5px #6F736E;
+    
+}
+ 
+.main-div {
+     width:100%;
+    height:100%;
+}
+
+a{  
+cursor: pointer;  
+text-decoration:none;  
+} 
+
+/* This is for the positioning of the Close Link */
+#popupBoxClose_sim {
+    font-size:20px;  
+    line-height:15px;  
+    right:5px;  
+    top:5px;  
+    position:absolute;  
+    color:#AA0000;  
+    font-weight:500;      
+}
+</style>
+
+
+
+
+<div class="bodyright_home">
+  
+
+
+     <div class="bodyrightheading_home">
+  Stipend History
+   </div>
+    <div class="bodyrightheadingdivider" style="margin-bottom:20px;">
+    </div>
+
+    <div  id="data2">
+    </div>
+
+
+ 
+
+
+
+
+
+</div>
+
+
+ 
+   <div class="Dashboard_Element_Box_3" style="float: right;    height: 453px;">
+                         		
+                                <div class="Dashboard_Heading_Text">
+                                News Updates
+                                </div>
+                                
+                                <div class="Dashboard_Heading_Divider3">
+                                </div>
+                                
+                                <div>
+                                <p>
+                                <div class="demo-wrapper">
+	                                                                                                                                                                                                            
+                                                                                                                                                                                                                <div class="newstape" style="height:380px !important;">
+                                    <div class="newstape" style="height:380px !important;">
+                                    <div class="newstape-content">
+                                         <div class="news-block">
+                                            <h3>Dear Intern <img id="Img6" src="/images/star.gif" style="width:13px;"></h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                           
+Stipend payment for the month of April could not be made due to some technical issues. We are doing our utmost to resolve the situation and make the payment at earliest. Inconvenience is highly regretted.
+ 
+
+
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>
+                                    
+                                    
+                                       <div class="news-block">
+                                            <h3>Dear Intern <img id="Img1" src="/images/star.gif" style="width:13px;"></h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                           
+Dear Intern, Hope you are doing your best in your role as an intern. You have been offered a free of cost Ufone connection/SIM which will be used for the official correspondence by NIP (National Internship Program) for important communication, seeking feedback on matters regarding the program and for sharing your experience. This feedback correspondence between NIP and you, will be free of cost through this connection. Those interns who have not received their new Ufone connection/SIM by now, they will be contacted very soon by Ufone representative.
+ 
+
+
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>
+                                    
+                                    
+                                    
+              <div class="news-block">
+                                            <h3>Dear Intern <img id="Img5" src="/images/star.gif" style="width:13px;"></h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                           
+ Payment for the month of April along with any other qualified pending liabilities shall be paid soon.
+ 
+Internship completion certificates will also be soon delivered on the mailing addresses of the interns after printing and publication from the government printing press. Interns may not to worry about their stipend & certificates nor to call or complain about these issues. Inconvenience if any is regretted
+
+
+
+
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>                                 
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                     <div class="news-block">
+                                            <h3>Dear Intern <img id="Img4" src="/images/star.gif" style="width:13px;"></h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                           
+ 
+As per instructions of Prime Minister's Office, you are hereby informed to ensure online submission of Previous Months Assessment Reports by your organization, if not submitted within stipulated time. The intern Assessment Option on employer Portal is effective and will remain open till  May 3, 2017. Your employer will not be able to make any previous month assessment after that. Necessary changes on employer web portal is incorporated for one-time basis. 
+ 
+It is a gentle reminder that Monthly stipend to interns will only be paid on the basis of Assessment Reports submitted by you on web portal within the stipulated time frame.  Minimum assessment score for interns to be eligible for stipend is 3.0 out of possible score of 5.0.
+
+Note: It is to inform you that this is the FINAL opportunity to submit online assessment for the payment of outstanding stipend to interns of PMYTS Phase-I as no further opportunity will be given in this regard
+
+
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>
+                                    
+                                   
+                                   
+                                                                     
+                                   
+                                   
+                                   
+                                     <div class="news-block" id="Div1"  >
+                                            <h3>Dear Intern <img id="Img3" src="/images/star.gif" style="width:13px;"></h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                           
+ You are hereby informed to ensure submission of your Assessment Reports by your organization. 
+
+The intern Assessment Option on your Portal is effective and will remain open till  April 30, 2017, after which your assessment can not be made by your employer. 
+ 
+It is a gentle reminder that Monthly stipend to interns will only be paid on the basis of Assessment Reports submitted by you on web portal within the stipulated time frame.  Minimum assessment score for interns to be eligible for stipend is 3.0 out of possible score of 5.0.
+
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                                                             
+                                       
+                                       
+                                       <div class="news-block">
+                                            <h3>Dear Intern <img id="Img2" src="/images/star.gif" style="width:13px;"></h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                           You are requested again to open your Asaan Account by visiting National Bank of Pakistan and provide your account number by December 31, 2016 to NIP Office. (Account Opening date has been extended from December 15, 2016 to December 31, 2016). 
+
+<br><br>You are strictly advised to open your accounts by the given date. 
+
+<br><br>For any queries or complications in opening the Accounts please contact the Focal person Mr. Ali Qamar ( Manager - Service Planning & Support, NBP Payment Services & e-Banking, Ph: 042-99212167 Mob: 0321-4500500).
+
+<br>
+<br>Sadaf 
+
+<br>Focal Person / Assistant Director 
+
+<br>NIP Office
+
+<br>Computer Room
+
+<br>10th Floor, Shaheed-e-Millat Secretariat,
+
+<br>Sector: F-6/1, Islamabad
+
+<br>Email Address: sadaf.pmyts@gmail.com
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>
+                                    
+                                    
+                                  
+                                    
+                            
+                                    
+                                    
+                                    
+                                   
+                                        
+                                    
+                                        <div class="news-block">
+                                            <h3> Welcome Aboard Interns!</h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                                We are looking forward to seeing you grow and develop into outstanding professionals that exhibit a high level of care, concern and compassion for others. We firmly hope that you find your work to be rewarding, challenging and meaningful and that you have an amazing time during your internship tenure. We are really glad that youâ€™ve joined us. Welcome aboard!
+                                            </p>
+                                         
+                                            <hr />
+                                        </div>
+                                        
+                                        
+                                        <div class="news-block">
+                                            <h3>Helpline!</h3>
+                                            <small> </small>
+                                            <p class="text-justify">
+                                              In case of any query please contact our   helpline 0331 100 1000. <br>Working Days:<br> Monday to Friday: 08:00am to 04:00pm<br>
+
+Saturday & Sunday are Off days.
+
+                                            </p>
+                                            
+                                            <hr />
+                                        </div>
+                                        
+                                       
+                                    </div>
+                                </div>    
+                                </div>                                                                                          
+                          </div>
+                                </p>
+                                
+                                </div>
+                                
+                             
+                             
+                         </div> 
+
+ <script type="text/javascript">
+     $(function () {
+         $('.newstape').newstape();
+     });
+    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function unloadPopupBoxFeedback() {
+
+        $("#popup_box_feedback").slideUp("slow", function() {
+            // Animation complete.
+        });
+
+    }
+
+    $(document).ready(function() {
+
+        //loadPopupBox();
+        get_batch();
+
+        $('#popupBoxClose_sim').click(function() {
+            unloadPopupBox();
+        });
+        $('#A1').click(function() {
+            unloadPopupBox();
+        });
+        function unloadPopupBox() {    // TO Unload the Popupbox
+            $('#popup_boxx_sim').fadeOut("slow");
+            $('#pb2').fadeOut("slow");
+
+
+        }
+
+        function loadPopupBox() {    // To Load the Popupbox
+            $('#popup_boxx_sim').fadeIn("slow");
+            $('#pb2').fadeIn("slow");
+
+
+
+            // $("#main_form").hide();
+        }
+
+
+
+        $("#popup_box_feedback").slideDown("slow", function() {
+            // Animation complete.
+        });
+
+        var request = "{}";
+        $.ajax({
+            type: "POST",
+            url: "Stipend_History.aspx/Stipend_History_Intern",
+            data: request,
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: show_stipend_data,
+            error: function(data, status, e) {
+                Show_Alert(e, "error");
+            }
+
+        });
+
+
+    });
+
+
+
+
+
+
+
+
+    function get_batch() {
+        var request = "";
+
+        $.ajax({
+            type: "POST",
+            url: "placement_letter.aspx/check_for_batch_two",
+            data: request,
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: show_two,
+            error: function(data, status, e) {
+                Show_Alert(e, "error");
+            }
+        });
+    
+    }
+
+
+    function show_two(response) {
+        var data = response.d;
+        if (data.length > 0) {
+            if (data[0].batch == "2") {
+               
+
+            }
+            else if (data[0].batch == "1") {
+                
+
+            }
+          
+            else if (data[0].batch == "3") {
+                $("#news_batch3").show();
+                
+            }
+            else {
+
+            }
+        }
+
+    }
+ 
+
+     function show_stipend_data(response) {
+         var count = 1;
+         var htmlstr = "";
+         var data = response.d; 
+         htmlstr += "<div class='table_div'><table id='tble'> <thead> <tr>  <th>Month</th> <th>Bank Account</th><th>Branch</th> <th>Amount</th>  <th>Status</th> </tr> </thead><tbody>";
+        if (data.length > 0) {
+
+             for (var i = 0; i < data.length; i++) {
+
+                 htmlstr += "<tr>"
+                 
+
+                                + "<td> " + data[i].month_name + " - " + data[i].year_name + "</td>"
+                                + "<td> " + data[i].bank_account + "</td>"
+                                + "<td> " + data[i].branch + "</td>"
+
+
+
+                                + "<td>" + data[i].amount + "</td>";
+                              
+                                   if (data[i].paid == 1) {
+                                       htmlstr += "<td>"
+                                                                   + "Paid"
+                                                                   + "</td>";
+                                   }
+                                   else {
+                                       htmlstr += "<td>"
+                                                                   + "Not Paid"
+                                                                   + "</td>";
+                                    }
+
+
+
+
+
+                               }
+                               htmlstr += "</tr> </tbody></table></div>";
+
+             $.getScript("../js/jquery.rating.pack.js", function () { });
+             $("#data2").html(htmlstr);
+             $("#tble").DataTable();
+           
+            }
+         else {
+
+             $("#data2").html("No Record Found");
+         }
+
+
+         
+        
+     }
+
+
+
+
+    
+
+</script>
+
+
+            
+        </div>
+         <div style="clear:both;">
+    </div>
+    </div>
+   
+     <div class="footer-copyrights footer">
+            <div class="l-page-width  clearfix">
+                <div class="wrapper">
+                    <div id="text-2" class="widget widget_text">
+                        <div class="textwidget">
+                            Copyrights &copy;2017: Ufone</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dark-mask">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+<style type="text/css" media="screen">   #horizontalmenu li ul { display:none; position:absolute; } #horizontalmenu li:hover ul{ display:block; z-index:1000;   height:auto;   } #horizontalmenu li ul li{ clear:both; border-style:none;background:none;} </style>
+ 
+ìm‹X1           Y‹U>]       2    :http://monitoring.nip.gov.pk/YIP/Intern_Home.aspx strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/7.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Wed, 09 Aug 2017 13:00:01 GMT
+Content-Length: 31569
+ original-response-headers Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/7.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Wed, 09 Aug 2017 13:00:01 GMT
+Content-Length: 31569
+ charset UTF-8 uncompressed-len 0 predictor::resource-count 22 predictor::http://monitoring.nip.gov.pk/js/jquery/jquery4a80.js?ver=1.11.2 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery/jquery-migrate.min1576.js?ver=1.2.1 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/owl.carousel9e1e.js?ver=1.3.2 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.prettyPhoto5152.js?ver=1.0 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.validate.min5152.js?ver=1.0 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.flexnav.min5152.js?ver=1.0 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/scripts5152.js?ver=1.0 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery-1.10.2.min.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery-ui-1.10.3.custom.min.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.blockUI.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.toastmessage-min.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.rating.pack.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/css/jquery.rating.css 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.dataTables.min.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/css/jquery.dataTables.min.css 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.mousewheel.min.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.event.drag.min.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.newstape.js 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/css/demo.css 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/css/stylesbc19.css?ver=4.2 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/css/style.css?ver=4.2 1,1,0,4096 predictor::http://monitoring.nip.gov.pk/css/jquery.toastmessage-min.css 1,1,0,4096   {Q

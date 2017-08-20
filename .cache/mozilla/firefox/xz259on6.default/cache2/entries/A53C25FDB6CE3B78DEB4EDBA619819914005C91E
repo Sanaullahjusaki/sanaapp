@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<title>Designing and Creating Database Tables in Ruby on Rails | PACKT Books</title>
+		<script>
+			dataLayer = [];
+		</script>
+		<script type="text/javascript">
+			var GRANIFY_SITE_ID = 1318;(function(e,t,n){var r,i,s,o,u;u=false;try{o=new RegExp("(?:^|\\W)_gr_test_url=([^;]*)");s=document.cookie.match(o);if(s){if(s[1]==="1")u=true}else{r=Math.random();if(r>.95)u=true;i=new Date(+(new Date)+1e3*60*60*24*2);document.cookie="_gr_test_url="+ +u+";expires="+i.toGMTString()+";path=/"}}catch(a){}if(u)e.replace("javascript.js","javascript.next.js");try{o=new RegExp("(?:^|\\W)_gr_ep=([^;]*)");s=document.cookie.match(o);if(!s){document.cookie="_gr_ep_sent=;expires=Thu, 01-Jan-1970 00:00:01 GMT;path=/";document.cookie="_gr_er_sent=;expires=Thu, 01-Jan-1970 00:00:01 GMT;path=/";if(!window.location.origin){if(window.location.port)port=":"+window.location.port;else port="";window.location.origin=window.location.protocol+"//"+window.location.hostname+port}path=window.location.toString().replace(window.location.origin,"");referrer=document.referrer;i=new Date(+(new Date)+1e3*60*30);document.cookie="_gr_ep="+path+";expires="+i.toGMTString()+";path=/";document.cookie="_gr_er="+referrer+";expires="+i.toGMTString()+";path=/"}}catch(a){}a=new Date;a=""+a.getUTCFullYear()+(a.getUTCMonth()+1)+a.getUTCDate();e=e+"?id="+t+"&v="+a;window.Granify=n;n._stack=[];n.init=function(e,t,r){function i(e,t){e[t]=function(){Granify._stack.push([t].concat(Array.prototype.slice.call(arguments,0)))}}var s=n;h=["on","identify","addTag","trackPageView","trackCart","trackOrder"];for(a=0;a<h.length;a++)i(s,h[a])};n.init();var f,l,c,p=document.createElement("iframe");p.src="javascript:false";p.title="";p.role="presentation";(p.frameElement||p).style.cssText="width: 0 !important; height: 0 !important; border: 0 !important; overflow: hidden !important; position: absolute !important; top: -1000px !important; left: -1000px !important;";c=document.getElementsByTagName("script");c=c[c.length-1];c.parentNode.insertBefore(p,c);try{l=p.contentWindow.document}catch(a){f=document.domain;p.src="javascript:var d=document.open();d.domain='"+f+"';void(0);";l=p.contentWindow.document}l.open()._l=function(){var t=this.createElement("script");if(f)this.domain=f;t.id="js-iframe-async";t.src=e;this.body.appendChild(t)};l.write('<body onload="document._l();">');l.close()})("//cdn.granify.com/assets/javascript.js",GRANIFY_SITE_ID,[])
+		</script>
+
+		<link href='https://fonts.googleapis.com/css?family=Merriweather:400,700' rel='stylesheet' type='text/css'>		<script type="text/javascript">
+            var granify_page_type = 'blog';
+            var data_layer_page_type = 'blog';
+			Granify.trackPageView({
+                page_type: granify_page_type
+			});
+		</script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="//d1ldz4te4covpm.cloudfront.net/misc/favicon.ico" type="image/x-icon" />
+<meta name="description" content="Designing and Creating Database Tables in Ruby on Rails written by A P Rajshekhar : one of the many articles from Packt Publishing" />
+<meta name="revisit-after" content="1 day" />
+		<link rel="canonical" href="https://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@packtpub" />
+        <meta name="twitter:title" content="Designing and Creating Database Tables in Ruby on Rails | PACKT Books" />
+        <meta name="twitter:description" content="Designing and Creating Database Tables in Ruby on Rails written by A P Rajshekhar : one of the many articles from Packt Publishing" />
+        
+        <script type="text/javascript">
+            window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+            heap.load("4197017494");
+        </script>
+
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta id="viewport" name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <!-- <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic" rel="stylesheet" type="text/css">-->
+         <link href="/sites/all/themes/packt_v4/fonts/ubuntu.css" rel="stylesheet" type="text/css">
+        <!--[if lt IE 10]>
+        <link href="/sites/all/themes/packt_v4/css/core/packtpub_ie.css" rel="stylesheet" type="text/css">
+        <![endif]-->
+        <link type="text/css" rel="stylesheet" media="all" href="//d255esdrn735hr.cloudfront.net/sites/default/files/css/150218238331144895/88193022b61633465ae9b864eeae61e3.css" />
+<link type="text/css" rel="stylesheet" media="print" href="//dz13w8afd47il.cloudfront.net/sites/default/files/css/150218238331144895/6e295a6eb8f64cef4e07d9b1f02d46e8.css" />
+  
+        <script type="text/javascript" src="//dz13w8afd47il.cloudfront.net/sites/default/files/js/150218238307f8a73c/952c3ff98a6acdc36497d839e31aa57c.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "\u002F", "dhtmlMenu": [ "doubleclick", "clone" ] });
+//--><!]]>
+</script>
+        <script type="text/javascript">
+            var Packt = Packt || {}; Packt.user = {"cart":[],"newsletters":[],"customer_type":"","country_code":"PK","selected_currency":"USD","currency":"USD","currency_symbol":"$","uid":0};
+        </script>
+        <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="Packt Publishing News" >
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NJWZFW');Packt.dataLayer.init();</script>
+        <!-- End Google Tag Manager -->
+    </head>
+    
+    <body id="ppv4" class="with-logo">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-NJWZFW"
+                height="0"
+                width="0"
+                style="display:none;visibility:hidden"
+            >
+            </iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <div id="page" class="" checkout="">
+            <div id="page-header">
+                			<div id="account-bar" class="cf">
+				<div class="section-inner">
+					<div id="account-bar-status" class="cf">
+						<div id="account-bar-currency-selector">
+							<form accept-charset="UTF-8" method="post" id="packt-currency-select-form" class="float-left">
+								<div class="form-item" id="edit-currency-wrapper">
+									<select name="currency" class="form-select packt-currency-select-box selectBox" id="edit-currency" style="display:none">
+										<option value="GBP" >GBP &#163;</option>
+										<option value="USD" >US &#36;</option>
+										<option value="EUR" >EUR &#8364;</option>
+										<option value="AUD" >AU &#36;</option>
+									</select>
+								</div>
+								<input type="submit" name="op" value="" style="display: none;" class="form-submit">			
+								<input type="hidden" name="form_id" id="edit-packt-currency-select" value="packt_currency_select_form">
+							</form>
+						</div>				
+						<div class="account-bar-divider float-left">|</div>		
+						<div id="account-bar-status-security"></div>
+						<noscript>
+							<div id="account-bar-login-register-ns">
+								<a href="/account">My Account</a>
+							</div>
+						</noscript>
+						<div id="account-bar-login-register">
+							<a href="#" class="login-popup"><div class="float-left">Log in</div></a>
+							<div class="account-bar-divider float-left">|</div>
+							<a href="/register"><div class="float-left">Register</div></a>
+						</div>
+
+						<div id="account-bar-logged-in">
+							<a href="/account">
+								<div class="float-left"><strong>My Account</strong></div>
+							</a>
+							<div class="account-bar-divider float-left">|</div>
+							<a id="account-bar-sign-out" href="/logout"><div class="float-left">Sign Out</div></a>
+						</div>
+
+					</div>
+					<div id="account-bar-form">
+						<div id="account-bar-form-login" class="cf">
+							<div class="account-bar-form-left">
+								<h4>Log in to your account</h4>
+								<form  accept-charset="UTF-8" method="post" id="packt-user-login-form">
+<div><div id="login-form" class="cf">
+    <div id="login-form-email">
+        <div class="form-item" id="email-wrapper">
+ <input type="text" maxlength="128" name="email" id="email" size="24" value="" placeholder="E-mail address" class="form-text required" />
+</div>
+    </div>
+    <div id="login-form-pass">
+        <div class="form-item" id="password-wrapper">
+ <input type="password" name="password" id="password"  maxlength="128"  size="24"  placeholder="Password" class="form-text required" />
+</div>
+    </div>
+    <div id="login-form-submit">
+        <input type="submit" name="op" id="edit-submit-1" value="Login"  class=" form-submit" />
+    </div>
+    <br />
+</div>
+<a href="https://www.packtpub.com/account/password">Forgotten your password?</a>
+
+
+
+<input type="hidden" name="form_build_id" id="form-0ac925996fd2b760f5b6449f0e1f6b12" value="form-0ac925996fd2b760f5b6449f0e1f6b12"  />
+
+<input type="hidden" name="form_id" id="edit-packt-user-login-form" value="packt_user_login_form"  />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></form>
+							</div>
+							<div class="account-bar-form-right">
+								<h4>Not yet a member?</h4>
+								<p>Register for an account and access leading-edge content on emerging technologies.</p>
+								<p><a class="account-bar-toggle register" href="/register">Register now</a></p>
+							</div>
+						</div>						
+						<div id="account-bar-form-close"><a href="#">Close</a></div>
+					</div>
+				</div>
+			</div>
+                                        <div id="menu-bar">
+                <div class="section-inner cf">
+                    <div id="menuIcon"></div>
+                    <div id="menu-links" class="">
+                        <a href="/">
+                            <div class="menu-item-tab">
+                                <div class="menu-item-text dummy" id="menu-packt-logo">
+                                    <span class="alt">Packt Logo</span>
+                                </div>
+                            </div>
+                        </a>
+                                                    
+                            
+                                                            <a href="/all">
+                                    <div class="menu-item-tab">
+                                        <div class="menu-item-text" id="menu-skill-up">
+                                            <span class="menu-text">$10 eBooks & Videos</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            
+                            <a href="/books/info/packt/about">                       
+                                <div class="menu-item-tab">
+                                    <div class="menu-item-text" id="menu-packt">
+                                        <span class="menu-text">Packt</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="/books/content/support">                      
+                                <div class="menu-item-tab">
+                                    <div class="menu-item-text" id="menu-support">
+                                        <span class="menu-text">Support</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a id='menu-packtlib-href'
+                                href="/mapt"
+                                target="_blank"
+                            >
+                                <div class="menu-item-tab">
+                                    <div class="menu-item-text" id="menu-packtlib">
+                                        <span class="menu-text pl">
+                                            <img id="pl-img" src="//d255esdrn735hr.cloudfront.net/sites/all/themes/packt_v4/images/mapt-pplogo.png" />
+                                        </span>
+
+                                        <span class="menu-text mob-pl">
+                                            <img id="pl-img" src="//dz13w8afd47il.cloudfront.net/sites/all/themes/packt_v4/images/mapt-pplogo-white.png" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                                            </div>
+                    <div id="menu-icons" class="">
+                                                    <a href="#">
+                                <div class="menu-item-tab">
+                                    <div class="menu-item-icon" id="menu-search">
+                                        <span class="alt">Search</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="/account/my-ebooks">
+                                <div class="menu-item-tab">
+                                    <div class="menu-item-icon dummy" id="menu-collection">
+                                        <span class="alt">My Collection</span>
+                                    </div>
+                                </div>
+                            </a>
+                                                <a href="https://www.packtpub.com/cart/checkout">
+                            <div class="menu-item-tab last">
+                                <div class="menu-item-icon" id="menu-cart">
+                                    <div id="cart-icon-count" class="cart-icon-count"></div>
+                                    <span class="alt">Cart</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu-bar-popup" class="cf">
+                <div id="menu-bar-popup-inner" class="cf"></div>
+                <div class="section-inner cf">
+
+											
+                        
+                                                    <div class="menu-bar-popup-menu fivecol cf" id="menu-skill-up-popup">
+                                <div class="menu-bar-popup-section-left fivecol">
+                                    <div class="menu-bar-popup-section-left-inner cf">
+                                        <p class="menu-bar-popup-title">$10 eBooks &amp; Videos</p>
+                                        <div class="packt-menu cf"> 
+                                            <div class="cf">
+                                                                                                    <div class='books-menu-column categories '>
+                                                        <div class='inner'>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/top-20-ebooks">Top 20 eBooks</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/top-20-videos">Top 20 Videos</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/top-20-courses">Top 20 Courses</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/top-20-classics">Top 20 Classics</a></p>
+                                                                                                                            <p><a href="/skill-up-2017">Skill Up Report</a></p>
+                                                                                                                    </div>
+                                                    </div>
+                                                                                                    <div class='books-menu-column categories '>
+                                                        <div class='inner'>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-dot-net-titles">.NET</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-aws-titles	">AWS</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/blockchain-bundle">Blockchain</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-c-sharp-c-plus-plus-titles">C# and C++</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-cyber-security-titles">Cyber Security</a></p>
+                                                                                                                    </div>
+                                                    </div>
+                                                                                                    <div class='books-menu-column categories '>
+                                                        <div class='inner'>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/deep-learning-bundle">Deep Learning</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/delphi-bundle">Delphi</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-devops-titles">DevOps</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-game-development-titles">Game Dev</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/git-and-github-bundle">Git & Github</a></p>
+                                                                                                                    </div>
+                                                    </div>
+                                                                                                    <div class='books-menu-column categories '>
+                                                        <div class='inner'>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-go-titles">Go</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-java-titles">Java</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-javascript-titles">JavaScript</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-linux-titles">Linux</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-machine-learning-titles">Machine Learning</a></p>
+                                                                                                                    </div>
+                                                    </div>
+                                                                                                    <div class='books-menu-column categories last'>
+                                                        <div class='inner'>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/best-python-titles">Python</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/python-data-bundle">Python Data</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/python-beginner-bundle">Python for Beginners</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/sysadmin-toolbox-bundle">SysAdmins</a></p>
+                                                                                                                            <p><a href="https://www.packtpub.com/skill-up-2017/bundles">ALL Bundles</a></p>
+                                                                                                                    </div>
+                                                    </div>
+                                                                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                      
+                            </div>
+                        
+                        <div class="menu-bar-popup-menu cf" id="menu-packt-popup">
+                            <div class="menu-bar-popup-section-left twocol">
+                                <div class="menu-bar-popup-section-left-inner cf">
+                                    <p class="menu-bar-popup-title">Packt Publishing</p>
+                                    <div class="packt-menu cf">
+                                        <div class="books-menu-column">
+                                            <div class="inner">
+                                                <p><a href="/books/info/packt/about">About Us</a></p>
+                                                <p><a href="/press">Press</a></p>
+                                                <p><a href="/books/info/packt/authors">Our Authors</a></p>
+                                            <!--<p><a href="/blog-network">Blog</a></p>
+                                            <p><a href="/techprimer-network">Technology Primers</a></p>-->
+                                        </div>
+                                    </div>
+                                    <div class="books-menu-column">
+                                        <div class="inner">
+                                            <p><a href="/books/info/packt/contact-us">Contact Us</a></p>
+                                            <p><a href="/books/info/packt/careers-with-packt">Careers</a></p>
+                                            <p><a href="/books/info/packt/trade-partners">Trade & Partners</a></p>
+                                            <!--<p><a href="/article-network">Articles</a></p>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="menu-bar-popup-section-right twocol">
+                            <div class="menu-bar-popup-section-right-inner cf">
+                                <div id="menu-bar-article-preview-thumb">
+                                    <noscript><img src="//d1ldz4te4covpm.cloudfront.net/sites/default/files/imagecache/ppv4_header_article_thumb/iStock-529418686.png" alt="Developers are today&#039;s technology decision makers" title="" width="240" height="114" class=" imagecache imagecache-ppv4_header_article_thumb"/></noscript><img src="/sites/default/files/blank.gif" alt="Developers are today&#039;s technology decision makers" title="" width="240" height="114" data-original="//d1ldz4te4covpm.cloudfront.net/sites/default/files/imagecache/ppv4_header_article_thumb/iStock-529418686.png" class=" imagecache imagecache-ppv4_header_article_thumb"/>                                </div>
+                                <div id="menu-bar-article-preview-text">
+                                    <p class="menu-bar-popup-title"><a href="/books/content/developers-are-technology-decision-makers">Developers are today&#039;s technology decision makers</a></p>
+                                    <p id="menu-bar-article-one-liner"></p>
+                                    <p><a href="/articles">Read all our articles</a></p>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+
+
+                    <div class="menu-bar-popup-menu cf" id="menu-support-popup">
+                        <div class="menu-bar-popup-section-left twocol">
+                            <div class="menu-bar-popup-section-left-inner cf">
+                                <p class="menu-bar-popup-title">Support</p>
+                                <div class="packt-menu cf">
+                                    <div class="books-menu-column">
+                                        <div class="inner">
+                                            <p><a href="/books/info/packt/faq">FAQs</a></p>
+                                            <p><a href="/books/info/packt/ordering">Ordering Information</a></p>
+                                            <p><a href="/books/info/packt/terms-and-conditions">Terms & Conditions</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="books-menu-column">
+                                        <div class="inner">
+                                            <p><a href="/books/content/support">Code Downloads & Errata</a></p>
+                                            <p><a href="/books/content/errata">Submit Errata</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-bar-popup-menu cf" id="menu-packtlib-popup">
+                        <div class="menu-bar-popup-section-left twocol">
+                            <div class="menu-bar-popup-section-left-inner cf">
+                                <p class="menu-bar-popup-title">Mapt</p>
+                                <div class="packt-menu cf">
+                                    <div class="books-menu-column">
+                                        <div class="inner">
+                                            <p id="menu-mapt-link"><a href="/mapt" target='_blank'>Go to Mapt</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-bar-popup-menu cf" id="menu-search-popup">
+                        <div class="menu-bar-popup-search-inner">
+                            <form  accept-charset="UTF-8" method="post" id="packt-libraries-main-search-form">
+<div>
+<div id="menu-bar-search" class="cf">
+	<div id="menu-bar-search-title">
+		<div class="form-item">Search</div>
+	</div>
+	<div id="menu-bar-search-box">
+		<div class="form-item" id="main-search-keys-wrapper">
+ <input type="text" name="keys" id="main-search-keys" size="49" value="" placeholder="Enter your search terms..." class="form-text" />
+</div>
+	</div>
+	<div id="menu-bar-search-button">
+		<input type="submit" name="op" id="edit-submit-5" value="Search"  class=" form-submit" />
+	</div>
+	<input type="hidden" name="sort" id="edit-sort" value="0"  />
+
+<input type="hidden" name="types" id="edit-types" value="0"  />
+
+<input type="hidden" name="forthcoming" id="edit-forthcoming" value="1"  />
+
+<input type="hidden" name="available" id="edit-available" value="1"  />
+
+<input type="hidden" name="count" id="edit-count" value="20"  />
+
+
+
+
+<input type="hidden" name="form_build_id" id="form-2a9a1a11f64caadc73ea86c7bb44a64f" value="form-2a9a1a11f64caadc73ea86c7bb44a64f"  />
+
+<input type="hidden" name="form_id" id="edit-packt-libraries-main-search-form" value="packt_libraries_main_search_form"  />
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</div>
+<div class="facet-search-cross facet-search-cross-autocomplete"></div>
+</div></form>
+                        </div>
+                    </div>
+
+                    <div class="menu-bar-popup-menu cf" id="menu-cart-popup">
+                        <div class="menu-bar-popup-section-left even">
+                            <div class="menu-bar-popup-section-left-inner cf">
+                                <div id="menu-bar-popup-cart-preview">
+                                    <div id="menu-bar-popup-cart-item-preview">
+
+                                        <div id="menu-bar-popup-cart-item-preview-image">
+                                            <img src="" />
+                                        </div>
+                                        <p class="menu-bar-popup-title">Added to Cart</p>
+                                        <p id="menu-bar-popup-cart-item-preview-title"></p>
+                                        <p id="menu-bar-popup-cart-item-preview-oneliner"></p>
+                                        <p id="menu-bar-popup-cart-item-preview-additional">...and <span></span> more</p>
+                                        <p class="price"><span id="menu-bar-popup-cart-item-preview-currency"></span><span id="menu-bar-popup-cart-item-preview-price"></span></p>
+                                    </div>
+                                </div>
+                                <p id="menu-bar-popup-cart-empty-preview">
+                                    You don't have anything in your cart right now.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="menu-bar-popup-section-right even">
+                            <div class="menu-bar-popup-section-right-inner cf">
+                                <div id="menu-bar-popup-content">
+                                    <div class="cf cart-price-preview">
+                                        <p id="menu-bar-popup-subtotal-title" class="menu-bar-popup-title float-left">Subtotal</p>
+                                        <p id="menu-bar-popup-subtotal-value" class="menu-bar-popup-title float-right price"> 0.00</p>
+                                        <p id="menu-bar-popup-subtotal-currency" class="menu-bar-popup-title float-right price"></p>
+                                    </div>
+                                    <p><strong>Free shipping</strong> on print orders for US, UK, Europe and selected Asian countries</p>
+                                    <form>
+                                        <a href="https://www.packtpub.com/cart/checkout" class="button-link grey">View Cart</a>
+                                        <span></span>
+                                        <a href="https://www.packtpub.com/cart/checkout/?checkout_step=upsell" class="button-link">Check Out</a>
+                                    </form>
+                                </div>
+                                <div id="checkout-close" onclick="Packt.headerMenu.hideMenuPopup()"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-bar-popup-menu cf" id="menu-cart-small">
+                        <div>
+                            <div class="small-popup-outer float-right">
+                                <div class="small-popup-tick">
+                                    &nbsp;
+                                </div>
+                                <div class="small-popup-text">
+                                    <strong>
+                                        Title added to cart
+                                    </strong>
+                                </div>
+                                <div class="small-popup-seperator">
+                                </div>
+                                <div class="small-popup-arrows">
+&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+            <div id="menu-bar-popup-inner-bottom" class="cf"></div>
+        </div>
+            </div>
+						<div id="main-container" class="not-front not-logged-in page-node node-type-article no-sidebars page-books-content-designing-and-creating-database-tables-ruby-rails section-books node-full-view ">
+				<div id="main" class="">
+					
+											 <!-- #content -->
+					 	<div id="content">
+						 	                                <div class="blue-breadcrumb">
+                                    <div class="section-inner">
+                                        <div class="breadcrumb"><a href="/">Home</a>&nbsp; > &nbsp;<a href="/all-books">Books</a>&nbsp; > &nbsp;<a href="/web-development/building-dynamic-web-20-websites-ruby-rails">Building Dynamic Web 2.0 Websites with Ruby on Rails</a>&nbsp; > &nbsp;<a href="/books/content/designing-and-creating-database-tables-ruby-rails" class="active">Designing and Creating Database Tables in Ruby on Rails</a></div>                                    </div>
+                                </div>
+                            
+					 		
+						 								 			<div class="section-inner cf">
+						 							 			<div id="messages-container">
+							 							 			</div>
+						 								 			</div>
+						 		
+
+							
+							
+							<a name="main-content" id="main-content"></a>
+							
+<div id="main-article" class="article cf section-inner" itemscope itemtype="http://schema.org/Article">
+    <div class="panel-display panel-packt-cat clear-block" >
+        <div class="panel-panel-top-wrapper">
+            <div class="blog-header">
+                                    <div class="blog-featured-book left">
+                        <a href="/web-development/building-dynamic-web-20-websites-ruby-rails">
+                            <img src="//d1ldz4te4covpm.cloudfront.net/sites/default/files/bookimages/1847193412.jpg" />
+                        </a>
+                    </div>
+                
+                <div class="blog-title">
+                    <h1>Designing and Creating Database Tables in Ruby on Rails</h1>
+                </div>
+            </div>
+
+            <div class="blog-author-block">
+                <div class="blog-author-block-left">
+                    <h2><a href="/books/info/authors/p-rajshekhar">A P Rajshekhar </a></h2>
+                    <p><span class="date-display-single">April 2008</span></p>
+                </div>
+                
+<div class="share-buttons-line ">
+	<div class="share-icon-background">
+		<a class="share-link" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=https://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails&title=Designing+and+Creating+Database+Tables+in+Ruby+on+Rails&source=Packt+Publishing&summary=Designing+and+Creating+Database+Tables+in+Ruby+on+Rails">
+			<div class="share-icon linkedin"></div>
+		</a>
+	</div>
+	<div class="share-icon-background">
+		<a class="share-link" target="_blank" href="https://www.twitter.com/share?url=https://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails&text=Designing and Creating Database Tables in Ruby on Rails">
+			<div class="share-icon twitter"></div>
+		</a>
+	</div>
+	<div class="share-icon-background">
+		<a class="share-link" target="_blank" href="http://www.facebook.com/sharer.php?u=https://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails">
+			<div class="share-icon facebook"></div>
+		</a>
+	</div>
+	<div class="share-icon-background last">
+		<a class="share-link" target="_blank" href="https://plusone.google.com/_/+1/confirm?hl=en&url=https://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails">
+			<div class="share-icon google-plus"></div>
+		</a>
+	</div>
+</div>            </div>
+
+            <div class="blog-content-left left">
+                <div class="inside">
+                    <div class="article-content" itemprop="articleBody">
+                        <h1>Background Information</h1>
+<p>The User Management Module is created for a website called 'TaleWiki'. TaleWiki is a website about user submitted tales and stories, which can be added, modified, deleted, and published by the user, depending on the <span style="font-weight: bold;">Role</span> or <span style="font-weight: bold;">Privileges</span> the user has. Taking into consideration this small piece of information, we will design and create tables that will become the back-end for the User Management functionality.</p>
+<h1>Designing the Tables</h1>
+<p>To Design and to create tables, we need to understand the entities and their relationship, the schema corresponding to the entities, and then the table creation queries. If we go step-by-step, we can say that following are the steps in designing the tables for the User Management module:</p>
+<ul>
+<li>Designing the E-R model</li>
+<li>Deriving the Schema from the E-R model</li>
+<li>Creating the Tables from the Schema</li>
+</ul>
+<p>So, let us follow the steps.</p>
+<h2>Designing the E-R Model</h2>
+<p>To design the E-R model, let us first look at what we have understood about the data required by the functionalities, which we just discussed. It tells us that 'only the Users with a particular Role can access TaleWiki'. Now we can consider this as our 'problem statement' for our E-R model design. If you observe closely, the statement is vague. It doesn't tell about the particular Roles. However, for the E-R design, this will suffice as it clearly mentions the two main entities, if we use the E-R terminology. They are:</p>
+<ul>
+<li>User</li>
+<li>Role</li>
+</ul>
+<p>Let us look at the User entity. Now this entity represents a real-world user. It is not difficult to describe its attributes. Keeping a real-world user in mind and the functionalities discussed for managing a user, we can say that the User entity should have the following attributes:</p>
+<ul>
+<li><span style="font-weight: bold;">Id</span>: It will identify the different users, and it will be unique.</li>
+<li><span style="font-weight: bold;">User name</span>: The name which will be displayed with the submitted story.</li>
+<li><span style="font-weight: bold;">Password</span>: The pass key with which the user will be authenticated.</li>
+<li><span style="font-weight: bold;">First name</span>: The first name of the user.</li>
+<li><span style="font-weight: bold;">Last name</span>: The last name of the user. The combination of the first and last name will be the real name of the user.</li>
+<li><span style="font-weight: bold;">Age</span>: The age of the user. This will help in deciding whether or not the user is of required age which is 15.</li>
+<li><span style="font-weight: bold;">E-mail id</span>: The email id of the user in which he/she would like to get emails from the administrator regarding the submissions.</li>
+<li><span style="font-weight: bold;">Country</span>: To keep track of the 'geographic distribution' of users.</li>
+<li><span style="font-weight: bold;">Role</span>: To know what privileges are granted for the user. The Role is required because the problem statement mentions "User with a particular Role".</li>
+</ul>
+<p>The entity diagram will be as follows:</p>
+<div style="text-align: center;"><img style="border: 0pt none;" src="/sites/default/files/Article-Images/ror-article-1.png" border="0" alt="Designing and Creating Database Tables in Ruby on Rails" title="Designing and Creating Database Tables in Ruby on Rails" /></div>
+<p>Next, let us look at the Role entity. Role, as already discussed, will represent the privileges a user can have. And as these privileges are static, the Role entity won't need to have the attribute to store the privileges. The important point about the static privileges that you have to keep in mind is that they will have to be programmatically checked against a user. In other words, the privileges are not present in the database and there can only be a small number of Roles with predefined privileges. Keeping this in mind, we can say that the Role entity will have the following attributes:</p>
+<ul>
+<li><span style="font-weight: bold;">Id</span>: The unique identification number for the Role.</li>
+<li><span style="font-weight: bold;">Name</span>: The name with which the id will be known and that will be displayed along with the user name.</li>
+</ul>
+<p>The entity diagram for Role entity will be as follows:</p>
+<div style="text-align: center;"><img style="border: 0pt none;" src="/sites/default/files/Article-Images/ror-article-2.png" border="0" alt="Designing and Creating Database Tables in Ruby on Rails" title="Designing and Creating Database Tables in Ruby on Rails" /></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;">We have completed two out of three steps in designing the E-R model. Next, we have to define how the User entity is related with the Role entity. From the problem statement we can say that a user will definitely have a Role. And the functionality for assigning the Role tells us that a user can have only one Role. So if we combine these two, we can say that 'A user will have only one Role but different users can have the same Role'. In simple terms, a Role&mdash;let us say normal user&mdash;can be applied to different users such as John, or Jane. However, the users John or Jane cannot be both normal user as well as administrator. In technical terms, we can say that a Role has a one-to-many relationship with the User entity and a User has a many-to-one relationship with a Role. Diagrammatically, it will be as follows:
+<div style="text-align: center;"><img style="border: 0pt none;" src="/sites/default/files/Article-Images/ror-article-3.png" border="0" alt="Designing and Creating Database Tables in Ruby on Rails" title="Designing and Creating Database Tables in Ruby on Rails" /></div>
+<p>One piece of the puzzle is still left. If you remember there is one more entity called Story. We had found that each story had a submitter. The submitter is a user. So that means there is a relationship between the User and the Story entity. Now, a user, let us say, John or Jane, can submit many stories. However, the same story cannot be submitted by more than one user. On the basis of this we can say that a User has a many-to-one relationship with a Story and a Story has a many-to-one relationship with a User. According to the E-R diagram it will be as follows:</p>
+<div style="text-align: center;"><img style="border: 0pt none;" src="/sites/default/files/Article-Images/ror-article-4.png" border="0" alt="Designing and Creating Database Tables in Ruby on Rails" title="Designing and Creating Database Tables in Ruby on Rails" /></div>
+<p>The final E-R design including all the entities and the attributes will be as follows:</p>
+<div style="text-align: center;"><img style="border: 0pt none;" src="/sites/default/files/Article-Images/ror-article-5.png" border="0" alt="Designing and Creating Database Tables in Ruby on Rails" title="Designing and Creating Database Tables in Ruby on Rails" /></div>
+<p>That completes our E-R design step. Next, we will derive the schema from the<br />E-R model.</p>
+<h2>Deriving the Schema</h2>
+</div>
+<p>We have all we need to derive the schema for our purpose. While deriving a schema from an E-R model, it is always a good choice to start with the entities at the 'one' end of a 'one-to-many' relationship. In our case, it is the Role entity. As we did in the previous chapter, let us start by providing the details for each attribute of the Role entity. The following is the schema for the Role entity:</p>
+<div style="text-align: center;"></div>
+<div style="text-align: center;">
+<table style="border: 1px solid black;" align="center" border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td width="164" valign="top">
+<p><b>Attribute</b></p>
+</td>
+<td width="164" valign="top">
+<p><b>Data type of the attribute</b></p>
+</td>
+<td width="164" valign="top">
+<p><b>Length of the acceptable value</b></p>
+</td>
+</tr>
+<tr>
+<td width="164" valign="top">
+<p>Id</p>
+</td>
+<td width="164" valign="top">
+<p>Integer</p>
+</td>
+<td width="164" valign="top">
+<p>10</p>
+</td>
+</tr>
+<tr>
+<td width="164" valign="top">
+<p>Name</p>
+</td>
+<td width="164" valign="top">
+<p>Varchar</p>
+</td>
+<td width="164" valign="top">
+<p>25</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p></div>
+<div style="text-align: center;"></div>
+<p>&gt;Next, let us look at the schema of the User entity. As it is at the 'many' end of the 'one-to-many' relationship, the Role attribute will be replaced by the Id of Role. The schema will be as follows:</p>
+<div style="text-align: center;"></div>
+<div style="text-align: center;">
+<table style="border: 1px solid black;" align="center" border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td width="171" valign="top">
+<p><b>Attribute</b></p>
+</td>
+<td width="171" valign="top">
+<p><b>Data type of the attribute</b></p>
+</td>
+<td width="171" valign="top">
+<p><b>Length of the acceptable value</b></p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>Id</p>
+</td>
+<td width="171" valign="top">
+<p>Integer</p>
+</td>
+<td width="171" valign="top">
+<p>10</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>User name</p>
+</td>
+<td width="171" valign="top">
+<p>Varchar</p>
+</td>
+<td width="171" valign="top">
+<p>50</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>First name</p>
+</td>
+<td width="171" valign="top">
+<p>Varchar</p>
+</td>
+<td width="171" valign="top">
+<p>50</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>Last name</p>
+</td>
+<td width="171" valign="top">
+<p>Varchar</p>
+</td>
+<td width="171" valign="top">
+<p>50</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>Password</p>
+</td>
+<td width="171" valign="top">
+<p>Varchar</p>
+</td>
+<td width="171" valign="top">
+<p>15</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>Age</p>
+</td>
+<td width="171" valign="top">
+<p>Integer</p>
+</td>
+<td width="171" valign="top">
+<p>3</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>e-mail id</p>
+</td>
+<td width="171" valign="top">
+<p>Varchar</p>
+</td>
+<td width="171" valign="top">
+<p>25</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>Country</p>
+</td>
+<td width="171" valign="top">
+<p>Varchar</p>
+</td>
+<td width="171" valign="top">
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td width="171" valign="top">
+<p>Id of the Role</p>
+</td>
+<td width="171" valign="top">
+<p>Integer</p>
+</td>
+<td width="171" valign="top">
+<p>10</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p></div>
+<div style="text-align: center;"></div>
+<div style="text-align: left;">Now, let us visit the Story entity. The attributes of the entity were:        
+<ul style="text-align: left;">
+<li><o:p><span style="font-weight: bold;">Id</span>: This is the Primary key attribute as it can uniquely identify a story.</o:p></li>
+<li><o:p><span style="font-weight: bold;">Heading</span>: The title of the story.</o:p></li>
+<li><o:p><span style="font-weight: bold;">Body text</span>: The body of the story.</o:p></li>
+<li><o:p><span style="font-weight: bold;">Date of Submission</span>: The day the user submitted the story.</o:p></li>
+<li><o:p><span style="font-weight: bold;">Source</span>: The source from where the story was found. If it is written by the user himself/herself, the source will be the user's id.</o:p></li>
+<li><o:p><span style="font-weight: bold;">Genre</span>: The category of the story.</o:p></li>
+<li><o:p><span style="font-weight: bold;">User</span>: The user who submitted the story.</o:p></li>
+</ul>
+</div>
+<div style="text-align: left;">
+<table style="border: 1px solid black;" align="center" border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td width="169" valign="top">
+<p><b>Name of the attribute</b></p>
+</td>
+<td width="174" valign="top">
+<p><b>Data type of the attribute</b></p>
+</td>
+<td width="172" valign="top">
+<p><b>Length of the acceptable value</b></p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Id</p>
+</td>
+<td width="174" valign="top">
+<p>Integer</p>
+</td>
+<td width="172" valign="top">
+<p>10</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Title</p>
+</td>
+<td width="174" valign="top">
+<p>Varchar</p>
+</td>
+<td width="172" valign="top">
+<p>100</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Body Text</p>
+</td>
+<td width="174" valign="top">
+<p>Varchar</p>
+</td>
+<td width="172" valign="top">
+<p>1000</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Date of Submission</p>
+</td>
+<td width="174" valign="top">
+<p>Date</p>
+</td>
+<td width="172" valign="top">
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Source</p>
+</td>
+<td width="174" valign="top">
+<p>Varchar</p>
+</td>
+<td width="172" valign="top">
+<p>50</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Status</p>
+</td>
+<td width="174" valign="top">
+<p>Varchar</p>
+</td>
+<td width="172" valign="top">
+<p>15</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Id of Genre</p>
+</td>
+<td width="174" valign="top">
+<p>Integer</p>
+</td>
+<td width="172" valign="top">
+<p>10</p>
+</td>
+</tr>
+<tr>
+<td width="169" valign="top">
+<p>Id of the User</p>
+</td>
+<td width="174" valign="top">
+<p>Integer</p>
+</td>
+<td width="172" valign="top">
+<p>10</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p></div>
+<div style="text-align: left;"></div>
+<div style="text-align: left;">The schema has been derived and now we can move to the last part of the database design&mdash;creation of the tables.</div>
+<div style="text-align: left;">
+<h2>Creating the Tables</h2>
+</div>
+<div style="text-align: left;">
+<p>Looking at the schema&nbsp; required for tables in Ruby on Rails, here is the table creation statement for the Role schema:</p>
+<pre style="margin-left: 40px;">CREATE TABLE `roles` (<br />`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,<br />`name` VARCHAR( 25 ) NOT NULL ,<br />`description` VARCHAR( 100 ) NOT NULL<br />) ENGINE = innodb;</pre><p>Next comes the table creation statement for the User schema. Note that here also we are following the one-to-many path, that is, the table at the 'one' end is created first. Whenever there is a one-to-many relationship between entities, you will have to create the table for the entity at the 'one' end. Otherwise you will not be able to create a foreign key reference in the table for the entity at the 'many' end, and if you try to create one, you will get an error (obviously). So here is the create table statement for the User schema:</p>
+<pre style="margin-left: 40px;">CREATE TABLE `users` (<br />`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,<br />`user_name` VARCHAR( 50 ) NOT NULL ,<br />`password` VARCHAR( 15 ) NOT NULL ,<br />`first_name` VARCHAR( 50 ) NOT NULL ,<br />`last_name` VARCHAR( 50 ) NOT NULL ,<br />`age` INT( 3 ) NOT NULL ,<br />`email` VARCHAR( 25 ) NOT NULL ,<br />`country` VARCHAR( 20 ) NOT NULL ,<br />`role_id` INT NOT NULL,<br />CONSTRAINT `fk_users_roles` FOREIGN KEY (`role_id`) REFERENCES `role`( `id`) ON DELETE CASCADE<br />) ENGINE = innodb;<br /></pre><p>Next, let us create the table for Story, we will call it the 'tales' table, we will also add a foreign key reference to the users table in it. Here is the query for creating the table</p>
+<pre style="margin-left: 40px;">CREATE TABLE `tales` (<br />`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,<br />`title` VARCHAR( 100 ) NOT NULL,<br />`body_text` TEXT NOT NULL,<br />`submission_date` DATE NOT NULL,<br />`source` VARCHAR( 50 ) NOT NULL,<br />`status` VARCHAR( 15 ) NOT NULL,<br />`genre_id` INT NOT NULL,<br />`user_id` INT NOT NULL,<br />CONSTRAINT `fk_tales_genres` FOREIGN KEY (`genre_id`) REFERENCES genres( `id`)<br />) ENGINE = innodb;</pre><p>Next, we will make a reference to the users table after executing the above query, with the following query:</p>
+<pre style="margin-left: 40px;">ALTER TABLE `tales` ADD FOREIGN KEY ( `user_id` ) REFERENCES `users` (`id`) ON DELETE CASCADE ;</pre><p>That completes our task of creating the required tables and making necessary changes to the tales table. The effect of this change will be visible to you when we implement session management in the next chapter. And incidentally, it completes the 'designing the tables' section. Let us move onto the development of the user management functionality.</p>
+<h1>Summary</h1>
+<p>In this article, we learned how to design and create tables for a User Management Module in Ruby on Rails. We looked at designing the E-R model, deriving the schema from the E-R model and creating the tables from the schema.</p></div>
+<div style="text-align: left;"></div>
+                                                                    </div>
+                                            <div class="article-featured-block"
+                            data-product="true"
+                            data-product-id="9781847193414" 
+                            data-product-price="34.99" 
+                            data-product-title="Building Dynamic Web 2.0 Websites with Ruby on Rails" 
+                            data-product-type="ebooks" 
+                            data-product-brand="Packt Publishing" 
+                            data-product-category="Web Development"
+                        >
+                            <div class="blog-featured-book left">
+                                <a href="/web-development/building-dynamic-web-20-websites-ruby-rails">
+                                    <img src="//d1ldz4te4covpm.cloudfront.net/sites/default/files/bookimages/1847193412.jpg" />
+                                </a>
+                            </div>
+                            <div class="article-book-title">
+                                <p>You've been reading an excerpt of:</p>
+                                <h2>Building Dynamic Web 2.0 Websites with Ruby on Rails</h2>
+                                <a href="/web-development/building-dynamic-web-20-websites-ruby-rails">
+                                    <div class="fake-button">
+                                        Explore Title
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    				</div>
+                <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1891977071076455";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-href="http://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails" data-width="100%" data-numposts="5"></div>		 	</div>
+            <div class="blog-content-right left">
+                <div class="sidebar-mapt-upsell tech-sidebar-panel">
+    <a href="https://mapt.io/free-trial-plan/">
+        <img src="//d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/mapt-trial.png" />
+    </a>
+</div><div class="tech-sidebar-panel sidebar-related left">
+    <div class="related-blocks">
+                    <div class="related-block left">
+                <a href="/tech/C%23">
+                    <img src="http://d3gnp09177mxuh.cloudfront.net/tech-page-images/generic.png" />
+                    <p class="author">C#</p>
+                </a>
+            </div>
+                    <div class="related-block left">
+                <a href="/tech/Java">
+                    <img src="http://d3gnp09177mxuh.cloudfront.net/tech-page-images/java.png" />
+                    <p class="author">Java</p>
+                </a>
+            </div>
+                    <div class="related-block left">
+                <a href="/tech/PHP">
+                    <img src="http://d3gnp09177mxuh.cloudfront.net/tech-page-images/php.png" />
+                    <p class="author">PHP</p>
+                </a>
+            </div>
+                    <div class="related-block left">
+                <a href="/tech/JavaScript">
+                    <img src="http://d3gnp09177mxuh.cloudfront.net/tech-page-images/javascript.png" />
+                    <p class="author">JavaScript</p>
+                </a>
+            </div>
+                    <div class="related-block left">
+                <a href="/tech/Python">
+                    <img src="http://d3gnp09177mxuh.cloudfront.net/tech-page-images/python.png" />
+                    <p class="author">Python</p>
+                </a>
+            </div>
+            </div>
+</div>
+<div class="sidebar-newsletter">
+    <div class="sidebar-newsletter__header">Newsletter</div>
+    <form action="/books/content/designing-and-creating-database-tables-ruby-rails"  accept-charset="UTF-8" method="post" id="packt-tech-pages-sidebar-newsletters-form" id="">
+<div>    <div class="sidebar-newsletter__item">
+        <label class="option">
+            <div class="form-item" id="edit-newsletters-317-wrapper">
+ <label class="option"><input type="checkbox" name="newsletters[317]" id="edit-newsletters-317" value="317"   class="form-checkbox" /> Free Stuff</label>
+</div>
+        </label>
+        <p class="sidebar-newsletter__more-info">Access to free eBooks and other free content like blogs/articles. Sent maximum once weekly.</p>
+    </div>
+    <div class="sidebar-newsletter__item">
+        <label class="option">
+            <div class="form-item" id="edit-newsletters-60-wrapper">
+ <label class="option"><input type="checkbox" name="newsletters[60]" id="edit-newsletters-60" value="60"   class="form-checkbox" /> Offers &amp; Alerts</label>
+</div>
+        </label>
+        <p class="sidebar-newsletter__more-info">New releases, bespoke offers, exclusive discounts, and great free content.</p>
+    </div>
+
+<div class="sidebar-newsletter__footer">
+    <div class="form-item" id="email-wrapper">
+ <label for="email">Email Address <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" maxlength="128" name="email" id="email" size="24" value="" x-autocompletetype="email" placeholder="email" class="form-text required" />
+</div>
+    <input type="submit" name="op" id="edit-submit" value="Subscribe"  class=" form-submit" />
+</div>
+
+<input type="hidden" name="form_id" id="edit-packt-tech-pages-sidebar-newsletters-form" value="packt_tech_pages_sidebar_newsletters_form"  />
+<input type="hidden" name="form_build_id" id="form-ce524cd5f0e37aefd56308b7991cca9a" value="form-ce524cd5f0e37aefd56308b7991cca9a"  />
+
+</div></form>
+</div><div class="sidebar-free-learning tech-sidebar-panel">
+    <a href="/packt/offers/free-learning">
+        <img src="//d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/free-learning.png" />
+    </a>
+</div>            </div>
+        </div>
+    </div>
+</div>
+					 								</div>
+						<!-- /#content -->
+					
+									</div>
+			</div>
+									
+						
+			<!-- #footer -->
+			<div id="footer" class="region region-footer">
+				<div class="section-inner cf">
+					<div class="footer-main-block">
+						<div class="footer-section-inner">
+														<h2>Contact Us</h2>
+							<p>Get in touch&nbsp;<a href="/books/info/packt/contact-us">here</a>&nbsp;<span style="font-family: Calibri, sans-serif; font-size: 11pt; line-height: 115%;">if you have any queries or issues.</span></p>						</div>
+					</div>
+					<div class="footer-main-block middle-footer-block">
+						<div class="footer-section-inner">
+														<h2>Help & Support</h2>
+							<p class="MsoNormal">Click&nbsp;<a href="/books/info/packt/faq">here</a>&nbsp;for FAQs, order information, T&amp;Cs, errata and code downloads.</p>						</div>
+					</div>
+					<div class="footer-main-block">
+						<div class="footer-section-inner">
+														<h2>Alerts & Offers</h2>
+							<p class="MsoNormal">Sign up to our emails for regular updates, bespoke offers, exclusive discounts and great free content.</p>							<form  accept-charset="UTF-8" method="post" id="packt-v3-subscribtion-dotd-form-1">
+<div><div class="form-item">
+ 
+</div>
+<div class="form-item" id="edit-mail-1-wrapper">
+ <input type="text" maxlength="128" name="mail" id="edit-mail-1" size="60" value="" placeholder="Enter your email address" class="form-text" />
+</div>
+<input type="hidden" name="newsletter_id" id="edit-newsletter-id-1" value="60"  />
+<input type="submit" name="op" id="edit-submit-5" value="Submit"  class=" form-submit" />
+<input type="hidden" name="form_build_id" id="form-4fcb3565bcab38bb2c80d440e0de1567" value="form-4fcb3565bcab38bb2c80d440e0de1567"  />
+<input type="hidden" name="form_id" id="edit-packt-v3-subscribtion-dotd-form-1" value="packt_v3_subscribtion_dotd_form"  />
+
+</div></form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /#footer -->
+
+			<!-- #footer-bottom -->
+			<div id="footer-bottom" class="region region-footer-bottom">
+				<div class="section-inner cf">
+					<div class="footer-bottom-block">
+						<div class="footer-bottom-block-left">
+							&copy; Packt Publishing Limited.
+							<br />
+							All Rights Reserved
+						</div>
+					</div>
+					<div class="footer-bottom-block footer-contact-us">
+						<a href="/books/info/packt/contact-us">Contact Us</a>
+					</div>
+					<div class="footer-bottom-block">
+						View our <a href="/books/info/packt/cookies">Cookie Policy</a>
+					</div>
+					<div class="footer-bottom-block">
+						Our <a href="/books/info/packt/privacy">Privacy Policy</a>
+					</div>
+					<div class="footer-bottom-block">
+						<a target="_blank" href="http://www.linkedin.com/company/packt-publishing" class="footer-social linkedin"></a>
+						<a target="_blank" href="http://twitter.com/packtpub" class="footer-social twitter"></a>
+						<a target="_blank" href="http://www.facebook.com/packtpub" class="footer-social facebook"></a>
+						<a target="_blank" href="https://plus.google.com/112328881995125817822" class="footer-social gplus"></a>
+						<a target="_blank" href="https://www.youtube.com/user/packt1000" class="footer-social youtube"></a>
+					</div>
+				</div>
+			</div>
+			<!-- /#footer-bottom -->
+			<script>
+			(function (w,i,d,g,e,t,s)
+			{w[d] = w[d]||[];t= i.createElement(g); t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s); }
+			)(window, document, '_gscq','script','//widgets.getsitecontrol.com/18511/script.js');
+			</script>
+			
+						
+						
+		</div>
+		<!-- /#page -->
+		
+		<div id="content-overlay"></div>
+		
+					<div id="book-level-overlay" style="display: none;">	
+</div>
+<div id="book-level-lightbox" class="cf" style="display: none;">
+	<div class="book-level-lightbox-inner">
+		<div class="book-level-heading section-inner">
+			<h2>Series & Level <div class="book-level-cross"></div></h2>
+		</div>
+		<div class="section-inner cf">
+			<div class="book-level-underheading">
+				We understand your time is important. Uniquely amongst the major publishers, we seek to develop and publish the broadest range of learning and information products on each technology.  Every Packt product delivers a specific learning pathway, broadly defined by the Series type.  This structured approach enables you to select the pathway which best suits your knowledge level, learning style and task objectives.			
+			</div>
+		</div>
+		<div class="book-level-series">
+			<div class="section-inner book-level-series-inner cf">
+				<div class="three-book-series-row cf">
+					<div class="book-level-series-block">
+						<div class="cf">
+							<h3 class="float-left">Learning</h3>
+						</div>
+						<div class="book-level-series-text">
+							As a new user, these step-by-step tutorial guides will give you all the practical skills necessary to become competent and efficient.
+						</div>
+					</div>
+					<div class="book-level-series-block">
+						<div class="cf">
+							<h3 class="float-left">Beginner's Guide</h3>
+						</div>
+						<div class="book-level-series-text">
+							Friendly, informal tutorials that provide a practical introduction using examples, activities, and challenges.
+						</div>
+					</div>
+					<div class="book-level-series-block">
+						<div class="cf">
+							<h3 class="float-left">Essentials</h3>
+						</div>
+						<div class="book-level-series-text">
+							Fast paced, concentrated introductions showing the quickest way to put the tool to work in the real world.
+						</div>
+					</div>					
+				</div>
+				<div class="three-book-series-row cf">
+					<div class="book-level-series-block">
+						<div class="cf">
+							<h3 class="float-left">Cookbook</h3>
+						</div>
+						<div class="book-level-series-text">
+							A collection of practical self-contained recipes that all users of the technology will find useful for building more powerful and reliable systems.
+						</div>
+					</div>
+					<div class="book-level-series-block">
+						<div class="cf">
+							<h3 class="float-left">Blueprints</h3>
+						</div>
+						<div class="book-level-series-text">
+							Guides you through the most common types of project you'll encounter, giving you end-to-end guidance on how to build your specific solution quickly and reliably.
+						</div>
+					</div>
+					<div class="book-level-series-block">
+						<div class="cf">
+							<h3 class="float-left">Mastering</h3>
+						</div>
+						<div class="book-level-series-text">
+							Take your skills to the next level with advanced tutorials that will give you confidence to master the tool's most powerful features.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="book-level-level">
+			<div class="section-inner cf">
+				<div class="book-level-expo float-left">
+					<h3>Starting</h3>
+					<div class="book-level-text">
+						Accessible to readers adopting the topic, these titles get you into the tool or technology so that you can become an effective user.
+					</div>
+				</div>
+				<div class="book-level-gauges float-left">
+					<div class="book-level-gauge-left"></div>
+					<div class="book-level-line"></div>
+					<!--div class="book-level-gauge-middle"></div>
+					<div class="book-level-line"></div-->
+					<div class="book-level-gauge-right"></div>
+				</div>
+				<div class="book-level-expo float-left">
+					<h3>Progressing</h3>
+					<div class="book-level-text">
+						Building on core skills you already have, these titles share solutions and expertise so you become a highly productive power user.
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+				
+	</body>
+</html>
+¿øoQÎ      Y‰—‡Y‰—®>	m       Y    :https://www.packtpub.com/books/content/designing-and-creating-database-tables-ruby-rails necko:classified 1 strongly-framed 1 security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8FvcOXmlQiTNWFiWlrbpbqgwAAAAAAAASxMIIErTCCA5WgAwIBAgIDA1iSMA0GCSqGSIb3DQEBCwUAMEcxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMSAwHgYDVQQDExdSYXBpZFNTTCBTSEEyNTYgQ0EgLSBHMzAeFw0xNTAzMzAwMzIzMTRaFw0xODA3MDEwMDM3MzFaMIGSMRMwEQYDVQQLEwpHVDIzODYzMDQ0MTEwLwYDVQQLEyhTZWUgd3d3LnJhcGlkc3NsLmNvbS9yZXNvdXJjZXMvY3BzIChjKTE1MS8wLQYDVQQLEyZEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQgLSBSYXBpZFNTTChSKTEXMBUGA1UEAwwOKi5wYWNrdHB1Yi5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDXCZMOljF9OusjfUB45CZOfg2DT+MwzBtBsZdkCLjX4x/5eDcLaP267nWBO+ccT/T02Zs3pUsy0gRRlLrgzE5+HwwZoDbMkowuHhV7+srZzFI8SA0YWBkV3BwF5wth2ALpIPG9oTr1J7FVYuVMTSwh6ALisPftMLKXdz2QIV+hXn8DrR1aCagcegHXl6rBB5njyrodjUvLtA+VkhHsBYp1ibmvUJj1oPk1J3lReIGhxhbLx7LSCS2re0Us32YGk1r2K17NQDRigsL2Psa8mj1zFVeNIAwzz6y9Vy3JGcpjYLnIEuMdKfs2UnUCjL0kYkY7/yChMFqN8jTfgpmFk16/AgMBAAGjggFUMIIBUDAfBgNVHSMEGDAWgBTDnPP800YINLvORn+gfFvz4gjLWTBXBggrBgEFBQcBAQRLMEkwHwYIKwYBBQUHMAGGE2h0dHA6Ly9ndi5zeW1jZC5jb20wJgYIKwYBBQUHMAKGGmh0dHA6Ly9ndi5zeW1jYi5jb20vZ3YuY3J0MA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwJwYDVR0RBCAwHoIOKi5wYWNrdHB1Yi5jb22CDHBhY2t0cHViLmNvbTArBgNVHR8EJDAiMCCgHqAchhpodHRwOi8vZ3Yuc3ltY2IuY29tL2d2LmNybDAMBgNVHRMBAf8EAjAAMEEGA1UdIAQ6MDgwNgYGZ4EMAQIBMCwwKgYIKwYBBQUHAgEWHmh0dHBzOi8vd3d3LnJhcGlkc3NsLmNvbS9sZWdhbDANBgkqhkiG9w0BAQsFAAOCAQEAYN7oT7T21SSQtzmUJeaemVEmL2v96AQyiFLPQ3ZvrTgKzOowqI05oFPMMCGszZmuBjLaleRu9jBKjAZ21bRKRX2zhAcbu4jhYjwwkxfIzYSp/3gTtqz9yql3NNTw3on70edxwE2d91mkIpMqxurCsk9U481QrMEQQdyz3C8DNkmcics1Ea4CvNbx8yK2txVZRmiIuQU+w5jn7xOolrZ46nS2RpuoHYtKA6RPJSrY5fH1JRgoiOhv0K9rEtkBwpz6ZJdpVGnk679xZbs0Mo1E3c2jgF3RvkVzEYg2jQwRrOddudrkcMI+QO2XOaz8FzCnzM/aSWPvaDzr+t2fiCz7qcAwAQMAAAAAAQEAAAAA request-method GET response-head HTTP/1.1 200 OK
+Server: nginx/1.4.5
+Date: Tue, 08 Aug 2017 10:51:26 GMT
+Content-Type: text/html; charset=utf-8
+Expires: Sun, 19 Nov 1978 05:00:00 GMT
+Cache-Control: public, s-maxage=172800
+Age: 13239
+Via: 1.1 varnish
+X-Country-Code: PK
+ original-response-headers Server: nginx/1.4.5
+Date: Tue, 08 Aug 2017 10:51:26 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Expires: Sun, 19 Nov 1978 05:00:00 GMT
+Cache-Control: public, s-maxage=172800
+Age: 13239
+Via: 1.1 varnish
+X-Country-Code: PK
+ charset UTF-8 uncompressed-len 0 predictor::resource-count 49 predictor::https://fonts.googleapis.com/css?family=Merriweather:400,700 1,1,1502189447,4096 predictor::https://www.packtpub.com/sites/all/themes/packt_v4/fonts/ubuntu.css 1,1,1502189447,4096 predictor::https://d255esdrn735hr.cloudfront.net/sites/default/files/css/150218238331144895/88193022b61633465ae9b864eeae61e3.css 1,1,1502189447,4096 predictor::https://dz13w8afd47il.cloudfront.net/sites/default/files/css/150218238331144895/6e295a6eb8f64cef4e07d9b1f02d46e8.css 1,1,1502189447,4096 predictor::https://dz13w8afd47il.cloudfront.net/sites/default/files/js/150218238307f8a73c/952c3ff98a6acdc36497d839e31aa57c.js 1,1,1502189447,4096 predictor::https://d255esdrn735hr.cloudfront.net/sites/all/themes/packt_v4/images/mapt-pplogo.png 1,1,1502189447,4096 predictor::https://dz13w8afd47il.cloudfront.net/sites/all/themes/packt_v4/images/mapt-pplogo-white.png 1,1,1502189447,4096 predictor::https://cdn.granify.com/assets/javascript.js?id=1318&v=201788 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/default/files/bookimages/1847193412.jpg 1,1,1502189447,4096 predictor::https://www.packtpub.com/sites/default/files/Article-Images/ror-article-1.png 1,1,1502189447,4096 predictor::https://www.packtpub.com/sites/default/files/Article-Images/ror-article-2.png 1,1,1502189447,4096 predictor::https://www.packtpub.com/sites/default/files/Article-Images/ror-article-3.png 1,1,1502189447,4096 predictor::https://www.packtpub.com/sites/default/files/Article-Images/ror-article-4.png 1,1,1502189447,4096 predictor::https://www.packtpub.com/sites/default/files/Article-Images/ror-article-5.png 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/mapt-trial.png 1,1,1502189447,4096 predictor::http://d3gnp09177mxuh.cloudfront.net/tech-page-images/generic.png 1,1,1502189447,4096 predictor::http://d3gnp09177mxuh.cloudfront.net/tech-page-images/java.png 1,1,1502189447,4096 predictor::http://d3gnp09177mxuh.cloudfront.net/tech-page-images/php.png 1,1,1502189447,4096 predictor::http://d3gnp09177mxuh.cloudfront.net/tech-page-images/javascript.png 1,1,1502189447,4096 predictor::http://d3gnp09177mxuh.cloudfront.net/tech-page-images/python.png 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/free-learning.png 1,1,1502189447,4096 net-response-time-onstart 1610 net-response-time-onstop 1960 predictor::https://cdn.heapanalytics.com/js/heap-4197017494.js 1,1,1502189447,4096 predictor::https://www.googletagmanager.com/gtm.js?id=GTM-NJWZFW 1,1,1502189447,4096 predictor::https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1891977071076455 1,1,1502189447,4096 predictor::https://widgets.getsitecontrol.com/18511/script.js 1,1,1502189447,4096 predictor::https://d255esdrn735hr.cloudfront.net/sites/all/themes/packt_v4/images/sprite-fixed.png 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/packt-logo.svg 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/sprite-fixed.png 1,1,1502189447,4096 predictor::https://d255esdrn735hr.cloudfront.net/themes/garland/images/menu-leaf.gif 1,1,1502189447,4096 predictor::https://fonts.gstatic.com/s/merriweather/v15/RFda8w1V0eDZheqfcyQ4EOgdm0LZdjqr5-oayXSOefg.woff2 1,1,1502189447,4096 predictor::https://fonts.gstatic.com/s/merriweather/v15/ZvcMqxEwPfh2qDWBPxn6nnNuWYKPzoeKl5tYj8yhly0.woff2 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/util/fancybox/fancybox-x.png 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/util/fancybox/fancybox.png 1,1,1502189447,4096 predictor::https://d1ldz4te4covpm.cloudfront.net/sites/all/themes/packt_v4/images/util/fancybox/fancybox-y.png 1,1,1502189447,4096 predictor::https://heapanalytics.com/h?a=4197017494&u=5170609991327156&v=7058395369497603&s=5635317241890874&b=web&tv=3.0&z=0&h=%2Fbooks%2Fcontent%2Fdesigning-and-creating-database-tables-ruby-rails&d=www.packtpub.com&t=Designing%20and%20Creating%20Database%20Tables%20in%20Ruby%20on%20Rails%20%7C%20PACKT%20Books&r=https%3A%2F%2Fwww.google.com.pk%2F&ts=1502189455475&st=1502189455477 1,1,1502189447,4096 predictor::https://gscst-84a.kxcdn.com/main/runtime/runtime.2.7.2.js 1,1,1502189447,4096 predictor::https://connect.facebook.net/en_US/fbevents.js 1,1,1502189447,4096 predictor::https://dev.visualwebsiteoptimizer.com/j.php?a=121323&u=https%3A%2F%2Fwww.packtpub.com%2Fbooks%2Fcontent%2Fdesigning-and-creating-database-tables-ruby-rails&r=0.4333849187226909 1,1,1502189447,4096 predictor::https://chimpstatic.com/mcjs-connected/js/users/693897ba2220b83ddb807103a/7f41fc94ba480fffdd5ed6297.js 1,1,1502189447,4096 predictor::https://www.google-analytics.com/analytics.js 1,1,1502189447,4096 predictor::https://www.google-analytics.com/plugins/ua/ec.js 1,1,1502189447,4096 predictor::https://stats.g.doubleclick.net/r/collect?t=dc&aip=1&_r=3&v=1&_v=j58&tid=UA-284627-1&cid=403644002.1502189460&jid=74653048&gjid=1672473309&_gid=75335586.1502189460&_u=YGBAgEAL~&z=451586774 1,1,1502189447,4096 predictor::https://www.facebook.com/impression.php/f2bae6e509a304a/?api_key=1891977071076455&lid=115&payload=%7B%22source%22%3A%22jssdk%22%7D 1,1,1502189447,4096 predictor::https://connect.facebook.net/signals/config/445429252334850?v=2.7.19 1,1,1502189447,4096 predictor::https://www.facebook.com/tr/?id=445429252334850&ev=PageView&dl=https%3A%2F%2Fwww.packtpub.com%2Fbooks%2Fcontent%2Fdesigning-and-creating-database-tables-ruby-rails&rl=https%3A%2F%2Fwww.google.com.pk%2F&if=false&ts=1502189460755&v=2.7.19&ec=0&o=28 1,1,1502189447,4096 predictor::https://www.facebook.com/tr/?id=445429252334850&ev=ViewContent&dl=https%3A%2F%2Fwww.packtpub.com%2Fbooks%2Fcontent%2Fdesigning-and-creating-database-tables-ruby-rails&rl=https%3A%2F%2Fwww.google.com.pk%2F&if=false&ts=1502189460771&cd[content_name]=Designing%20and%20Creating%20Database%20Tables%20in%20Ruby%20on%20Rails%20%7C%20PACKT%20Books&cd[content_category]=blog&v=2.7.19&ec=1&o=28 1,1,1502189447,4096 predictor::https://dev.visualwebsiteoptimizer.com/v.gif?a=121323&d=packtpub.com&u=68745EDAF6DD2B5C82D5802EE5B16522&h=8e469a348d8786c7986065e79a80be14&t=true&r=0.5569628651769113 1,1,1502189447,4096 predictor::https://gscm-84a.kxcdn.com/main/images/18511/2ef661797f71d6d79fda57c48948f4f1_80503323.png 1,1,1502189447,4096 predictor::https://app.getsitecontrol.com/api/v1/stat?t=cmV0PWZhbHNlJnJlZj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tLnBrJTJGJnBhZ2U9MSZzcmM9aHR0cHMlM0ElMkYlMkZ3d3cuZ29vZ2xlLmNvbS5wayUyRiZ1aWQ9MGE4ZjVhNjEtMzYzYi00MmRmLTg3Y2MtZDE1NDllYTNiYzdkJmxhbmc9ZW4tVVMmZXZ0WzBdLndpZGdldD0yMDE3MDgmZXZ0WzBdLm1ldHJpYz1zaG93&ts=1502189481744 1,1,1502189447,4096  [

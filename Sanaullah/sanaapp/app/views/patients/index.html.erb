@@ -1,0 +1,27 @@
+<div class="center jumbotron">
+<h1>All Patients</h1>
+<table border = '1'>
+	<tr>
+		<th>Name</th>
+		<th>Gender</th>
+		<th>Contact</th>
+		<th>Address</th>
+	</tr>
+	<% @patient.each do |p| %>
+		<tr>
+			<td><%= p.pname %></td>
+			<td align = "center"><%= p.pgender %></td>
+			<td align = "center"><%= p.pcontact %></td>
+			<td><%= p.paddress %></td>
+			<td><%= link_to 'Show', patient_path(p) %></td>
+			<td><%= link_to 'Edit', edit_patient_path(p) %></td>
+			<td><%= link_to 'Delete', patient_path(p),
+						method: :delete,
+						data: { confirm: 'Are you sure you want to delete?'} %></td>
+		</tr>
+	<% end %>
+</table>
+<br>
+<br>
+<a href="/patients/new" class="button buttonb">Register New Patient Here</a>
+</div>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  medicines: MyText
+  ttime: MyString
+  tdate: 2017-08-10
+  nextvisit: 2017-08-10
+  labreport_id: 1
+  doctor_id: 1
+  patient_id: 1
+  labreports: one
+  doctors: one
+  patients: one
+
+two:
+  medicines: MyText
+  ttime: MyString
+  tdate: 2017-08-10
+  nextvisit: 2017-08-10
+  labreport_id: 1
+  doctor_id: 1
+  patient_id: 1
+  labreports: two
+  doctors: two
+  patients: two

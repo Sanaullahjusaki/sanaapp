@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	PM Youth Internship Program
+</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <style type="text/css">
+        @import '/css/stylesbc19.css?ver=4.2';
+         @import '/css/style.css?ver=4.2';
+       
+        @import '/css/jquery.toastmessage-min.css';
+        @import '/css/jquery.rating.css';
+    </style>
+    <script type="text/javascript" src='/js/jquery/jquery4a80.js?ver=1.11.2'></script>
+    <script type="text/javascript" src='/js/jquery/jquery-migrate.min1576.js?ver=1.2.1'></script>
+    <!--[if lt IE 9]>
+		<script src="js/selectivizr-and-extra-selectors.min.js"></script>
+	<![endif]-->
+    <script type='text/javascript' src='/js/owl.carousel9e1e.js?ver=1.3.2'></script>
+    <script type='text/javascript' src='/js/jquery.prettyPhoto5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/js/jquery.validate.min5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/js/jquery.flexnav.min5152.js?ver=1.0'></script>
+    <script type='text/javascript' src='/js/scripts5152.js?ver=1.0'></script>
+    <script type="text/javascript" src='/js/jquery-1.10.2.min.js'></script>
+    <script type="text/javascript" src='/js/jquery-ui-1.10.3.custom.min.js'></script>
+    <script type="text/javascript" src='/js/jquery.blockUI.js'></script>
+    <script type="text/javascript" src='/js/jquery.toastmessage-min.js'></script>
+    <script type="text/javascript">
+
+
+
+        function showwo(response) {
+            var data = response.d;
+
+            if (data == "exists") {
+                  $("#submit_survey").show();
+                  // alert("abc");
+            }
+
+
+        }
+    
+    
+        $(document).ready(function () {
+        var request = "";
+
+        $.ajax({
+            type: "POST",
+            url: "survey_batch_one.aspx/enable_survery_menu",
+            data: request,
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: showwo,
+            error: function(data, status, e) {
+                Show_Alert(e, "error");
+            }
+        });
+
+        });
+
+        
+
+        function Show_Alert(message, type) {
+            // $('[id$="Main_Outer_Wrapper_Div"]').block({ message: null });
+            var sticky_option = true;
+            sticky_option = ($.trim(type).toLowerCase() == "success") ? false : true;
+
+            // below line added for non sticky alerts
+            sticky_option = true;
+
+            $().toastmessage('showToast', {
+                text: message,
+                sticky: sticky_option,
+                type: type
+            });
+        }
+     
+    </script>
+    
+</head>
+
+<body class="page">
+    <form method="post" action="./feedbackInternhistory.aspx" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1Mg9kFgJmD2QWAgIDD2QWEAIBD2QWAmYPDxYCHghJbWFnZVVybAUQL2ltYWdlcy9zdGFyLmdpZmRkAgMPFgIeB1Zpc2libGVoZAIFDxYCHwFoFgJmDw8WAh8ABRAvaW1hZ2VzL3N0YXIuZ2lmZGQCBw8WAh8BaGQCCQ8WAh8BaGQCCw8WAh8BaGQCDQ8WAh8BaGQCDw8WAh8BaBYQAgEPDxYCHwAFHS9pbWFnZXMvcHJvZmlsZV9waWNzL3RoaXMuanBnZGQCAw8WAh4JaW5uZXJodG1sBQxTYWxhbSBTaGFyaWZkAgcPFgIfAgUNNTIyMDM0Nzc4MTg0MWQCDQ8WAh8CBQozMzQyNTEwNTczZAIRD2QWAgIBDxYCHwIFGlVuaXZlcnNpdHkgb2YgVHVyYmF0LCBLZWNoZAIXDxYCHwIFN0hhYmliLXVyLVJlaG1hbiwgQXNzaXN0YW50IERpcmVjdG9yIChOSVApICgwMzM1NTk3NTk3NilkAhkPFgIfAmVkAh0PZBYCAgEPFgIfAgUES2VjaGRknDAy1O/IVwH1tUGiXy/I/OXYSspE5fxc7o5lWTkcM74=" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="495A7034" />
+</div>
+    <div class="headerbg">
+        <div class="headercenter">
+            <div class="headerbutton" id="horizontalmenu"> 
+               <ul id="menu_main_intern">
+        <li class="menu-item "><a href="Intern_Home.aspx">Home</a></li>
+         <li class="menu-item "><a href="Bank_Account_Form.aspx"> <img id="gif" src="/images/star.gif" style="width:13px;" />Bank Account Form</a></li> 
+          <li class="menu-item " id="submit_survey" style="display:none"><a href="survey_batch_one.aspx" > Submit Survey</a></li> 
+          <li class="menu-item "><a href="Employer_Feedback.aspx"> Submit Feedback</a></li>
+          <li class="menu-item "><a href="feedbackInternhistory.aspx">Assessment History</a></li>
+           <li class="menu-item "><a href="Complaint_Form.aspx">Support Center</a></li>
+             <li class="menu-item "><a href="#">Downloads</a>
+          <ul>
+           <li class="menu-item "><a id="plc" href="placement_letter.aspx"  >Placement Letter</a></li> 
+            <li class="menu-item "><a id="A1" href="ContractPMYTS_3.pdf"  >Contract Agreement</a></li>
+            <li class="menu-item "><a id="A4" href="instructions_relocation.aspx"  >Demand Form</a></li>
+             <li class="menu-item "><a href='faq.aspx'>FAQ</a></li>
+              
+            
+           </ul>
+          </li> 
+           
+          <li class="menu-item "><a href="ChangePassword.aspx">Change Password</a></li>
+          <li class="menu-item "><a href='/Logout.ashx'>Logout</a></li>
+        </ul>
+        
+        
+
+        
+
+          
+
+
+
+
+          
+
+
+
+           
+            </div>
+        </div>
+    </div>
+        
+        <div id="popup_boxx_sim" style="position:fixed;width:100%;height:100%;background-color:#000;opacity:0.6;z-index:1000;display:none;left:0;top:0">
+        
+      
+</div>
+
+  <div class="intern-detail popup_box_1" id="pb2" style="z-index:10000; display:none"   >
+<a id="popupBoxClose_sim"> <img src="../images/Close.png" style="height: 15px;"></img></a>
+ <div id="Div1"  >
+ <table style=" margin-top:5px;">
+ <tr>
+ <td>
+<div style="background: #2D8825;
+    text-align: center;
+    color: white;
+    padding-top: 11px;"><p>Dear Intern<br /><br /></p></div>
+&nbsp;<br>
+ Hope you are doing your best in your role as an intern. You have been offered a free of cost Ufone connection/SIM which will be used for the official correspondence by NIP (National Internship Program) for important communication, seeking feedback on matters regarding the program and for sharing your experience. This feedback correspondence between NIP and you, will be free of cost through this connection. Those interns who have not received their new Ufone connection/SIM by now, they will be contacted very soon by Ufone representative.
+
+ </td>
+   
+  </tr> 
+   
+  </table>
+   
+     </div>
+</div>
+    <div class="bodyarea">
+       <marquee style="background:#2A8622 none repeat scroll 0% 0%;
+padding: 5px;"><a href="" style="color:white">Prime Minister's Youth Training Scheme 2016 being an integral part of the Prime Minister's Youth Programme, is launched in support of the fresh graduates having the best 16 years of education. In a bid to combat soaring unemployment in the country, it aims at providing a golden opportunity of getting on-the-job training and internships in private as well as public sector offices to the young graduates to build up their future career. </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="" style="color:white">Prime Minister's Youth Training Scheme 2016 being an integral part of the Prime Minister's Youth Programme, is launched in support of the fresh graduates having the best 16 years of education. In a bid to combat soaring unemployment in the country, it aims at providing a golden opportunity of getting on-the-job training and internships in private as well as public sector offices to the young graduates to build up their future career.</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="" style="color:white">Prime Minister's Youth Training Scheme 2016 being an integral part of the Prime Minister's Youth Programme, is launched in support of the fresh graduates having the best 16 years of education. In a bid to combat soaring unemployment in the country, it aims at providing a golden opportunity of getting on-the-job training and internships in private as well as public sector offices to the young graduates to build up their future career. </a></marquee>
+        <div class="bodycenter">
+            
+
+            
+  <style type="text/css">
+  
+  </style>
+ <link href="../css/jquery.rating.css" type="text/css" rel="stylesheet"/>
+   <div class='bodyright' style="width:100%" >
+ <div class="bodyrightheading">
+       Intern Assessment History
+ </div>
+<div class="bodyrightheadingdivider">
+    </div>
+           
+   <div class='bodyRightcontrolpanel_four'>
+            <strong>Name</strong><br />
+            <span  ><label id ="name" ></label></span>
+        </div>
+           <div class='bodyRightcontrolpanel_four'>
+            <strong>Registration Number</strong><br />
+            <span  ><label id ="reg" ></label></span>
+        </div>
+           <div class='bodyRightcontrolpanel_four'>
+            <strong>Contact Number</strong><br />
+            <span  ><label id ="contact" ></label></span>
+        </div>
+ <div class="performance_box">
+                        	<div class="plus_button_div">
+                            	&nbsp;
+                            </div>
+                            <div class="month_detail" style="    margin-top: 20px;">
+                            	<div class="short_detail short_detail_head">
+                                	<div class="short_detail_inner">
+                                    	Month
+                                	</div>
+                                    <div class="short_detail_inner">
+                                    	Performance
+                                	</div>
+                                    <div class="short_detail_inner">
+                                    	Score
+                                	</div>
+                                     
+                                     
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                     <div class="performance_box" id= "data" >
+                        
+                     </div>
+                        
+                        	
+                    	
+                    
+                    	
+                        <div class="clearfix"></div>
+                    </div>
+                   
+                    
+                   
+                    <div class="clearfix"></div>
+                    
+                    
+                    
+<script type="text/javascript">
+    var d = new Date();
+    var n = d.getMonth();
+    $("#month").val(n + 1);
+
+
+    for (var mn = n + 1; mn <= 12; mn++) {
+        var option = mn + 1;
+        $("#month option[value='" + option + "']").remove();
+    }
+
+
+    function filter_records() {
+        if ($("#month").val() == "") {
+            $("#error").text("Please Choose Month");
+            return false;
+        }
+        if ($("#year").val() == "") {
+            $("#error").text("Please Choose Year");
+            return false;
+        }
+
+        var intern_id = getParameterByName("processId");
+
+        if (intern_id != "") {
+            var request = "{'month':'" + $("#month").val() + "',  'year':'" + $("#year").val() + "','internid':'" + intern_id + "'}";
+            var url_new = "Feedback_history.aspx/Stipend_History_Intern_filtered_redirect";
+        }
+        else {
+            var request = "{'month':'" + $("#month").val() + "'," +
+                        "'year':'" + $("#year").val() + "'}";
+            var url_new = "Feedback_history.aspx/Stipend_History_Intern_filtered";
+        }
+
+
+
+        $.ajax({
+            type: "POST",
+            url: url_new,
+            data: request,
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: show_stipend_data,
+            error: function (data, status, e) {
+                Show_Alert(e, "error");
+            }
+
+        });
+    }
+
+   </script>
+  <script type="text/javascript">
+
+      $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+      function getParameterByName(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+          return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+
+      var intern_id = getParameterByName("processId");
+      if (intern_id != "") {
+          var request = "{'internid':'" + intern_id + "'}";
+          var url_new = "Feedback_history.aspx/Stipend_History_Intern_redirect";
+          //$('input[type=radio]').attr("disabled", true);
+      }
+      else {
+          var request = "{}";
+          var url_new = "Feedback_history.aspx/Stipend_History_Intern";
+      }
+
+      $(document).ready(function () {
+
+          $.ajax({
+              type: "POST",
+              url: url_new,
+              data: request,
+              contentType: "application/json; charset = utf-8",
+              dataType: "json",
+              success: show_stipend_data,
+              error: function (data, status, e) {
+                  Show_Alert(e, "error");
+              }
+
+          });
+      });
+
+      function show_stipend_data(response) {
+          var count = 1;
+          var htmlstr = "";
+          var data = response.d;
+
+          if (data.length > 0) {
+
+              for (var i = 0; i < data.length; i++) {
+
+                  htmlstr += "<div class='plus_button_div'>"
+                            	+ "<div class='plus_button' id='plus_button_" + i + "' onClick='showMonthDetail(\"month_detail_" + i + " \", \"plus_button_" + i + "\" )'></div>"
+                                + "</div>"
+                                + " <div class='month_detail'>"
+                            	+ "<div class='short_detail'>"
+                                + "<div class='short_detail_inner'>"
+                                + " " + data[i].month_name + " - " + data[i].year_name + ""
+                                + "</div>"
+                                + "<div class='short_detail_inner'>"
+                                + "  " + data[i].percentage + "%"
+                                + "</div>"
+                                + "<div class='short_detail_inner'>"
+                                + "" + data[i].Average + ""
+                                + "</div>";
+
+
+                  htmlstr += "</div>";
+                  htmlstr += "<div class='table_div' id='month_detail_" + i + "' style='display:none;'><table   width='100%' border='1' style='border: #8E8E8E 1px solid' cellspacing='0'"
+                                + "cellpadding='0' frame='void' rules='cols'>"
+                        + "<tbody>"
+                            + "<tr>"
+                                + "<th width='45%'   scope='col'>"
+                                  + "Characteristics"
+                                + "</th>"
+                               + " <th width='25%' bgcolor='#2A8622' scope='col'>"
+                                   + " Score"
+                                + "</th>"
+                               + " <th width='30%' bgcolor='#2A8622' scope='col'>"
+                                  + "  Total Score"
+                                + "</th>"
+                           + " </tr>"
+                            + "<tr>"
+                               + " <td bgcolor='#FFFFFF'>"
+                                    + "Attendance and Punctuality"
+                                + "</td>"
+                               + " <td bgcolor='#FFFFFF'>";
+                  if (data[i].attendance == 1) {
+                      htmlstr += "<input id='Attendance1" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='1' checked   >";
+                  }
+                  else {
+                      htmlstr += "<input id='Attendance1" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='1' >";
+                  }
+                  if (data[i].attendance == 2) {
+                      htmlstr += "<input id='Attendance2" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='2' checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Attendance2" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='2' >";
+                  }
+                  if (data[i].attendance == 3) {
+
+                      htmlstr += "<input id='Attendance3" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='3'  checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Attendance3" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='3'   >";
+                  }
+                  if (data[i].attendance == 4) {
+
+                      htmlstr += "<input id='Attendance4" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='4'  checked>";
+                  }
+                  else {
+                      htmlstr += "<input id='Attendance4" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='4'   >";
+                  }
+                  if (data[i].attendance == 5) {
+
+                      htmlstr += "<input id='Attendance5" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='5' checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Attendance5" + i + "' type='radio' name='Attendance" + data[i].efid + "' class='star' value='5' >";
+                  }
+
+                  htmlstr += " </td>"
+                               + " <td rowspan='5' style='background-image: url(../images/total_rating.png); background-color: #FFFFFF;"
+                                  + "  background-repeat: no-repeat; background-position: center; font-family: Arial;"
+                                    + "font-size: 28px; text-align: center; padding-right: 20px; font-weight: bold;'>"
+                                    + "" + data[i].Average + ""
+                               + " </td>"
+                           + " </tr>"
+                           + " <tr>"
+                                + "<td bgcolor='#D3D3D3'>"
+                                   + " Behavior towards learning objectives"
+                                + "</td>"
+                               + " <td bgcolor='#D3D3D3'>";
+                  if (data[i].behavior == 1) {
+                      htmlstr += "<input id=Behavior1" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='1' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "<input id=Behavior1" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='1' >";
+                  }
+                  if (data[i].behavior == 2) {
+                      htmlstr += "<input id='Behavior2" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='2' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Behavior2" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='2' >";
+                  }
+                  if (data[i].behavior == 3) {
+
+                      htmlstr += "<input id='Behavior3" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='3' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Behavior3" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='3'  >";
+                  }
+                  if (data[i].behavior == 4) {
+
+                      htmlstr += "<input id='Behavior4" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='4' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Behavior4" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='4' disabled>";
+                  }
+                  if (data[i].behavior == 5) {
+
+                      htmlstr += "<input id='Behavior5" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='5' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "<input id='Behavior5" + i + "' type='radio' name='Behavior" + data[i].efid + "' class='star' value='5' >";
+                  }
+
+                  htmlstr += "  </td>"
+                           + " </tr>"
+                            + "<tr>"
+                              + "  <td bgcolor='#FFFFFF'>"
+                                 + "   Professional & Career Development Skills"
+                             + "   </td>"
+                              + "  <td bgcolor='#FFFFFF'>";
+
+
+
+                  if (data[i].Career_Skills == 1) {
+                      htmlstr += "  <input id='career1" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='1' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "   <input id='career1" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='1' >";
+                  }
+                  if (data[i].Career_Skills == 2) {
+                      htmlstr += "  <input id='career2" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='2' checked=checked >";
+                  }
+                  else {
+                      htmlstr += " <input id='career2" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='2' >";
+                  }
+                  if (data[i].Career_Skills == 3) {
+
+                      htmlstr += " <input id='career3" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='3' checked=checked  >";
+                  }
+                  else {
+                      htmlstr += " <input id='career3" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='3'  >";
+                  }
+                  if (data[i].Career_Skills == 4) {
+
+                      htmlstr += "  <input id='career4" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='4' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "  <input id='career4" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='4' >";
+                  }
+                  if (data[i].Career_Skills == 5) {
+
+                      htmlstr += "    <input id='career5" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='5' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "    <input id='career5" + i + "' type='radio' name='career" + data[i].efid + "' class='star' value='5' >";
+                  }
+
+
+
+
+
+
+
+
+                  htmlstr += "   </td>"
+                          + "  </tr>"
+                          + "  <tr>"
+                            + "    <td bgcolor='#D3D3D3'>"
+                               + "     Interpersonal & Teamwork Skills"
+                             + "   </td>"
+                             + "   <td bgcolor='#D3D3D3'>";
+                  if (data[i].Teamwork_Skills == 1) {
+                      htmlstr += "  <input id='Learning1" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='1' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "   <input id='Learning1" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='1' >";
+                  }
+                  if (data[i].Teamwork_Skills == 2) {
+                      htmlstr += "  <input id='Learning2" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='2' checked=checked >";
+                  }
+                  else {
+                      htmlstr += " <input id='Learning2" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='2' >";
+                  }
+                  if (data[i].Teamwork_Skills == 3) {
+
+                      htmlstr += " <input id='Learning3" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='3' checked=checked  >";
+                  }
+                  else {
+                      htmlstr += " <input id='Learning3" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='3'  >";
+                  }
+                  if (data[i].Teamwork_Skills == 4) {
+
+                      htmlstr += "  <input id='Learning4" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='4' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "  <input id='Learning4" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='4' >";
+                  }
+                  if (data[i].Teamwork_Skills == 5) {
+
+                      htmlstr += "    <input id='Learning5" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='5' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "    <input id='Learning5" + i + "' type='radio' name='Learning" + data[i].efid + "' class='star' value='5' >";
+                  }
+                  htmlstr += "   </td>"
+                          + "  </tr>"
+                          + "  <tr>"
+                                + "<td bgcolor='#FFFFFF'>"
+                                + "    Improving Learning Performance"
+                             + "   </td>"
+                              + "  <td bgcolor='#FFFFFF'>";
+                  if (data[i].Learning_Performance == 1) {
+                      htmlstr += "  <input id='Performance1" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='1' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "  <input id='Performance1" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='1'  >";
+                  }
+                  if (data[i].Learning_Performance == 2) {
+                      htmlstr += "  <input id='Performance2" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='2' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "  <input id='Performance2" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='2'  >";
+                  }
+                  if (data[i].Learning_Performance == 3) {
+
+                      htmlstr += "<input id='Performance3" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='3' checked=checked  >";
+                  }
+                  else {
+                      htmlstr += "<input id='Performance3" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='3'   >";
+                  }
+                  if (data[i].Learning_Performance == 4) {
+
+                      htmlstr += "  <input id='Performance4" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='4' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "  <input id='Performance4" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='4' >";
+                  }
+                  if (data[i].Learning_Performance == 5) {
+
+                      htmlstr += "    <input id='Performance5" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='5' checked=checked >";
+                  }
+                  else {
+                      htmlstr += "    <input id='Performance5" + i + "' type='radio' name='Performance" + data[i].efid + "' class='star' value='5' >";
+                  }
+
+                  htmlstr += "   </td>"
+               + "  </tr><tr><td >Overall Performance</td><td colspan = 2> " + data[i].Overall_Performance + "</td></tr><tr><td >Comments</td><td colspan = 2> <textarea id = 'comments" + data[i].efid + "' maxlength = 500>" + data[i].Improvement_Remarks + "</textarea><br>Maximum Characters: 500</td></tr>"
+            + " </tbody>"
+      + "   </table>";
+
+
+                  htmlstr += " <br>  ";
+
+                  
+                   
+                      htmlstr += "  </div>";
+                 
+
+
+
+
+
+                  htmlstr += " </div></div>";
+
+              }
+              $("#name").text(data[0].name);
+              $("#reg").text(data[0].reg);
+              $("#contact").text(data[0].phone);
+
+              $("#data").html(htmlstr);
+              if (intern_id == "") {
+                  $(':radio').attr("disabled", true);
+                  $('textarea').attr("disabled", true);
+              }
+              $.getScript("../js/jquery.rating.pack.js", function () { });
+
+              if ($("#plus_button_0").hasClass("plus_button")) {
+
+                  $("#plus_button_0").removeClass("plus_button");
+                  $("#plus_button_0").addClass("minus_button");
+                  //$("#"+detail_id).show();
+                  $("#month_detail_0").hide().slideDown(500);
+              }
+              else {
+
+                  $("#plus_button_0").removeClass("minus_button");
+                  $("#plus_button_0").addClass("plus_button");
+                  //alert("d");
+                  $("#month_detail_0").slideUp(500);
+              }
+
+          }
+          else {
+
+              $("#data").html("No Record Found");
+          }
+
+
+          $('#existing_request').html(htmlstr);
+      }
+    
+      function refresh_data(response) {
+          alert("Feedback Updated Succesfully");
+          location.reload();
+
+      }
+      function showMonthDetail(detail_id, button_id) {
+          //alert(button_id);
+          if ($("#" + button_id).hasClass("plus_button")) {
+              $("#" + button_id).removeClass("plus_button");
+              $("#" + button_id).addClass("minus_button");
+              //$("#"+detail_id).show();
+              $("#" + detail_id).hide().slideDown(500);
+          }
+          else {
+
+              $("#" + button_id).removeClass("minus_button");
+              $("#" + button_id).addClass("plus_button");
+              //alert("d");
+              $("#" + detail_id).slideUp(500);
+          }
+          //alert(detail_id);
+      }
+					</script>
+
+
+            
+        </div>
+         <div style="clear:both;">
+    </div>
+    </div>
+   
+     <div class="footer-copyrights footer">
+            <div class="l-page-width  clearfix">
+                <div class="wrapper">
+                    <div id="text-2" class="widget widget_text">
+                        <div class="textwidget">
+                            Copyrights &copy;2017: Ufone</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dark-mask">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+<style type="text/css" media="screen">   #horizontalmenu li ul { display:none; position:absolute; } #horizontalmenu li:hover ul{ display:block; z-index:1000;   height:auto;   } #horizontalmenu li ul li{ clear:both; border-style:none;background:none;} </style>
+ 
+wÉ-`…3      Y‹EY‹F>R       <    :http://monitoring.nip.gov.pk/YIP/feedbackInternhistory.aspx necko:classified 1 strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/7.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Wed, 09 Aug 2017 12:59:46 GMT
+Content-Length: 32188
+ original-response-headers Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/7.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Wed, 09 Aug 2017 12:59:46 GMT
+Content-Length: 32188
+ charset UTF-8 uncompressed-len 0 predictor::resource-count 19 predictor::http://monitoring.nip.gov.pk/js/jquery/jquery4a80.js?ver=1.11.2 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery/jquery-migrate.min1576.js?ver=1.2.1 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/owl.carousel9e1e.js?ver=1.3.2 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.prettyPhoto5152.js?ver=1.0 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.validate.min5152.js?ver=1.0 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.flexnav.min5152.js?ver=1.0 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/scripts5152.js?ver=1.0 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery-1.10.2.min.js 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery-ui-1.10.3.custom.min.js 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.blockUI.js 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/js/jquery.toastmessage-min.js 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/css/stylesbc19.css?ver=4.2 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/css/style.css?ver=4.2 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/css/jquery.toastmessage-min.css 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/css/jquery.rating.css 1,1,1502283589,4096 net-response-time-onstart 217 net-response-time-onstop 321 predictor::http://monitoring.nip.gov.pk/images/minus.png 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/images/total_rating.png 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/css/delete.gif 1,1,1502283589,4096 predictor::http://monitoring.nip.gov.pk/css/star.gif 1,1,1502283589,4096   }¼

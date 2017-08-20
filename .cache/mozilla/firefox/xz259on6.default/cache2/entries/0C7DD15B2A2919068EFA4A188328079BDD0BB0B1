@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Free CSS | Free CSS Templates | Demo of the HTML CSS Template biz solution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/cufon-yui.js"></script>
+<script type="text/javascript" src="js/arial.js"></script>
+<script type="text/javascript" src="js/cuf_run.js"></script>
+<style type="text/css">
+#freecssfooter{display:block;width:100%;padding:120px 0 20px;overflow:hidden;background-color:transparent;z-index:5000;text-align:center;}
+#freecssfooter div#fcssholder div{display:none;}
+#freecssfooter div#fcssholder div:first-child{display:block;}
+#freecssfooter div#fcssholder div:first-child a{float:none;margin:0 auto;}
+</style></head>
+<body>
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = '//s3.buysellads.com/ac/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+      <h1><a href="http://www.free-css.com/free-css-templates"><span>biz</span> solution<small>Simple web template</small></a></h1>
+    </div>
+    <div class="menu_nav">
+      <ul>
+        <li class="active"><a href="http://www.free-css.com/free-css-templates">Home</a></li>
+        <li><a href="support.php">Support</a></li>
+        <li><a href="about.php">About Us</a></li>
+        <li><a href="blog.php">Blog</a></li>
+        <li><a href="contact.php">Contact Us</a></li>
+      </ul>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+    <div class="hbg"><img src="images/header_images.jpg" width="653" height="271" alt="website template image" />
+      <div class="text">
+        <h3>Creating Futures</h3>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content_bg">
+      <div class="mainbar">
+        <div class="article">
+          <h2><span>Template License</span></h2>
+          <div class="clr"></div>
+          <p class="post-data"><a href="http://www.free-css.com/free-css-templates" class="com fr">Comments (3)</a> <span class="date">March 16, 2018</span> &nbsp;|&nbsp; Posted by <a href="http://www.free-css.com/free-css-templates">Owner</a> &nbsp;|&nbsp; Filed under <a href="http://www.free-css.com/free-css-templates">templates</a>, <a href="http://www.free-css.com/free-css-templates">internet</a></p>
+          <img src="images/images_1.jpg" width="613" height="193" alt="website template image" />
+          <p>This is a free CSS website template by CoolWebTemplates.net. This work is distributed under the Creative Commons Attribution 3.0 License, which means that you are free to use it for any personal or commercial purpose provided you credit me in the form of a link back to CoolWebTemplates.net.</p>
+          <p class="spec"> <a href="http://www.free-css.com/free-css-templates" class="rm fl">Read more</a></p>
+          <div class="clr"></div>
+        </div>
+        <div class="article">
+          <h2><span>Lorem Ipsum</span> Dolor Sit</h2>
+          <div class="clr"></div>
+          <p class="post-data"><a href="http://www.free-css.com/free-css-templates" class="com fr">Comments (7)</a> <span class="date">March 15, 2010</span> &nbsp;|&nbsp; Posted by <a href="http://www.free-css.com/free-css-templates">Owner</a> &nbsp;|&nbsp; Filed under <a href="http://www.free-css.com/free-css-templates">templates</a>, <a href="http://www.free-css.com/free-css-templates">internet</a></p>
+          <img src="images/images_2.jpg" width="613" height="193" alt="website template image" />
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="http://www.free-css.com/free-css-templates">Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.</a> Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra condimentum, lorem tellus eleifend magna, eget fringilla velit magna id neque. Curabitur vel urna. In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam.</p>
+          <p>Aenean commodo elit ac ante dignissim iaculis sit amet non velit. Donec magna sapien, molestie sit amet faucibus sit amet, fringilla in urna. Aliquam erat volutpat. Fusce a dui est. Sed in volutpat elit. Nam odio tortor, pulvinar non scelerisque in, eleifend nec nunc. Sed pretium, massa sed dictum dapibus, nibh purus posuere magna, ac porta felis lectus ut neque. Nullam sagittis ante vitae velit facilisis lacinia. Cras vehicula lacinia ornare. Duis et cursus risus. Curabitur consectetur justo sit amet odio viverra vel iaculis odio gravida. Ut imperdiet metus nec erat.</p>
+          <p class="spec"><a href="http://www.free-css.com/free-css-templates" class="rm fl">Read more</a></p>
+          <div class="clr"></div>
+        </div>
+        <div class="pagenavi"><span class="pages">Page 1 of 2</span><span class="current">1</span><a href="http://www.free-css.com/free-css-templates">2</a><a href="http://www.free-css.com/free-css-templates" >&raquo;</a></div>
+      </div>
+      <div class="sidebar">
+        <div class="gadget">
+          <div class="search">
+            <form method="get" id="search" action="http://www.free-css.com/free-css-templates">
+              <span>
+              <input type="text" value="Search..." name="s" id="s" />
+              <input name="searchsubmit" type="image" src="images/search.gif" value="Go" id="searchsubmit" class="btn"  />
+              </span>
+            </form>
+            <div class="clr"></div>
+          </div>
+          <div class="clr"></div>
+        </div>
+        <div class="gadget">
+          <h2><span>Sidebar</span> Menu</h2>
+          <div class="clr"></div>
+          <ul class="sb_menu">
+            <li class="active"><a href="http://www.free-css.com/free-css-templates">Home</a></li>
+            <li><a href="http://www.free-css.com/free-css-templates">TemplateInfo</a></li>
+            <li><a href="http://www.free-css.com/free-css-templates">Style Demo</a></li>
+            <li><a href="http://www.free-css.com/free-css-templates">Blog</a></li>
+            <li><a href="http://www.free-css.com/free-css-templates">Archives</a></li>
+          </ul>
+        </div>
+        <div class="gadget">
+          <h2><span>Sponsors</span></h2>
+          <div class="clr"></div>
+          <ul class="ex_menu">
+            <li class="active"><a href="http://www.free-css.com/free-css-templates">DreamTemplate</a> <span>Over 6,000+ Premium Web Templates</span></li>
+            <li><a href="http://www.free-css.com/free-css-templates">TemplateSOLD</a> <span>Premium WordPress &amp; Joomla Themes</span></li>
+            <li><a href="http://www.free-css.com/free-css-templates">ImHosted.com</a> <span>Affordable Web Hosting Provider</span></li>
+            <li><a href="http://www.free-css.com/free-css-templates">DreamStock</a> <span>Unlimited Amazing Stock Photos</span></li>
+            <li><a href="http://www.free-css.com/free-css-templates">Evrsoft</a> <span>Website Builder Software &amp; Tools</span></li>
+            <li><a href="http://www.free-css.com/free-css-templates">Suspendisse bibendum</a><br />
+              <span>Premium CSS Templates</span></li>
+          </ul>
+        </div>
+        <div class="gadget">
+          <h2 class="grey"><span>Wise Words</span></h2>
+          <div class="clr"></div>
+          <div class="testi">
+            <p><span class="q"><img src="images/quote_1.gif" width="16" height="14" alt="website template image" /></span> We can let circumstances rule us, or we can take charge and rule our lives from within. <span class="q"><img src="images/quote_2.gif" width="16" height="14" alt="website template image" /></span></p>
+            <p class="title"><strong>Earl Nightingale</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="fbg">
+    <div class="col c1">
+      <h2><span>Image Gallery</span></h2>
+      <a href="http://www.free-css.com/free-css-templates"><img src="images/pic_1.jpg" width="58" height="58" alt="website template image" /></a> <a href="http://www.free-css.com/free-css-templates"><img src="images/pic_2.jpg" width="58" height="58" alt="website template image" /></a> <a href="http://www.free-css.com/free-css-templates"><img src="images/pic_3.jpg" width="58" height="58" alt="website template image" /></a> <a href="http://www.free-css.com/free-css-templates"><img src="images/pic_4.jpg" width="58" height="58" alt="website template image" /></a> <a href="http://www.free-css.com/free-css-templates"><img src="images/pic_5.jpg" width="58" height="58" alt="website template image" /></a> <a href="http://www.free-css.com/free-css-templates"><img src="images/pic_6.jpg" width="58" height="58" alt="website template image" /></a> </div>
+    <div class="col c2">
+      <h2><span>Lorem Ipsum</span></h2>
+      <p>Lorem ipsum dolor<br />
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="http://www.free-css.com/free-css-templates">Morbi tincidunt, orci ac convallis aliquam</a>, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.</p>
+    </div>
+    <div class="col c3">
+      <h2><span>About</span></h2>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum. <a href="http://www.free-css.com/free-css-templates">Learn more...</a></p>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="footer">
+    <div class="footer_resize">
+      <p class="lf">Copyright &copy; <a href="http://www.free-css.com/free-css-templates">Domain Name</a>. All Rights Reserved</p>
+      <p class="rf">Get More <a href="http://www.free-css.com/free-css-templates">Free CSS Templates</a> by <a target="_blank" rel="nofollow" href="http://www.coolwebtemplates.net/">CoolWebsiteTemplates</a></p>
+      <div class="clr"></div>
+    </div>
+  </div>
+</div>
+<div id="freecssfooter">
+  <div id="fcssholder">
+    <div id="bsap_2365" class="bsarocks bsap_b893e54e42ad5b76e7b252f59be18e67"></div>
+    <div id="bsap_1635" class="bsarocks bsap_b893e54e42ad5b76e7b252f59be18e67"></div>
+    <div id="bsap_1279659" class="bsarocks bsap_b893e54e42ad5b76e7b252f59be18e67"></div>
+  </div>
+</div>
+<script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-159243-28', 'auto');ga('send', 'pageview');</script>
+</body>
+</html>ê\ÓÑT      Y•´šY•´³>nì       V    :http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/ necko:classified 1 strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+Date: Thu, 17 Aug 2017 15:22:02 GMT
+Server: Apache
+x-powered-by: PHP/7.0.22
+Content-Type: text/html; charset=UTF-8
+ original-response-headers Date: Thu, 17 Aug 2017 15:22:02 GMT
+Server: Apache
+x-powered-by: PHP/7.0.22
+Keep-Alive: timeout=2, max=199
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+ charset UTF-8 uncompressed-len 0 predictor::resource-count 28 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/style.css 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/js/jquery-1.3.2.min.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/js/script.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/js/cufon-yui.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/js/arial.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/js/cuf_run.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/header_images.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/images_1.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/images_2.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/quote_1.gif 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/quote_2.gif 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/pic_1.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/pic_2.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/pic_3.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/pic_4.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/pic_5.jpg 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/pic_6.jpg 1,1,1502983322,4096 net-response-time-onstart 692 net-response-time-onstop 825 predictor::http://s3.buysellads.com/ac/bsa.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/search.gif 1,1,1502983322,4096 predictor::http://www.google-analytics.com/analytics.js 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/menu_hover.gif 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/menu_link.gif 1,1,1502983322,4096 predictor::http://www.free-css.com/assets/files/free-css-templates/preview/page160/biz-solution/images/fbg_line.gif 1,1,1502983322,4096 predictor::http://s3.buysellads.com/r/s_b893e54e42ad5b76e7b252f59be18e67.js?v=1502982000000 1,1,1502983322,4096 predictor::http://s3.buysellads.com/ac/pro.js 1,1,1502983322,4096 predictor::http://srv.buysellads.com/ads/get/ids/CV7DP2T;CV7DPKY;CV7DP2V/?r=1502982000000 1,1,1502983322,4096 predictor::http://s3.buysellads.com/1243201/7137867-1479215323.jpg 1,1,1502983322,4096 predictor::http://www.google-analytics.com/r/collect?v=1&_v=j59&a=979683595&t=pageview&_s=1&dl=http%3A%2F%2Fwww.free-css.com%2Fassets%2Ffiles%2Ffree-css-templates%2Fpreview%2Fpage160%2Fbiz-solution%2F&ul=en-us&de=UTF-8&dt=Free%20CSS%20%7C%20Free%20CSS%20Templates%20%7C%20Demo%20of%20the%20HTML%20CSS%20Template%20biz%20solution&sd=24-bit&sr=1366x768&vp=1210x406&je=0&_u=AACAAEABI~&jid=709871695&gjid=161874015&cid=1758115560.1502982133&tid=UA-159243-28&_gid=559136080.1502982133&_r=1&z=960870334 1,1,1502983322,4096   .<

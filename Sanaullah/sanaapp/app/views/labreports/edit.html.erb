@@ -1,0 +1,34 @@
+<div class="center jumbotron">
+<h1>New Report</h1>
+
+<%= form_for :labreport, url: labreports_path do |l| %>
+<p>
+<%= l.label :Date %><br>
+<%= l.date_select :date, {:order => [:day, :month, :year], :prompt => true, :start_year => Time.now.year, :end_year => 2010 } %>
+</p>
+<p>
+<%= l.label :Reffered_By %><br>
+<%= l.text_field :lreffered %>
+</p>
+<p>
+<%= l.label :Report_Date %><br>
+<%= l.date_select :lreportdate, {:order => [:day, :month, :year], :prompt => true, :start_year => Time.now.year, :end_year => 2010 } %>
+</p>
+<p>
+<%= l.label :Issued_By %><br>
+<%= l.text_field :lissuedby %>
+</p>
+<p>
+<%= l.label :Report_Details %><br>
+<%= l.text_field :lrmarks %>
+</p>
+<p>
+<%= l.submit %>
+</p>
+<% end %>
+<br>
+<br>
+<a href="/labreports" class="buttonsmall buttonb">Back</a>
+<a href="/" class="buttonsmall buttonb">Home</a>
+
+</div>

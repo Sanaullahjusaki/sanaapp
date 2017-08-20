@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<compiz_session id="107dfd8b824d75f13150323835540303100000015620047">
+  <window id="107dfd8b824d75f13150323843339483600000015620048" title="Heroku | Login - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="0" y="24" width="975" height="446"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MCSapp</title>
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="EzpVHkIy50egSO2oi5BW+Z31Z9NqW5H0vHWXgA4VT3XprYthEhGrTZ8q3zVkuZoN3fwLq2/kXSdP4AmOGyEw8g==" />
+
+    <link rel="stylesheet" media="all" href="/assets/doctors.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/employees.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/patients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/rooms.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/scaffolds.self-5356336994d8c0707e8b04147a59f53ae018f654d9605d3e17ec94c68d6bdb08.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/treatments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/application.self-af04b226fd7202dfc532ce7aedb95a0128277937e90d3b3a3d35e1cce9e16886.css?body=1" data-turbolinks-track="reload" />
+    <script src="/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/turbolinks.self-1d1fddf91adc38ac2045c51f0a3e05ca97d07d24d15a4dcbf705009106489e69.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/action_cable.self-5454023407ffec0d29137c7110917e1e745525ae9afbc05f52104c4cd6597429.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/cable.self-6e0514260c1aa76eaf252412ce74e63f68819fd19bf740595f592c5ba4c36537.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/doctors.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/employees.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/patients.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/rooms.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/treatments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/application.self-b89234cf2659d7fedea75bca0b8d231ad7dfc2f3f57fcbaf5f44ed9dc384137b.js?body=1" data-turbolinks-track="reload"></script>
+  </head>
+
+  <body>
+    <h1>New Treatment</h1>
+
+<form class="new_treatment" id="new_treatment" action="/treatments" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="P3vtqXxIZPnxuAyFQRpzdE6ksnLhLkCoR6Hb9C3H9EsBjowEo1WTLvCPl/+wicYv0pGFHqsbO7CmY7npHal4SA==" />
+    <div id="error_explanation">
+      <h2>2 errors prohibited this treatment from being saved:</h2>
+
+      <ul>
+        <li>Doctor must exist</li>
+        <li>Patient must exist</li>
+      </ul>
+    </div>
+
+  <div class="field">
+    <label for="treatment_date">Date</label>
+    <select id="treatment_date_1i" name="treatment[date(1i)]">
+<option value="2012">2012</option>
+<option value="2013">2013</option>
+<option value="2014">2014</option>
+<option value="2015">2015</option>
+<option value="2016">2016</option>
+<option value="2017" selected="selected">2017</option>
+<option value="2018">2018</option>
+<option value="2019">2019</option>
+<option value="2020">2020</option>
+<option value="2021">2021</option>
+<option value="2022">2022</option>
+</select>
+<select id="treatment_date_2i" name="treatment[date(2i)]">
+<option value="1">January</option>
+<option value="2">February</option>
+<option value="3">March</option>
+<option value="4">April</option>
+<option value="5">May</option>
+<option value="6">June</option>
+<option value="7">July</option>
+<option value="8" selected="selected">August</option>
+<option value="9">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+<select id="treatment_date_3i" name="treatment[date(3i)]">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9" selected="selected">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+
+  </div>
+
+  <div class="field">
+    <label for="treatment_time">Time</label>
+    <input type="hidden" id="treatment_time_1i" name="treatment[time(1i)]" value="2017" />
+<input type="hidden" id="treatment_time_2i" name="treatment[time(2i)]" value="8" />
+<input type="hidden" id="treatment_time_3i" name="treatment[time(3i)]" value="9" />
+<select id="treatment_time_4i" name="treatment[time(4i)]">
+<option value="00">00</option>
+<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12" selected="selected">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+</select>
+ : <select id="treatment_time_5i" name="treatment[time(5i)]">
+<option value="00">00</option>
+<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+<option value="33">33</option>
+<option value="34">34</option>
+<option value="35">35</option>
+<option value="36" selected="selected">36</option>
+<option value="37">37</option>
+<option value="38">38</option>
+<option value="39">39</option>
+<option value="40">40</option>
+<option value="41">41</option>
+<option value="42">42</option>
+<option value="43">43</option>
+<option value="44">44</option>
+<option value="45">45</option>
+<option value="46">46</option>
+<option value="47">47</option>
+<option value="48">48</option>
+<option value="49">49</option>
+<option value="50">50</option>
+<option value="51">51</option>
+<option value="52">52</option>
+<option value="53">53</option>
+<option value="54">54</option>
+<option value="55">55</option>
+<option value="56">56</option>
+<option value="57">57</option>
+<option value="58">58</option>
+<option value="59">59</option>
+</select>
+
+  </div>
+
+  <div class="field">
+    <label for="treatment_medicine">Medicine</label>
+    <input type="text" value="dsd" name="treatment[medicine]" id="treatment_medicine" />
+  </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Create Treatment" data-disable-with="Create Treatment" />
+  </div>
+</form>
+
+<a href="/treatments">Back</a>
+
+  </body>
+</html>
+:±7º◊      YãŸYãŸ>ê       -    ~1502269496,:http://localhost:3000/treatments necko:classified 1 strongly-framed 1 request-method POST response-head HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+Etag: W/"29e2d66778d54462d979f2583a22f91b"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 9a2ca64d-5a1b-4dc1-9b41-8655d61b595b
+X-Runtime: 0.086129
+ original-response-headers X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+Etag: W/"29e2d66778d54462d979f2583a22f91b"
+Cache-Control: max-age=0, private, must-revalidate
+Set-Cookie: _MCSapp_session=RUlFd3NPU2dvcHpZTEpxRmdrLytFV2oyWUdMeEdScmZDQ2dab3lMcTZ4bjZwQ3JHZWM5ZmZ3SGJkN3hGWi9mMVdXZ1NTazZkbG05c0RBdWQwbEFwWmpQL2lNMXExa0N2OENkaWJmOWZqWVRSakx5U3BXODdPemhYcHpBc2w0WHFqVUM5cXZPZGVtM294Ulc3NWdyeUVRPT0tLVdmVzRPOWg3ZG9HMnduNzhKWVkzQnc9PQ%3D%3D--0f68852238c21ec6db0f807a6a2a4df30180efb7; path=/; HttpOnly
+X-Request-Id: 9a2ca64d-5a1b-4dc1-9b41-8655d61b595b
+X-Runtime: 0.086129
+Transfer-Encoding: chunked
+ charset UTF-8 uncompressed-len 0 net-response-time-onstart 89 net-response-time-onstop 128   $M

@@ -1,0 +1,27 @@
+logrotate state -- version 2
+"/home/sanaullah/.cache/upstart/dbus.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/update-notifier-release.log" 2017-8-17-19:26:16
+"/home/sanaullah/.cache/upstart/indicator-datetime.log" 2017-8-20-13:18:44
+"/home/sanaullah/.cache/upstart/gnome-keyring-ssh.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/unity7.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/hud.log" 2017-8-20-19:13:32
+"/home/sanaullah/.cache/upstart/indicator-keyboard.log" 2017-8-17-22:31:43
+"/home/sanaullah/.cache/upstart/indicator-bluetooth.log" 2017-8-20-13:18:44
+"/home/sanaullah/.cache/upstart/update-notifier-crash-_var_crash__usr_share_apport_apport-gtk.1000.crash.log" 2017-8-8-19:38:49
+"/home/sanaullah/.cache/upstart/update-notifier-crash-_var_crash__sbin_upstart.1000.crash.log" 2017-8-8-19:38:49
+"/home/sanaullah/.cache/upstart/ssh-agent.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/indicator-sound.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/unity-panel-service.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/upstart-dbus-session-bridge.log" 2017-7-26-23:3:44
+"/home/sanaullah/.cache/upstart/upstart-event-bridge.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/at-spi2-registryd.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/gpg-agent.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/indicator-printers.log" 2017-8-17-22:31:43
+"/home/sanaullah/.cache/upstart/unity-panel-service-lockscreen.log" 2017-8-13-16:14:22
+"/home/sanaullah/.cache/upstart/bamfdaemon.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/unity-settings-daemon.log" 2017-8-20-20:45:57
+"/home/sanaullah/.cache/upstart/update-notifier-cds.log" 2017-7-25-21:6:44
+"/home/sanaullah/.cache/upstart/indicator-session.log" 2017-8-20-13:18:44
+"/home/sanaullah/.cache/upstart/indicator-messages.log" 2017-8-20-13:18:44
+"/home/sanaullah/.cache/upstart/*.log" 2017-7-29-22:0:0
+"/home/sanaullah/.cache/upstart/window-stack-bridge.log" 2017-8-20-20:45:57

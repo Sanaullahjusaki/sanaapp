@@ -1,0 +1,43 @@
+<div class="center jumbotron">
+<h1>New Treatment</h1>
+
+<%= form_for :treatment, url: treatments_path do |t| %>
+<p>
+<%= t.label :Medicines_Suggested %><br>
+<%= t.text_area :medicines %>
+</p>
+<p>
+<%= t.label :Medicines_Suggested_For %><br>
+<%= t.text_field :ttime %>
+</p>
+<p>
+<%= t.label :Medicines_Suggested_On %><br>
+<%= t.date_select :tdate, {:order => [:day, :month, :year], :prompt => true, :start_year => Time.now.year, :end_year => 2010 } %>
+</p>
+
+<p>
+<%= t.label :Next_Visit_On %><br>
+<%= t.date_select :nextvisit, {:order => [:day, :month, :year], :prompt => true, :start_year => Time.now.year, :end_year => 2010 } %>
+</p>
+<p>
+<%= t.label :Reoprt_ID %><br>
+<%= t.text_field :labreport_id %>
+</p>
+<p>
+<%= t.label :Doctor_ID %><br>
+<%= t.text_field :doctor_id %>
+</p>
+<p>
+<%= t.label :Patient_ID %><br>
+<%= t.text_field :patient_id %>
+</p>
+<p>
+<%= t.submit %>
+</p>
+<% end %>
+<br>
+<br>
+<a href="/treatments" class="buttonsmall buttonb">Back</a>
+<a href="/" class="buttonsmall buttonb">Home</a>
+
+</div>

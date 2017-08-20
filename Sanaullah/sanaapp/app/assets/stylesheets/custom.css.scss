@@ -1,0 +1,280 @@
+// Place all the styles related to the patients controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* universal */
+body {
+	padding-top: 60px;
+}
+section {
+	overflow: auto;
+}
+textarea {
+	resize: vertical;
+}
+.center {
+	text-align: center;
+}
+.center h1 {
+	margin-bottom: 10px;
+}
+
+/* typography */
+h1,h2,h4,h5,h6 {
+	line-height: 1;
+}
+h1 {
+	font-size: 3em;
+	letter-spacing: -2px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+h2 {
+	font-size: 1.2em;
+	letter-spacing: -1px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: normal;
+	color: #777;
+}
+h3 {
+	font-size: 2.2em;
+	letter-spacing: -1px;
+	margin-bottom: -40px;
+	text-align: left;
+	font-weight: normal;
+	color: white;
+}
+p {
+	font-size: 1.1em;
+	line-height: 1.7em;
+}
+
+.container {
+	width: 850px;
+}
+
+body {
+
+	background: #cff;
+}
+header {
+	padding-top: 20px;
+}
+header img {
+	padding: 1em;
+	background: #cff;}
+section {
+	margin-top: 1em;
+	font-size: 120%;
+	padding: 20px;
+	background: #fff;
+}
+	section h1 {
+	font-size: 130%;
+}
+/* Links */
+a {
+	color: #09c;
+	text-decoration: none;
+}
+	a:hover {
+	color: #69;
+	text-decoration: underline;
+}
+a:visited {
+	color: #69;
+}
+/* Navigation */
+nav {
+	float: right;
+}
+nav ul {
+	margin: 0;
+	padding: 0;
+}
+nav ul li {
+	list-style-type: none;
+	display: inline-block;
+	padding: 0.2em 0;
+}
+nav ul li a {
+	padding: 0 5px;
+	font-weight: bold;
+}
+nav ul li a:visited {
+	color: #09c;
+}
+nav ul li a:hover {
+	text-decoration: underline;
+}
+
+/* Table styles*/
+
+body {
+  display: table;
+  width: 100%;
+  background: #dedede;
+
+}
+
+* {
+  /* Safari/Chrome, other WebKit */
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+}
+
+.aa_h2 {
+  font: 100 5rem/1 Roboto;
+  text-transform: uppercase;
+}
+
+table {
+  background: #fff;
+}
+
+table, thead, tbody, tfoot, tr, td, th {
+  text-align: center;
+  margin: auto;
+  border: 1px solid #dedede;
+  padding: 1rem;
+  width: auto;
+}
+
+.table {
+  display: table;
+  width: auto;
+}
+
+.tr {
+  display: table-row;
+}
+
+.thead {
+  display: table-header-group;
+}
+
+.tbody {
+  display: table-row-group;
+}
+
+.tfoot {
+  display: table-footer-group;
+}
+
+.col {
+  display: table-column;
+}
+
+.colgroup {
+  display: table-column-group;
+}
+
+.td, .th {
+  display: table-cell;
+  width: auto;
+}
+
+.caption {
+  display: table-caption;
+}
+
+.table,
+.thead,
+.tbody,
+.tfoot,
+.tr,
+.td,
+.th {
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+}
+
+.table {
+  background: #fff;
+  margin: auto;
+  border: none;
+  padding: 0;
+  margin-bottom: 5rem;
+}
+
+.th {
+  font-weight: 700;
+  border: 1px solid #dedede;
+}
+.th:nth-child(odd) {
+  border-right: none;
+}
+
+.td {
+  font-weight: 300;
+  border: 1px solid #dedede;
+  border-top: none;
+}
+.td:nth-child(odd) {
+  border-right: none;
+}
+
+
+
+.aa_css {
+  background: skyblue;
+  padding: 5rem;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  vertical-align: middle;
+}
+
+/*Button Styles*/
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 30%;
+}
+
+.buttonsmall {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 14px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 1px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 13%;
+}
+
+
+.buttonb {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.buttonb:hover {
+    background-color: #555555;
+    color: white;
+}
+
+

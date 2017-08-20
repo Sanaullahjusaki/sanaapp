@@ -1,0 +1,33 @@
+<div class="center jumbotron">
+<h1>All Docotrs</h1>
+<table border = '1'>
+	<tr>
+		<th>Name</th>
+		<th>Gender</th>
+		<th>Contact</th>
+		<th>Department</th>
+		<th>Patient ID</th>
+		<th>Lab Report ID</th>
+	</tr>
+	<% @doctor.each do |d| %>
+		<tr>
+			<td><%= d.dname %></td>
+			<td align="center"><%= d.dgender %></td>
+			<td><%= d.dcontact %></td>
+			<td><%= d.ddept %></td>
+			<td align="center"><%= d.patient_id %></td>
+			<td align="center"><%= d.labreport_id %></td>
+			
+			<td><%= link_to 'Show', doctor_path(d) %></td>
+			<td><%= link_to 'Edit', edit_doctor_path(d) %></td>
+			<td><%= link_to 'Delete', doctor_path(d),
+						method: :delete,
+						data: { confirm: 'Are you sure to delete?'} %></td>						
+		</tr>
+	<% end %>
+</table>
+<br>
+<br>
+<a href="/doctors/new" class="button buttonb">Register New Doctor</a>
+</div>
+

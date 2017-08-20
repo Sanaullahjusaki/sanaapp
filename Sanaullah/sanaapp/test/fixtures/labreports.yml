@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2017-08-10
+  lreffered: MyString
+  lreportdate: 2017-08-10
+  lissuedby: MyString
+  lrmarks: MyString
+
+two:
+  date: 2017-08-10
+  lreffered: MyString
+  lreportdate: 2017-08-10
+  lissuedby: MyString
+  lrmarks: MyString

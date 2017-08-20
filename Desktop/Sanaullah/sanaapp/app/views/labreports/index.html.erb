@@ -1,0 +1,31 @@
+<div class="center jumbotron">
+<h1>All Lab Reports</h1>
+<table border = '1'>
+	<tr>
+		<th>Test Date</th>
+		<th>Reffered By</th>
+		<th>Report Date</th>
+		<th>Issued By</th>
+		<th>Remarks</th>
+	</tr>
+	<% @labreport.each do |l| %>
+		<tr>
+			<td><%= l.date %></td>
+			<td><%= l.lreffered %></td>
+			<td><%= l.lreportdate %></td>
+			<td><%= l.lissuedby %></td>
+			<td><%= l.lrmarks %></td>
+			
+			<td><%= link_to 'Show', labreport_path(l) %></td>
+			<td><%= link_to 'Edit', edit_labreport_path(l) %></td>
+			<td><%= link_to 'Delete', labreport_path(l),
+						method: :delete,
+						data: { confirm: 'Are you sure to delete?'} %></td>	
+		</tr>
+	<% end %>
+</table>
+<br>
+<br>
+<a href="/labreports/new" class="button buttonb">Make a New Report</a>
+
+</div>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HMS | Sana</title>
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="euO68QBL1qJrh2anf+5VZxsc5ssZd8JEap58v/pCMEHLdO4nYFe975//Ou/vpZqb5eLTZr7pP1OMiyOQDGq+Dw==" />
+
+    <link rel="stylesheet" media="all" href="/assets/custom.self-f2c089300be5ee8f7cdfe762a78d941a9de78d87b836cd694d8ec5306dda250a.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/doctors.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/labreports.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/patients.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/treatments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" data-turbolinks-track="reload" />
+<link rel="stylesheet" media="all" href="/assets/application.self-af04b226fd7202dfc532ce7aedb95a0128277937e90d3b3a3d35e1cce9e16886.css?body=1" data-turbolinks-track="reload" />
+    <script src="/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/turbolinks.self-1d1fddf91adc38ac2045c51f0a3e05ca97d07d24d15a4dcbf705009106489e69.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/action_cable.self-5454023407ffec0d29137c7110917e1e745525ae9afbc05f52104c4cd6597429.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/cable.self-6e0514260c1aa76eaf252412ce74e63f68819fd19bf740595f592c5ba4c36537.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/doctors.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/labreports.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/patients.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/treatments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" data-turbolinks-track="reload"></script>
+<script src="/assets/application.self-b89234cf2659d7fedea75bca0b8d231ad7dfc2f3f57fcbaf5f44ed9dc384137b.js?body=1" data-turbolinks-track="reload"></script>
+  </head>
+
+  <body>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+	<div class="container">
+		<h3 style = "color:white;">National Hospital Turbat</h3>
+		<nav>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/">Home</a></li>
+				<li><a href="/patients">Patients</a></li>
+				<li><a href="/doctors">Doctors</a></li>
+				<li><a href="/labreports">Lab Reports</a></li>
+				<li><a href="/treatments">Treatments</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+    <div class="center jumbotron">
+<h1>New Treatment</h1>
+
+<form action="/treatments" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="eDYaIQTv8MwyMWscJaF0f9qnjg5uRQVJ9GlooYH55kUZPsbjaJ9ZWilQDscmEX05rhOI87kkwBQ2mqB0awXIsg==" />
+<p>
+<label for="treatment_Medicines_Suggested">Medicines suggested</label><br>
+<textarea name="treatment[medicines]" id="treatment_medicines">
+</textarea>
+</p>
+<p>
+<label for="treatment_Medicines_Suggested_For">Medicines suggested for</label><br>
+<input type="text" name="treatment[ttime]" id="treatment_ttime" />
+</p>
+<p>
+<label for="treatment_Medicines_Suggested_On">Medicines suggested on</label><br>
+<select id="treatment_tdate_3i" name="treatment[tdate(3i)]">
+<option value="">Day</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+<select id="treatment_tdate_2i" name="treatment[tdate(2i)]">
+<option value="">Month</option>
+<option value="1">January</option>
+<option value="2">February</option>
+<option value="3">March</option>
+<option value="4">April</option>
+<option value="5">May</option>
+<option value="6">June</option>
+<option value="7">July</option>
+<option value="8">August</option>
+<option value="9">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+<select id="treatment_tdate_1i" name="treatment[tdate(1i)]">
+<option value="">Year</option>
+<option value="2017">2017</option>
+<option value="2016">2016</option>
+<option value="2015">2015</option>
+<option value="2014">2014</option>
+<option value="2013">2013</option>
+<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2010">2010</option>
+</select>
+
+</p>
+
+<p>
+<label for="treatment_Next_Visit_On">Next visit on</label><br>
+<select id="treatment_nextvisit_3i" name="treatment[nextvisit(3i)]">
+<option value="">Day</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+<select id="treatment_nextvisit_2i" name="treatment[nextvisit(2i)]">
+<option value="">Month</option>
+<option value="1">January</option>
+<option value="2">February</option>
+<option value="3">March</option>
+<option value="4">April</option>
+<option value="5">May</option>
+<option value="6">June</option>
+<option value="7">July</option>
+<option value="8">August</option>
+<option value="9">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+<select id="treatment_nextvisit_1i" name="treatment[nextvisit(1i)]">
+<option value="">Year</option>
+<option value="2017">2017</option>
+<option value="2016">2016</option>
+<option value="2015">2015</option>
+<option value="2014">2014</option>
+<option value="2013">2013</option>
+<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2010">2010</option>
+</select>
+
+</p>
+<p>
+<label for="treatment_Reoprt_ID">Reoprt id</label><br>
+<input type="text" name="treatment[labreport_id]" id="treatment_labreport_id" />
+</p>
+<p>
+<label for="treatment_Doctor_ID">Doctor id</label><br>
+<input type="text" name="treatment[doctor_id]" id="treatment_doctor_id" />
+</p>
+<p>
+<label for="treatment_Patient_ID">Patient id</label><br>
+<input type="text" name="treatment[patient_id]" id="treatment_patient_id" />
+</p>
+<p>
+<input type="submit" name="commit" value="Save Treatment" data-disable-with="Save Treatment" />
+</p>
+</form><br>
+<br>
+<a href="/treatments" class="buttonsmall buttonb">Back</a>
+<a href="/" class="buttonsmall buttonb">Home</a>
+
+</div>
+
+    <br>
+    <div class="container">
+    <footer class="footer">
+	
+		The <a href="/"> Hospital Management System</a>
+		by <a href="#">Sanaullah</a>
+	
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+				<li><a href="/patients">Patients</a></li>
+				<li><a href="/doctors">Doctors</a></li>
+				<li><a href="/labreports">Lab Reports</a></li>
+				<li><a href="/treatments">Treatments</a></li>
+		</ul>
+		<br>
+	</nav>	
+	</div>
+</footer>
+  </body>
+</html>
+bgìQÔJ           YïŒÍ>Å)       %    :http://localhost:3000/treatments/new strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+ETag: W/"47621111bce1485eee60443b159a7d54"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 6717fd27-f946-4978-b1db-0455a45f0581
+X-Runtime: 0.071385
+ original-response-headers X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+ETag: W/"47621111bce1485eee60443b159a7d54"
+Cache-Control: max-age=0, private, must-revalidate
+Set-Cookie: _sanaapp_session=SGxLaEFBQ0laeC9uS2JWY1MrNDAzT3hZTHZpUzVGbTArOU5HRjZHdVl1azNMRG5IbjR4eUkyUk9nYkp2L2NIZTlJb1psb2psRllTYWpkMWMwcjNqdDVDV3BwSTlocGU1ZTFQY2NFM1BBNlhOSUhFbzdjVHFCY2ttaGNJL2prc2JjSkEvY3k5dFRZQjkyYW9lUVR0T0FnPT0tLVlzRGhkdVZLbE1PdHdJNThmbUkvYlE9PQ%3D%3D--3125ca3ae69fa6d990128ed4710a0b581dbc6cd1; path=/; HttpOnly
+X-Request-Id: 6717fd27-f946-4978-b1db-0455a45f0581
+X-Runtime: 0.071385
+Transfer-Encoding: chunked
+ uncompressed-len 0   $ı

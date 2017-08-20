@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<compiz_session id="1047d0372a5c0dc78c150228711898692600000016100047">
+  <window id="1047d0372a5c0dc78c150229956029554800000016100052" title="sana.docx - LibreOffice Writer" class="libreoffice-writer" name="libreoffice" command="soffice">
+    <geometry x="57" y="24" width="1251" height="653"/>
+    <minimized/>
+    <workspace index="0"/>
+  </window>
+  <window id="1047d0372a5c0dc78c150229662180771600000016100051" title="Mobile WiFi - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="0" y="231" width="975" height="474"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

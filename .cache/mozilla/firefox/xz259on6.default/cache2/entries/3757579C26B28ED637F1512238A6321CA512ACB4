@@ -1,0 +1,542 @@
+/* line 2, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: #959595;
+  font: normal 12px/1.8em Arial, Helvetica, sans-serif;
+  background: #fff;
+}
+
+/* line 10, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+html, .main {
+  padding: 0;
+  margin: 0 auto;
+  width: 970px;
+}
+
+/* line 15, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.logo {
+  float: left;
+  width: 300px;
+  height: 51px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+/* line 22, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+h1 {
+  margin: 0;
+  padding: 0;
+  color: #afaeae;
+  font: bold 38px/1.2em Arial, Helvetica, sans-serif;
+  letter-spacing: -2px;
+}
+
+/* line 29, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+h1 a, h1 a:hover {
+  color: #afaeae;
+  text-decoration: none;
+}
+
+/* line 33, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+h1 span {
+  color: #9dd9ff;
+}
+
+/* line 36, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+h1 small {
+  display: block;
+  padding: 0;
+  font: normal 12px/1.2em Arial, Helvetica, sans-serif;
+  letter-spacing: normal;
+}
+
+/* line 42, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+h2 {
+  font: normal 24px Arial, Helvetica, sans-serif;
+  padding: 8px 0;
+  margin: 0;
+  color: #595959;
+}
+
+/* line 48, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+h3 {
+  font: normal 46px Arial, Helvetica, sans-serif;
+  padding: 80px 0 0;
+  margin: 0;
+  color: #FFF;
+}
+
+/* line 54, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+p {
+  margin: 8px 0;
+  padding: 0 0 8px 0;
+  font: normal 12px/1.8em Arial, Helvetica, sans-serif;
+}
+
+/* line 61, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+a {
+  color: #97c950;
+  text-decoration: underline;
+}
+
+/* line 65, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+a.rm, a.com {
+  padding: 0;
+  text-decoration: none;
+  padding: 5px 15px;
+  background: #78bbe6;
+  color: #FFF;
+}
+
+/* line 72, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.header, .content, .menu_nav, .fbg, .footer, form, ol, ol li, ul, .content .mainbar, .content .sidebar {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 76, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.header {
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* line 80, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.hbg {
+  padding: 0;
+  margin: 0;
+  background: #78bbe6;
+  height: 271px;
+}
+
+/* line 86, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.hbg img {
+  float: left;
+}
+
+/* line 89, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.hbg .text {
+  float: left;
+  width: 317px;
+  text-align: center;
+}
+
+/* line 94, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.menu_nav {
+  margin: 0;
+  padding: 0;
+  height: 81px;
+}
+
+/* line 99, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.menu_nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: right;
+}
+
+/* line 105, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.menu_nav ul li {
+  margin: 0;
+  padding: 25px 5px 0 0;
+  float: left;
+}
+
+/* line 110, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.menu_nav ul li a {
+  display: block;
+  margin: 0 5px 0 0;
+  padding: 10px 15px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 16px;
+  background: #cccccc;
+}
+
+/* line 120, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.menu_nav ul li.active a, .menu_nav ul li a:hover {
+  text-decoration: none;
+  background: #78bbe6;
+}
+
+/* line 124, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.content {
+  padding: 13px;
+  margin: 0;
+}
+
+/* line 128, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar {
+  margin: 0;
+  padding: 0;
+  float: right;
+  width: 643px;
+}
+
+/* line 134, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar img {
+  padding: 4px;
+  border: 1px solid #f2f2f1;
+  background: #FFF;
+}
+
+/* line 139, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar img.fl {
+  margin: 4px 16px 4px 0;
+  float: left;
+}
+
+/* line 143, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar .article {
+  margin: 0;
+  padding: 10px 0 5px 20px;
+}
+
+/* line 147, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar .article a {
+  color: #78bbe6;
+}
+
+/* line 150, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar .post-data a {
+  color: #595959;
+}
+
+/* line 153, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.mainbar .spec a.rm, .mainbar a.com {
+  color: #FFF;
+}
+
+/* line 156, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.sidebar {
+  padding: 0;
+  float: left;
+  width: 301px;
+}
+
+/* line 161, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.sidebar .gadget {
+  margin: 0;
+  padding: 10px 20px 5px 0;
+}
+
+/* line 165, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.sidebar .gadget .title {
+  text-align: right;
+}
+
+/* line 168, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.sidebar .gadget span.q {
+  text-align: right;
+  font: normal 60px/12px Arial, Helvetica, sans-serif;
+  color: #d9d9d9;
+}
+
+/* line 173, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.sb_menu, ul.ex_menu, .testi {
+  margin: 0;
+  padding: 0;
+  color: #939393;
+  list-style: none;
+}
+
+/* line 179, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.sb_menu li, ul.ex_menu li {
+  margin: 0;
+}
+
+/* line 182, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.sb_menu li {
+  padding: 2px 0;
+}
+
+/* line 185, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.ex_menu li {
+  padding: 2px 0;
+}
+
+/* line 188, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.sb_menu li a, ul.ex_menu li a {
+  display: block;
+  color: #959595;
+  text-decoration: none;
+  padding: 5px 5px 5px 15px;
+  background: url(images/menu_link.gif) no-repeat left center;
+}
+
+/* line 195, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.ex_menu li span {
+  padding: 0 0 0 15px;
+}
+
+/* line 198, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.sb_menu li a:hover, ul.ex_menu li a:hover, ul.sb_menu li.active a, ul.ex_menu li.active a {
+  background: url(images/menu_hover.gif) no-repeat left center;
+}
+
+/* line 201, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.sb_menu li a:hover {
+  text-decoration: underline;
+}
+
+/* line 204, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ul.ex_menu li a:hover {
+  text-decoration: underline;
+}
+
+/* line 207, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.content .mainbar .comment {
+  margin: 0;
+  padding: 16px 0 0 0;
+}
+
+/* line 211, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.content .mainbar .comment img.userpic {
+  border: 1px solid #dedede;
+  margin: 10px 16px 0 0;
+  padding: 0;
+  float: left;
+}
+
+/* line 217, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg {
+  margin: 0;
+  padding: 20px;
+  background: #78bbe6;
+}
+
+/* line 222, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg img {
+  padding: 4px;
+  border: 1px solid #cfd2d4;
+  background-color: #fff;
+}
+
+/* line 227, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg p, .fbg h2 {
+  color: #fbfbfb;
+}
+
+/* line 230, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg a {
+  color: #fbfbfb;
+}
+
+/* line 233, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg .col {
+  margin: 0;
+  float: left;
+  background: url(images/fbg_line.gif) repeat-y right;
+}
+
+/* line 238, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg .c1 {
+  padding: 0 20px 0 0;
+  width: 260px;
+}
+
+/* line 242, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg .c2 {
+  padding: 0 20px;
+  width: 320px;
+}
+
+/* line 246, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg .c3 {
+  padding: 0 0 0 20px;
+  width: 270px;
+  background: none;
+}
+
+/* line 251, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg .c1 img {
+  margin: 8px 16px 8px 0;
+}
+
+/* line 254, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fbg .c3 img {
+  margin: 8px 16px 4px 0;
+  float: left;
+}
+
+/* line 260, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.footer_resize {
+  margin: 0 auto;
+  padding: 20px;
+  width: 930px;
+}
+
+/* line 265, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.footer p {
+  margin: 0;
+  padding: 4px 0;
+}
+
+/* line 269, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.footer a {
+  color: #9a9a9a;
+  padding: inherit;
+  text-decoration: underline;
+}
+
+/* line 274, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.footer a:hover {
+  text-decoration: none;
+}
+
+/* line 277, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.footer .lf {
+  float: left;
+}
+
+/* line 280, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.footer .rf {
+  float: right;
+}
+
+/* line 283, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ol {
+  list-style: none;
+}
+
+/* line 286, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ol li {
+  display: block;
+  clear: both;
+}
+
+/* line 290, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ol li label {
+  display: block;
+  margin: 0;
+  padding: 16px 0 0 0;
+}
+
+/* line 295, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ol li input.text {
+  width: 480px;
+  border: 1px solid #c0c0c0;
+  margin: 2px 0;
+  padding: 5px 2px;
+  height: 16px;
+  background: #fff;
+}
+
+/* line 303, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ol li textarea {
+  width: 480px;
+  border: 1px solid #c0c0c0;
+  margin: 2px 0;
+  padding: 2px;
+  background: #fff;
+}
+
+/* line 310, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+ol li .send {
+  margin: 16px 0 0 0;
+}
+
+/* line 313, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.search {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 317, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.search span {
+  width: 280px;
+  display: block;
+  background: #FFF;
+  height: 29px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #e1dddd;
+}
+
+/* line 326, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.search input#s {
+  float: left;
+  width: 230px;
+  padding: 7px 0 7px 10px;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: #afaeae;
+  font: normal 12px/15px Arial, Helvetica, sans-serif;
+}
+
+/* line 336, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.search .btn {
+  float: left;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: auto;
+}
+
+/* line 343, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.pagenavi {
+  clear: both;
+  font: normal 11px Arial, Helvetica, sans-serif;
+  margin: 0 auto;
+  text-align: right;
+  padding: 20px 0 20px 20px;
+}
+
+/* line 350, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.pagenavi a, .pagenavi .current {
+  margin-left: 3px;
+  padding: 3px 8px;
+  text-decoration: none;
+  color: #939393;
+  background: #f9fbfc;
+  border: 1px solid #d9e3cb;
+}
+
+/* line 358, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.pagenavi a:hover, .pagenavi .current {
+  background: #78bbe6;
+  color: #FFF;
+}
+
+/* line 362, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.pagenavi .pages {
+  float: left;
+}
+
+/* line 365, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fl {
+  float: left;
+}
+
+/* line 368, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.fr {
+  float: right;
+}
+
+/* line 371, /home/sanaullah/Sanaullah/sanaapp/app/assets/stylesheets/custom.css.scss */
+.clr {
+  clear: both;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 0;
+  line-height: 0;
+}
+ýæŒ¥ñ      Y•µUY•´ô>’—[vès   u    :http://localhost:3000/assets/custom.self-7b0d04f04aa13f7edde2782bf00e43c28f5873b014d6957b366a65ad7fe9f705.css?body=1 necko:classified 1 strongly-framed 1 request-method GET response-head HTTP/1.1 200 OK
+Content-Type: text/css; charset=utf-8
+Etag: "7b0d04f04aa13f7edde2782bf00e43c28f5873b014d6957b366a65ad7fe9f705"
+Content-Length: 13022
+X-Request-Id: 0b0a9666-db57-4dcf-ab77-690945ac5c5c
+X-Runtime: 0.005298
+Cache-Control: public, max-age=31536000
+ original-response-headers Content-Type: text/css; charset=utf-8
+Cache-Control: public, max-age=31536000
+Etag: "7b0d04f04aa13f7edde2782bf00e43c28f5873b014d6957b366a65ad7fe9f705"
+X-Request-Id: 66fa1cca-40a9-4b47-ae3b-e30c993da128
+X-Runtime: 0.003309
+Content-Length: 13022
+ uncompressed-len 0 net-response-time-onstart 30 net-response-time-onstop 30   2Þ

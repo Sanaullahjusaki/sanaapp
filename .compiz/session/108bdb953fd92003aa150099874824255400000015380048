@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<compiz_session id="108bdb953fd92003aa150099874824255400000015380048">
+  <window id="108bdb953fd92003aa150099901595448000000015380049" title="Problem loading page - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="65" y="24" width="975" height="558"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

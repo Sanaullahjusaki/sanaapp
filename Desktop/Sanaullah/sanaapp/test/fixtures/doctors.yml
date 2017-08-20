@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dname: MyString
+  dgender: MyString
+  dcontact: MyString
+  ddept: MyString
+  patient_id: 1
+  labreport_id: 1
+  patients: one
+  labreports: one
+
+two:
+  dname: MyString
+  dgender: MyString
+  dcontact: MyString
+  ddept: MyString
+  patient_id: 1
+  labreport_id: 1
+  patients: two
+  labreports: two
