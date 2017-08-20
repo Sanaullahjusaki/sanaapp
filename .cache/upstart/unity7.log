@@ -1,1 +1,12 @@
 ERROR 2017-08-20 22:17:49 unity.settings UnitySettings.cpp:318 Invalid monitor index: -1. Returning index 0 monitor instead.
+
+(nautilus:8500): GLib-GIO-CRITICAL **: g_dbus_interface_skeleton_unexport: assertion 'interface_->priv->connections != NULL' failed
+
+(nautilus:8500): GLib-GIO-CRITICAL **: g_dbus_interface_skeleton_unexport: assertion 'interface_->priv->connections != NULL' failed
+
+(nautilus:8500): Gtk-CRITICAL **: gtk_icon_theme_get_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
+
+(nautilus:8500): GLib-GObject-WARNING **: invalid (NULL) pointer instance
+
+(nautilus:8500): GLib-GObject-CRITICAL **: g_signal_connect_object: assertion 'G_TYPE_CHECK_INSTANCE (instance)' failed
+compiz (core) - Warn: Attempted to restack relative to 0x260303f which is not a child of the root window or a window compiz owns

@@ -2098,12 +2098,13 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/sanaullah/Downloads/zuzkpormng4yncv7j5851b58a4676a.jpg" added="2017-08-17T14:54:13Z" modified="2017-08-17T14:54:14Z" visited="2017-08-17T14:54:13Z">
+  <bookmark href="file:///home/sanaullah/Downloads/zuzkpormng4yncv7j5851b58a4676a.jpg" added="2017-08-17T14:54:13Z" modified="2017-08-20T19:14:09Z" visited="2017-08-17T14:54:13Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="image/jpeg"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-08-17T14:54:14Z" count="2"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-08-20T19:14:00Z" count="4"/>
+          <bookmark:application name="nautilus" exec="&apos;eog %U&apos;" modified="2017-08-20T19:14:09Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -2623,6 +2624,26 @@
         <bookmark:applications>
           <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-08-20T18:00:33Z" count="1"/>
           <bookmark:application name="Document Viewer" exec="&apos;evince %u&apos;" modified="2017-08-20T18:00:35Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///media/sanaullah/CAE0-700B/Maari%20(2015)%20720p%20UNCUT%20HDRip%20x264%20Eng%20Subs%20%5BDual%20Audio%5D%20%5BHindi%20DD%202.0%20-%20Tamil%20DD%205.1%5D%20Exclusive%20By%20-=!Dr.STAR!=-.mkv" added="2017-08-20T19:09:11Z" modified="2017-08-20T19:09:11Z" visited="2017-08-20T19:09:11Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2017-08-20T19:09:11Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/sanaullah/Downloads/University_of_Balochistan_Logo.jpg" added="2017-08-20T19:11:29Z" modified="2017-08-20T19:11:30Z" visited="2017-08-20T19:11:30Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2017-08-20T19:11:30Z" count="2"/>
         </bookmark:applications>
       </metadata>
     </info>
